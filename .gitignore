@@ -1,3 +1,5 @@
 DataSets/
 Music-Mouv/
 SpotifyToSpectrogram/SpotifyCreds.py
+SpotifyToSpectrogram/__pycache__
+SpotifyToSpectrogram/.cache
