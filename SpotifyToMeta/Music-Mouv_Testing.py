@@ -7,7 +7,7 @@ project_root = os.path.abspath(os.path.join(current_dir, ".."))
 parsed_file = os.path.join(project_root, "DataSets", "Music-Mouv", "ParsedData", "participants_tests_simplified.json")
 output_file = os.path.join(project_root, "DataSets", "Music-Mouv", "ParsedData", "parsed_songs.json")
 
-# Define canonical GEMS-9 categories
+#Define canonical GEMS-9 categories
 GEMS_9 = ["Joy", "Nostalgia", "Peacefulness", "Sadness",
           "Tenderness", "Tension", "Transcendence", "Wonder", "Power"]
 
@@ -34,7 +34,8 @@ for participant, tests in participants_tests.items():
                     "track_name": test["music_data"]["spotify_data"]["track_name"],
                     "artist": test["music_data"]["spotify_data"]["artist"],
                     "artist_id": test["music_data"]["spotify_data"]["artist_id"],
-                    "track_id": track_id
+                    "track_id": track_id,
+                    "music_style": test["music_data"]["music_style"]
                 }
 
 #Build weighted vectors
