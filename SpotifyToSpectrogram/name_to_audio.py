@@ -2,25 +2,9 @@ import os, sys, re, shutil
 import yt_dlp
 from id_to_name import get_data_from_id
 
-# 1) Point to the *exact* exe files inside this conda env
 FFMPEG_DIR   = os.path.join(sys.prefix, "Library", "bin")
-
 FFMPEG_EXE   = os.path.join(FFMPEG_DIR, "ffmpeg.EXE")
-
 FFPROBE_EXE  = os.path.join(FFMPEG_DIR, "ffprobe.EXE")
-
-# 2) Hard-fail early if they’re not there
-assert os.path.exists(FFMPEG_EXE),  f"ffmpeg not found at {FFMPEG_EXE}"
-assert os.path.exists(FFPROBE_EXE), f"ffprobe not found at {FFPROBE_EXE}"
-
-# 3) Prepend to PATH so child processes inherit it
-os.environ["PATH"] = FFMPEG_DIR + os.pathsep + os.environ.get("PATH", "")
-
-# 4) Sanity prints (one time). Comment these out after it works.
-print("PYTHON sys.prefix:", sys.prefix)
-print("PATH head:        ", os.environ["PATH"].split(os.pathsep)[0])
-print("which ffmpeg     ->", shutil.which("ffmpeg"))
-print("which ffprobe    ->", shutil.which("ffprobe"))
 
 def safe(name: str) -> str:
     return re.sub(r'[\\/*?:"<>|]', '_', name)
