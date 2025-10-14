@@ -4,8 +4,10 @@ from id_to_name import get_data_from_id
 
 # 1) Point to the *exact* exe files inside this conda env
 FFMPEG_DIR   = os.path.join(sys.prefix, "Library", "bin")
-FFMPEG_EXE   = os.path.join(FFMPEG_DIR, "ffmpeg.exe")
-FFPROBE_EXE  = os.path.join(FFMPEG_DIR, "ffprobe.exe")
+
+FFMPEG_EXE   = os.path.join(FFMPEG_DIR, "ffmpeg.EXE")
+
+FFPROBE_EXE  = os.path.join(FFMPEG_DIR, "ffprobe.EXE")
 
 # 2) Hard-fail early if they’re not there
 assert os.path.exists(FFMPEG_EXE),  f"ffmpeg not found at {FFMPEG_EXE}"
@@ -45,6 +47,7 @@ def download_mp3_from_spotify_id(track):
             "preferredcodec": "mp3",
             "preferredquality": "192",
         }],
+        "postprocessor_args": ["-c:a", "mp3_mf", "-b:a", "192k"],
     }
 
     last_err = None
