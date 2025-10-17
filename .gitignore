@@ -5,4 +5,5 @@ DataSets/MuVi/media_data.csv
 SpotifyToSpectrogram/SpotifyCreds.py
 SpotifyToSpectrogram/__pycache__
 SpotifyToSpectrogram/.cache
+SpotifyToMeta/.cache
 SpotifyToSpectrogram/*.mp3
