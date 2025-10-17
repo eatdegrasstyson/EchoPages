@@ -1,7 +1,8 @@
-DataSets/
-DataSets/Music-Mouv/music-mouv
+DataSets/Music-Mouv
 DataSets/Emotify
-DataSets/MuVi/media_data.csv
+DataSets/MuVi
+DataSets/Trompa-Mer
+DataSets/SpotifyMetaToGems.csv
 SpotifyToSpectrogram/SpotifyCreds.py
 SpotifyToSpectrogram/__pycache__
 SpotifyToSpectrogram/.cache
