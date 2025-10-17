@@ -31,6 +31,6 @@ df_filtered = df_filtered.dropna(subset=mood_columns, how="all")
 
 df_filtered.to_csv(output_file, index=False)
 
-print(f"✅ Filtered TROMPA-MER dataset saved to: {output_file}")
+print(f"Filtered TROMPA-MER dataset saved to: {output_file}")
 print(f"   Total songs: {len(df_filtered)}")
 print(f"   Columns kept: {', '.join(existing_columns)}")
