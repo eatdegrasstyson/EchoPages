@@ -7,7 +7,4 @@ SpotifyToSpectrogram/SpotifyCreds.py
 SpotifyToSpectrogram/__pycache__
 SpotifyToSpectrogram/.cache
 SpotifyToMeta/.cache
-SpotifyToSpectrogram/*.mp3
-SpotifyToSpectrogram/audio
-SpotifyToSpectrogram/img
 .cache

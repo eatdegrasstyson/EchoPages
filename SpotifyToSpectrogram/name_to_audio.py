@@ -34,6 +34,11 @@ def download_mp3_from_spotify_id(track):
             "preferredquality": "192",
         }],
         "postprocessor_args": ["-c:a", "mp3_mf", "-b:a", "192k"],
+        "retries": 3,
+        "fragment_retries": 3,
+        "extractor_retries": 3,
+        "forceip": "0",
+        "extractor_args": {"youtube": {"player_client": ["android"]}},
     }
 
     last_err = None
@@ -43,7 +48,7 @@ def download_mp3_from_spotify_id(track):
                 info = ydl.extract_info(prefix + query, download=True)
                 entry = info["entries"][0] if "entries" in info else info
                 filename = ydl.prepare_filename(entry).rsplit('.', 1)[0]
-                return DOWNLOAD_DIR + filename + ".mp3"
+                return filename + ".mp3"
         except Exception as e:
             last_err = e
     raise RuntimeError(f"Failed to find/download audio: {last_err}")

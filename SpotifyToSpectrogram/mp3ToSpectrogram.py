@@ -6,16 +6,17 @@ import matplotlib.pyplot as plt
 import soundfile as sf
 
 
-IMG_OUTPUT_PATH = Path("img")
-SAVE_PARAMS = {"dpi": 1200, "bbox_inches": "tight", "transparent": True}
+SAVE_PARAMS = {"dpi": 1200, "bbox_inches": "tight", "transparent": False}
 
 TICKS = np.array([31.25, 62.5, 125, 250, 500, 1000, 2000, 4000, 8000])
 TICK_LABELS = np.array(["31.25", "62.5", "125", "250", "500", "1k", "2k", "4k", "8k"])
 
 
 def plot_spectrogram_and_save(
-    signal, fs, output_path: Path, fft_size=2048, hop_size=None, window_size=None
+    input_path, output_path, fft_size=2048, hop_size=None, window_size=None
 ):
+    signal, fs = librosa.load(input_path, sr=None)
+
     # default values taken from the librosa documentation
     if not window_size:
         window_size = fft_size
@@ -56,8 +57,3 @@ def plot_spectrogram_and_save(
         **SAVE_PARAMS,
     )
     plt.close()
-
-
-if __name__ == '__main__':
-    signal, sample_rate = librosa.load('audio/Lana Del Rey-Dealer.mp3', sr=None)
-    plot_spectrogram_and_save(signal, sample_rate, IMG_OUTPUT_PATH / f".png")
