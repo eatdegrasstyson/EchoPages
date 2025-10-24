@@ -60,5 +60,4 @@ def plot_spectrogram_and_save(
 
 if __name__ == '__main__':
     signal, sample_rate = librosa.load('audio/Lana Del Rey-Dealer.mp3', sr=None)
-    
     plot_spectrogram_and_save(signal, sample_rate, IMG_OUTPUT_PATH / f".png")

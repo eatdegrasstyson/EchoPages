@@ -10,3 +10,4 @@ SpotifyToMeta/.cache
 SpotifyToSpectrogram/*.mp3
 SpotifyToSpectrogram/audio
 SpotifyToSpectrogram/img
+.cache
