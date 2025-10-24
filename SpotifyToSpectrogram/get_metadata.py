@@ -1,6 +1,8 @@
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 from SpotifyToSpectrogram import SpotifyCreds
+from spotipy.oauth2 import SpotifyClientCredentials
+
 
 scope = "user-library-read"
 creds = SpotifyCreds.SpotifyCreds()
@@ -20,6 +22,32 @@ def get_data_from_id(spotify_id):
 
     except spotipy.SpotifyException:
         return "Invalid ID or unsupported type"
+    
+def get_audio_features(spotify_id):
+    try:
+        features = sp.audio_features([spotify_id])[0]
+        if features is None:
+            return "Invalid track ID or features unavailable"
+        
+        #Extract commonly used audio features
+        return {
+            "acousticness": features["acousticness"],
+            "danceability": features["danceability"],
+            "energy": features["energy"],
+            "instrumentalness": features["instrumentalness"],
+            "liveness": features["liveness"],
+            "loudness": features["loudness"],
+            "speechiness": features["speechiness"],
+            "tempo": features["tempo"],
+            "valence": features["valence"],
+            "key": features["key"],
+            "mode": features["mode"],
+            "time_signature": features["time_signature"],
+            "duration_ms": features["duration_ms"]
+        }
+    
+    except spotipy.SpotifyException as e:
+        return f"Spotify API error: {str(e)}"
 
 # Example usage:
 if __name__ == "__main__":
