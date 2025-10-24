@@ -4,7 +4,7 @@ DataSets/MuVi
 DataSets/Trompa-Mer
 DataSets/SpotifyMetaToGems.csv
 SpotifyToSpectrogram/SpotifyCreds.py
-SpotifyToSpectrogram/__pycache__
-SpotifyToSpectrogram/.cache
-SpotifyToMeta/.cache
 .cache
+__pycache__
+*.py[cod]
+*$py.class
