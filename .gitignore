@@ -3,6 +3,8 @@ DataSets/Emotify
 DataSets/MuVi
 DataSets/Trompa-Mer
 DataSets/SpotifyMetaToGems.csv
+DataSets/audio
+DataSets/img
 SpotifyToSpectrogram/SpotifyCreds.py
 .cache
 __pycache__
