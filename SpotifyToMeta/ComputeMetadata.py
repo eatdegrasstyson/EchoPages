@@ -3,6 +3,7 @@ import sys
 import json
 import csv
 import librosa
+import music21
 import numpy as np
 
 def compute_audio_features(audio_path):
@@ -28,7 +29,17 @@ def compute_audio_features(audio_path):
     #Chroma & Key/Mode
     chroma = librosa.feature.chroma_cqt(y=y, sr=sr)
     key_idx = int(np.argmax(np.mean(chroma, axis=1)))
-    mode = 1 if key_idx in [0, 2, 4, 5, 7, 9, 11] else 0  #rough major/minor heuristic
+    chroma_mean = np.mean(chroma, axis=1)
+    notes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
+    stream = music21.stream.Stream()
+    for i, intensity in enumerate(chroma_mean):
+        n = music21.note.Note(notes[i])
+        n.volume.velocity = int(intensity * 127)
+        stream.append(n)
+
+    key_analysis = stream.analyze('Krumhansl')
+    mode_name = key_analysis.mode 
+    mode = 1 if mode_name == "major" else 0
 
     #Heuristic features
     spectral_flatness = float(np.mean(librosa.feature.spectral_flatness(y=y)))
@@ -89,7 +100,4 @@ features = compute_audio_features(audio_path)
 for k, v in features.items():
     print(k, v)
 
-spotify_metadata = get_audio_features(spotify_id)
-print("\nSpotify Metadata:")
-print(spotify_metadata)
 

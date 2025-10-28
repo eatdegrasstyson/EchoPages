@@ -35,3 +35,4 @@ for spotify_id in df["spotifyid"]:
 
 # build the DataFrame with proper columns
 spectrograms = pd.DataFrame(rows, columns=["spotifyid", "mp3", "spectrogram"])
+spectrograms.to_csv("DataSets/Spectrograms.csv", index=False, encoding="utf-8")
