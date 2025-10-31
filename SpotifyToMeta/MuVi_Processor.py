@@ -7,8 +7,11 @@ project_root = os.path.abspath(os.path.join(current_dir, ".."))
 muvi_file = os.path.join(project_root, "DataSets", "MuVi", "media_data.csv")
 output_file = os.path.join(project_root, "DataSets", "MuVi", "parsed_songs.csv")
 
-df = pd.read_csv(muvi_file)
+#Make sure input file exists:
+if not os.path.exists(muvi_file):
+    raise FileNotFoundError(f"Expected file not found: {muvi_file}")
 
+df = pd.read_csv(muvi_file)
 #Keep only music or video entries
 df = df[df["media_modality"].isin(["music", "video"])]
 

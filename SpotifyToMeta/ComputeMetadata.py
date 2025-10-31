@@ -72,8 +72,10 @@ sys.path.insert(0, project_root)
 
 from SpotifyToSpectrogram.get_metadata import get_audio_features
 
-
 csv_path = os.path.join(project_root, "DataSets", "SpotifyMetaToGems_Final.csv")
+
+#This will need to modified to loop through each element in the csv and find it's mp3. Calculate the appropriate audio features and then store everything back into a final cs. 
+# With, spotifyID, modelFeatures (X) (musical computed features here), gems calculation (Y)
 audio_path = os.path.join(project_root, "DataSets", "audio", "Junior Senior - Move Your Feet.mp3")
 
 with open(csv_path, "r", encoding="utf-8") as f:
@@ -99,5 +101,7 @@ print("GEMS-9 Vector:", gems_vector)
 features = compute_audio_features(audio_path)
 for k, v in features.items():
     print(k, v)
+
+#Note when the full dataset of mp3 and spectrogram files is created run this file on each song and add metadata to another csv!
 
 
