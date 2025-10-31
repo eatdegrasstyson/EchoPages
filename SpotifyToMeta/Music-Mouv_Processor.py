@@ -11,12 +11,19 @@ os.makedirs(parsed_data_folder, exist_ok=True)
 
 participants_tests = {}
 
+#User must have the music-mouv dataset installed correctly
+if not os.path.isdir(music_mouv_folder):
+    raise FileNotFoundError(f"Expected folder does not exist: {music_mouv_folder}")
+
+json_files_found = 0
 #Loop through all files in the Music-Mouv dataset
 for filename in os.listdir(music_mouv_folder):
     if not filename.lower().endswith(".json"):
         continue
+    json_files_found += 1
     
     filepath = os.path.join(music_mouv_folder, filename)
+
     with open(filepath, "r", encoding="utf-8") as f:
         participant = json.load(f)
 
@@ -63,6 +70,10 @@ for filename in os.listdir(music_mouv_folder):
         tests_list.append(simplified_test)
 
     participants_tests[filename] = tests_list
+
+#Check if we found the correct json file in Music-Mouv
+if json_files_found == 0:
+    raise FileNotFoundError(f"Expected JSON file does not exist!")
 
 #Save to a single JSON file
 output_file = os.path.join(parsed_data_folder, "participants_tests_simplified.json")

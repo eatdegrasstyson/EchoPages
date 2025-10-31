@@ -7,6 +7,10 @@ project_root = os.path.abspath(os.path.join(current_dir, ".."))
 input_file = os.path.join(project_root, "DataSets", "Trompa-Mer", "ParsedData", "trompa_mer_with_spotify_ids.csv")
 output_file = os.path.join(project_root, "DataSets", "Trompa-Mer", "ParsedData", "trompa_mer_final.csv")
 
+#Error handling if input file doesnt exist:
+if not os.path.exists(input_file):
+    raise FileNotFoundError(f"Expected file not found: {input_file}")
+
 df = pd.read_csv(input_file)
 
 gems11 = ["tenderness","sadness","joy","transcendence","power","tension","fear","peace","bitterness","anger","surprise"]

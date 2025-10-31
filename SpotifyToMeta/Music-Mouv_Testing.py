@@ -11,6 +11,10 @@ output_file = os.path.join(project_root, "DataSets", "Music-Mouv", "ParsedData",
 GEMS_9 = ["Joy", "Nostalgia", "Peacefulness", "Sadness",
           "Tenderness", "Tension", "Transcendence", "Wonder", "Power"]
 
+#Error handling if input file does not exist:
+if not os.path.exists(parsed_file):
+    raise FileNotFoundError(f"Expected file not found: {parsed_file}")
+
 #Load simplified parsed data
 with open(parsed_file, "r", encoding="utf-8") as f:
     participants_tests = json.load(f)

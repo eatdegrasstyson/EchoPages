@@ -47,11 +47,6 @@ duplicates = combined_df[combined_df.duplicated(subset="spotifyid", keep=False)]
 duplicate_ids = duplicates["spotifyid"].unique()
 print(f"Duplicate track IDs ({len(duplicate_ids)}): {duplicate_ids}")
 
-# combined_df = combined_df.groupby("spotifyid", as_index=False).agg({**{col: "sum" for col in desired_order}, "DataSet": lambda x: " & ".join(sorted(x.unique()))})
-# cols = ["spotifyid", "DataSet"] + desired_order
-# combined_df = combined_df[cols]
-# combined_df[desired_order] = combined_df[desired_order].div(combined_df[desired_order].sum(axis=1), axis=0)
-
 for idx, row in combined_df.iterrows():
     total = row[desired_order].sum()
     assert abs(total - 1.0) < 1e-6, f"Row {idx} does not sum to 1, sum={total}"

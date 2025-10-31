@@ -9,6 +9,7 @@ project_root = os.path.abspath(os.path.join(current_dir, ".."))
 spectrogram_dir = os.path.join(project_root, "SpotifyToSpectrogram")
 sys.path.append(spectrogram_dir)
 
+
 import SpotifyCreds  # type: ignore
 
 creds = SpotifyCreds.SpotifyCreds()
@@ -17,6 +18,10 @@ sp = spotipy.Spotify(auth_manager=auth_manager)
 
 input_file = os.path.join(project_root, "DataSets", "Trompa-Mer", "ParsedData", "filtered_trompa_mer.csv")
 output_file = os.path.join(project_root, "DataSets", "Trompa-Mer", "ParsedData", "trompa_mer_with_spotify_ids.csv")
+
+#Error handling if input file doesnt exist:
+if not os.path.exists(input_file):
+    raise FileNotFoundError(f"Expected file not found: {input_file}")
 
 df = pd.read_csv(input_file)
 spotify_ids = []

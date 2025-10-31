@@ -9,6 +9,9 @@ output_dir = os.path.join(project_root, "DataSets", "Trompa-Mer", "ParsedData")
 output_file = os.path.join(output_dir, "filtered_trompa_mer.csv")
 os.makedirs(output_dir, exist_ok=True)
 
+if not os.path.exists(trompa_file):
+    raise FileNotFoundError(f"Expected file not found: {trompa_file}")
+
 df = pd.read_csv(trompa_file, sep="\t")
 
 columns_to_keep = [
