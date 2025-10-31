@@ -1,8 +1,9 @@
 import pandas as pd
 from pathlib import Path
+import numpy as np
 from SpotifyToSpectrogram.get_metadata import get_data_from_id
 from SpotifyToSpectrogram.name_to_audio import download_mp3_from_spotify_id
-from SpotifyToSpectrogram.mp3ToSpectrogram import plot_spectrogram_and_save
+from SpotifyToSpectrogram.mp3ToSpectrogram import audio_to_logmel_array
 
 IMG_OUTPUT_PATH = Path("DataSets/img")
 AUDIO_OUTPUT_PATH = Path("DataSets/audio")
@@ -13,25 +14,24 @@ AUDIO_OUTPUT_PATH.mkdir(parents=True, exist_ok=True)
 
 df = pd.read_csv("DataSets/SpotifyMetaToGems_Final.csv")
 
-rows = []  # collect rows, then build a DataFrame once
+rows = []
 
 for spotify_id in df["spotifyid"]:
     track = get_data_from_id(spotify_id)
     full_audio_path = download_mp3_from_spotify_id(track, AUDIO_OUTPUT_PATH)
 
-    file_name = Path(full_audio_path).stem
-    audio_path = AUDIO_OUTPUT_PATH / f"{file_name}"
-    spectro_path = IMG_OUTPUT_PATH / f"{file_name}"
+    base = Path(full_audio_path).stem
+    npy_path = IMG_OUTPUT_PATH / f"{base}.npy"
 
-    # create and save spectrogram
-    plot_spectrogram_and_save(full_audio_path, spectro_path)
+    S_db = audio_to_logmel_array(full_audio_path)
+    np.save(npy_path, S_db)
 
-    # append one new row
     rows.append({
         "spotifyid": spotify_id,
-        "mp3": audio_path,
-        "spectrogram": str(spectro_path)
+        "mp3": str(full_audio_path),
+        "spec_npy": str(npy_path),
+        "n_mels": S_db.shape[0],
+        "n_frames": S_db.shape[1],
     })
 
-# build the DataFrame with proper columns
-spectrograms = pd.DataFrame(rows, columns=["spotifyid", "mp3", "spectrogram"])
+spectrograms = pd.DataFrame(rows)

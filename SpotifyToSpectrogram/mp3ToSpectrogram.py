@@ -57,3 +57,11 @@ def plot_spectrogram_and_save(
         **SAVE_PARAMS,
     )
     plt.close()
+
+
+def audio_to_logmel_array(path, sr=32000, n_fft=1024, hop=320, n_mels=128):
+    y, _ = librosa.load(path, sr=sr, mono=True, dtype=np.float32)
+    S = librosa.feature.melspectrogram(y=y, sr=sr, n_fft=n_fft,
+                                       hop_length=hop, n_mels=n_mels, power=2.0)
+    S_db = librosa.power_to_db(S, ref=np.max).astype(np.float32)  # [mels, time]
+    return S_db
