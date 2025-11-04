@@ -13,18 +13,11 @@ LOG_PATH = Path("DataSets/SpotifyIDMappings.csv")
 IMG_OUTPUT_PATH.mkdir(parents=True, exist_ok=True)
 AUDIO_OUTPUT_PATH.mkdir(parents=True, exist_ok=True)
 
-
-
-
 df = pd.read_csv("DataSets/SpotifyMetaToGems_Final.csv")
 
 rows = []
 
-i = 0
 for spotify_id in df["spotifyid"]:
-    if i > 15:
-        break
-    i+=1
     track = get_data_from_id(spotify_id)
     full_audio_path = download_mp3_from_spotify_id(track, AUDIO_OUTPUT_PATH)
 
