@@ -21,7 +21,7 @@ def download_mp3_from_spotify_id(track, output_dir):
     print(artist, title, dur_s)
 
     query = f"{artist} - {title} official audio"
-    lo, hi = max(1, dur_s - 20), dur_s + 20
+    # lo, hi = max(1, dur_s - 20), dur_s + 20
 
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -31,7 +31,7 @@ def download_mp3_from_spotify_id(track, output_dir):
         "outtmpl": str(output_dir / f"{safe(artist)} - {safe(title)}.%(ext)s"),
         "noplaylist": True,
         "quiet": True,
-        "match_filter": yt_dlp.utils.match_filter_func(f"duration >= {lo} & duration <= {hi}"),
+        # "match_filter": yt_dlp.utils.match_filter_func(f"duration >= {lo} & duration <= {hi}"),
         "ffmpeg_location": str(FFMPEG_EXE),
         "prefer_ffmpeg": True,
         "postprocessors": [{
