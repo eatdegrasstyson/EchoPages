@@ -20,11 +20,12 @@ for spotify_id in df["spotifyid"]:
     track = get_data_from_id(spotify_id)
     full_audio_path = download_mp3_from_spotify_id(track, AUDIO_OUTPUT_PATH)
 
-    base = Path(full_audio_path).stem
-    npy_path = IMG_OUTPUT_PATH / f"{base}.npy"
+    if full_audio_path:
+        base = Path(full_audio_path).stem
+        npy_path = IMG_OUTPUT_PATH / f"{base}.npy"
 
-    S_db = audio_to_logmel_array(full_audio_path)
-    np.save(npy_path, S_db)
+        S_db = audio_to_logmel_array(full_audio_path)
+        np.save(npy_path, S_db)
 
     rows.append({
         "spotifyid": spotify_id,
@@ -33,5 +34,6 @@ for spotify_id in df["spotifyid"]:
         "n_mels": S_db.shape[0],
         "n_frames": S_db.shape[1],
     })
+    
 
 spectrograms = pd.DataFrame(rows)

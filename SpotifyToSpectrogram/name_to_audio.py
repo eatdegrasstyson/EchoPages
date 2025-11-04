@@ -20,7 +20,7 @@ def download_mp3_from_spotify_id(track, output_dir):
     print(artist, title, dur_s)
 
     query = f"{artist} - {title} official audio"
-    lo, hi = max(1, dur_s - 7), dur_s + 7
+    lo, hi = max(1, dur_s - 20), dur_s + 20
 
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -57,5 +57,6 @@ def download_mp3_from_spotify_id(track, output_dir):
                 return mp3_path
         except Exception as e:
             last_err = e
+            print(f"==================================\n{last_err}\n==================================")
 
-    raise RuntimeError(f"Failed to find/download audio: {last_err}")
+    # raise RuntimeError(f"Failed to find/download audio: {last_err}")
