@@ -56,7 +56,7 @@ def download_mp3_from_spotify_id(track, output_dir):
                 mp3_path = Path(filepath).with_suffix(".mp3")
                 return mp3_path
         except Exception as e:
-            last_err = e
-            print(f"==================================\n{last_err}\n==================================")
+            last_err = str(e)
+            print('=' * len(last_err) + '\n' + last_err + '\n' + '=' * len(last_err))
 
     # raise RuntimeError(f"Failed to find/download audio: {last_err}")
