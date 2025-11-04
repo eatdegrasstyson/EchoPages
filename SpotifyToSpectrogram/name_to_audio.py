@@ -4,7 +4,8 @@ import yt_dlp
 from SpotifyToSpectrogram.get_metadata import get_data_from_id
 
 # ffmpeg locations
-FFMPEG_DIR   = Path(sys.prefix) / "Library" / "bin"
+#FFMPEG_DIR   = Path(sys.prefix) / "Library" / "bin"
+FFMPEG_DIR   = Path(r"C:\FFMPEG\bin")
 FFMPEG_EXE   = FFMPEG_DIR / "ffmpeg.EXE"
 FFPROBE_EXE  = FFMPEG_DIR / "ffprobe.EXE"
 
