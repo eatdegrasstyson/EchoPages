@@ -1,7 +1,6 @@
 import pandas as pd
 from pathlib import Path
 import numpy as np
-import csv
 from SpotifyToSpectrogram.get_metadata import get_data_from_id
 from SpotifyToSpectrogram.name_to_audio import download_mp3_from_spotify_id
 from SpotifyToSpectrogram.mp3ToSpectrogram import audio_to_logmel_array

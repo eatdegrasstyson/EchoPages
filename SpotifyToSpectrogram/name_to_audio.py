@@ -4,8 +4,8 @@ import yt_dlp
 from SpotifyToSpectrogram.get_metadata import get_data_from_id
 
 # ffmpeg locations
-#FFMPEG_DIR   = Path(sys.prefix) / "Library" / "bin"
-FFMPEG_DIR   = Path(r"C:\FFMPEG\bin")
+FFMPEG_DIR   = Path(sys.prefix) / "Library" / "bin"
+# FFMPEG_DIR   = Path(r"C:\FFMPEG\bin")
 FFMPEG_EXE   = FFMPEG_DIR / "ffmpeg.EXE"
 FFPROBE_EXE  = FFMPEG_DIR / "ffprobe.EXE"
 
@@ -59,5 +59,3 @@ def download_mp3_from_spotify_id(track, output_dir):
         except Exception as e:
             last_err = str(e)
             print('=' * len(last_err) + '\n' + last_err + '\n' + '=' * len(last_err))
-
-    # raise RuntimeError(f"Failed to find/download audio: {last_err}")
