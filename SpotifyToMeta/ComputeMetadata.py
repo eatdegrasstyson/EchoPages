@@ -5,6 +5,7 @@ import csv
 import librosa
 import music21
 import numpy as np
+import pandas as pd
 
 def compute_audio_features(audio_path):
     y, sr = librosa.load(audio_path, sr=None)
@@ -72,36 +73,63 @@ sys.path.insert(0, project_root)
 
 from SpotifyToSpectrogram.get_metadata import get_audio_features
 
-csv_path = os.path.join(project_root, "DataSets", "SpotifyMetaToGems_Final.csv")
+#paths
+csv_gems = os.path.join(project_root, "DataSets", "SpotifyMetaToGems_Final.csv")
+csv_mappings = os.path.join(project_root, "DataSets", "SpotifyIDMappings.csv")
 
-#This will need to modified to loop through each element in the csv and find it's mp3. Calculate the appropriate audio features and then store everything back into a final cs. 
-# With, spotifyID, modelFeatures (X) (musical computed features here), gems calculation (Y)
-audio_path = os.path.join(project_root, "DataSets", "audio", "Junior Senior - Move Your Feet.mp3")
+#read CSVs
+df_gems = pd.read_csv(csv_gems, dtype={"spotifyid": str})
+df_mappings = pd.read_csv(csv_mappings, dtype={"spotifyid": str})
 
-with open(csv_path, "r", encoding="utf-8") as f:
-    reader = csv.DictReader(f)
-    rows = list(reader)
+#check same number of rows
+if len(df_gems) != len(df_mappings):
+    raise ValueError(f"Row count mismatch: gems={len(df_gems)}, mappings={len(df_mappings)}")
 
-first_row = rows[0]
-spotify_id = first_row["spotifyid"]
-gems_vector = [
-    float(first_row["Wonder"]),
-    float(first_row["Transcendence"]),
-    float(first_row["Tenderness"]),
-    float(first_row["Nostalgia"]),
-    float(first_row["Peacefulness"]),
-    float(first_row["Power"]),
-    float(first_row["Joy"]),
-    float(first_row["Tension"]),
-    float(first_row["Sadness"]),
-]
+#check ids line by line and combine
+combined_rows = []
+for i, (row_gems, row_map) in enumerate(zip(df_gems.itertuples(index=False), df_mappings.itertuples(index=False))):
+    sid_gems = getattr(row_gems, "spotifyid")
+    sid_map = getattr(row_map, "spotifyid")
 
-print("Spotify ID:", spotify_id)
-print("GEMS-9 Vector:", gems_vector)
-features = compute_audio_features(audio_path)
-for k, v in features.items():
-    print(k, v)
+    if sid_gems != sid_map:
+        raise ValueError(f"Row {i} mismatch: {sid_gems} != {sid_map}")
 
-#Note when the full dataset of mp3 and spectrogram files is created run this file on each song and add metadata to another csv!
+    #merge dicts, keep all columns but duplicate spotifyid
+    row_dict = {**df_gems.iloc[i].to_dict(), **{k: v for k, v in df_mappings.iloc[i].to_dict().items() if k != "spotifyid"}}
+    combined_rows.append(row_dict)
 
+#build final dataframe
+combined_df = pd.DataFrame(combined_rows)
+
+#save combined CSV
+combined_csv_path = os.path.join(project_root, "DataSets", "Combined_Spotify_Meta_GEMS.csv")
+combined_df.to_csv(combined_csv_path, index=False, encoding="utf-8")
+
+
+all_rows = []
+
+tmp = 0
+for _, row in combined_df.iterrows():
+    tmp+=1
+    print(tmp)
+    
+    audio_path = row.get("mp3")
+
+    #Skip if mp3 path is missing or NaN
+    if not audio_path or pd.isna(audio_path):
+        #print(f"Skipping {row.get('spotifyid', 'unknown ID')} — no audio path")
+        continue
+
+    audio_path = os.path.join(project_root, row["mp3"])
+    if not os.path.exists(audio_path):
+        print(f"Skipping missing file: {audio_path}")
+        continue
+
+    features = compute_audio_features(audio_path)
+    merged_row = {**row.to_dict(), **features}
+    all_rows.append(merged_row)
+
+final_df = pd.DataFrame(all_rows)
+final_csv_path = os.path.join(project_root, "DataSets", "FINALDATASET.csv")
+final_df.to_csv(final_csv_path, index=False, encoding="utf-8")
 
