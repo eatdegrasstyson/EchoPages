@@ -213,6 +213,7 @@ if __name__ == "__main__":
     map_df = pd.read_csv(MAPPING_CSV)[[JOIN_KEY, "spec_npy"]]
     lab_df = pd.read_csv(LABELS_CSV)[[JOIN_KEY] + EMOTIONS]
     full_df = map_df.merge(lab_df, on=JOIN_KEY, how="inner")
+    full_df = full_df[full_df["spec_npy"].notna() & (full_df["spec_npy"].str.strip() != "")]
     
     # Train/val split
     full_df = full_df.sample(frac=1.0, random_state=42).reset_index(drop=True)
@@ -240,3 +241,9 @@ if __name__ == "__main__":
     
     model = build_crnn()
     model.fit(train_ds, validation_data=val_ds, epochs=EPOCHS)
+
+    SAVE_DIR = "Model"
+    os.makedirs(SAVE_DIR, exist_ok=True)
+
+    model_path = os.path.join(SAVE_DIR, "crnn_emotion_model.h5")
+    model.save(model_path)
