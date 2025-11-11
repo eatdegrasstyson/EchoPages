@@ -20,7 +20,6 @@ EMOTIONS   = ["Wonder","Transcendence","Tenderness","Nostalgia","Peacefulness",
 MAPPING_CSV = "DataSets/SpotifyIDMappings.csv"       # must contain [spotifyid, spec_npy]
 LABELS_CSV  = "DataSets/SpotifyMetaToGems_Final.csv" # must contain [spotifyid, the 9 EMOTIONS columns]
 
-
 # =========================
 # Preprocessing helpers
 # =========================
@@ -39,79 +38,6 @@ def _standardize(x: tf.Tensor) -> tf.Tensor:
     mean = tf.reduce_mean(x)
     std  = tf.math.reduce_std(x) + 1e-6
     return (x - mean) / std
-
-
-# =========================
-# I/O
-# =========================
-def load_spectrogram_npy(path: str) -> np.ndarray:
-    """Return float32 array [n_mels, time]."""
-    arr = np.load(path)
-    if arr.dtype != np.float32:
-        arr = arr.astype(np.float32)
-    if arr.ndim == 3:
-        arr = arr.squeeze()
-    assert arr.shape[0] == N_MELS, f"Expected {N_MELS} mels, got {arr.shape[0]}"
-    return arr
-
-def load_one_example(mapping_csv: str,
-                     labels_csv: str,
-                     join_key: str = JOIN_KEY,
-                     row_index: int = 0,
-                     or_spotifyid: str | None = None):
-    """
-    Loads exactly one (X, y) pair by row index or spotifyid.
-
-    Returns:
-      X: np.ndarray with shape [1, N_MELS, FIX_FRAMES, 1]
-      y: np.ndarray with shape [1, 9]
-    """
-    map_df = pd.read_csv(mapping_csv)
-    lab_df = pd.read_csv(labels_csv)
-
-    # Ensure emotion columns exist; if labels CSV has extras, select only EMOTIONS
-    missing = [c for c in EMOTIONS if c not in lab_df.columns]
-    if missing:
-        raise ValueError(f"Labels CSV is missing emotion columns: {missing}")
-
-    # Select the specific row
-    if or_spotifyid is not None:
-        map_row = map_df.loc[map_df[join_key] == or_spotifyid]
-        lab_row = lab_df.loc[lab_df[join_key] == or_spotifyid]
-        if map_row.empty or lab_row.empty:
-            raise ValueError(f"spotifyid={or_spotifyid} not found in both CSVs.")
-        map_row = map_row.iloc[0]
-        lab_row = lab_row.iloc[0]
-    else:
-        map_row = map_df.iloc[row_index]
-        # find matching labels row by JOIN_KEY
-        skey = map_row[join_key]
-        match = lab_df.loc[lab_df[join_key] == skey]
-        if match.empty:
-            raise ValueError(f"No labels row found for {join_key}={skey}")
-        lab_row = match.iloc[0]
-
-    spec_path = str(map_row["spec_npy"])
-    if not os.path.isfile(spec_path):
-        raise FileNotFoundError(f"Spec path not found: {spec_path}")
-
-    # Load and preprocess spectrogram
-    spec = load_spectrogram_npy(spec_path)     # [mels, time]
-    x = tf.convert_to_tensor(spec)             # tf.Tensor
-    x = _random_crop_or_pad(x, FIX_FRAMES)     # [mels, FIX_FRAMES]
-    x = _standardize(x)
-    x = tf.expand_dims(x, -1)                  # [mels, FIX_FRAMES, 1]
-    x = tf.expand_dims(x, 0)                   # [1, mels, FIX_FRAMES, 1]
-
-    # Labels (ensure sum≈1)
-    y = lab_row[EMOTIONS].to_numpy(dtype=np.float32)  # [9]
-    y_sum = y.sum()
-    if not np.isclose(y_sum, 1.0, atol=1e-3):
-        # Normalize if slightly off
-        y = y / (y_sum + 1e-8)
-    y = y[None, :]                                # [1, 9]
-
-    return x.numpy(), y
 
 
 # =========================
@@ -157,58 +83,24 @@ def build_crnn(n_mels=N_MELS, frames=FIX_FRAMES, n_classes=9) -> keras.Model:
     )
     return model
 
+def load_npy_tensor(path):
+    def _np_load(p):
+        arr = np.load(p.decode("utf-8")).astype(np.float32, copy=False)
+        if arr.ndim == 3:
+            arr = arr.squeeze()
+        return arr
+    x = tf.numpy_function(_np_load, [path], tf.float32)
+    x.set_shape([N_MELS, None])
+    return x
 
-# =========================
-# Single-row training
-# =========================
+def _map_fn(path, y):
+    x = load_npy_tensor(path)                 # [mels, time]
+    x = _random_crop_or_pad(x, FIX_FRAMES)    # [mels, FIX_FRAMES]
+    x = _standardize(x)
+    x = tf.expand_dims(x, -1)                 # [mels, frames, 1]
+    return x, y
+
 if __name__ == "__main__":
-    # --- Load one example by row index (or set or_spotifyid="...") ---
-    # X1, y1 = load_one_example(
-    #     mapping_csv=MAPPING_CSV,
-    #     labels_csv=LABELS_CSV,
-    #     join_key=JOIN_KEY,
-    #     row_index=0,
-    #     or_spotifyid=None,          # or: "some_spotify_id"
-    # )
-    # # X1: [1, N_MELS, FIX_FRAMES, 1]; y1: [1, 9]
-
-    # model = build_crnn()
-    # model.summary()
-
-    # # Fit on the single example. This is just to verify end-to-end plumbing.
-    # # (You can also call model.train_on_batch(X1, y1).)
-    # model.fit(
-    #     X1, y1,
-    #     epochs=EPOCHS,
-    #     batch_size=1,
-    #     verbose=1
-    # )
-
-    # # Quick prediction on the same clip
-    # preds = model.predict(X1, verbose=0)[0]
-    # print({emo: float(p) for emo, p in zip(EMOTIONS, preds)})
-
-
-    # =========================
-    # (Later) Full-dataset pipeline — uncomment when you have all rows
-    # =========================
-    def load_npy_tensor(path):
-        def _np_load(p):
-            arr = np.load(p.decode("utf-8")).astype(np.float32, copy=False)
-            if arr.ndim == 3:
-                arr = arr.squeeze()
-            return arr
-        x = tf.numpy_function(_np_load, [path], tf.float32)
-        x.set_shape([N_MELS, None])
-        return x
-    
-    def _map_fn(path, y):
-        x = load_npy_tensor(path)                 # [mels, time]
-        x = _random_crop_or_pad(x, FIX_FRAMES)    # [mels, FIX_FRAMES]
-        x = _standardize(x)
-        x = tf.expand_dims(x, -1)                 # [mels, frames, 1]
-        return x, y
-    
     # Build a joined DataFrame with paths + labels
     map_df = pd.read_csv(MAPPING_CSV)[[JOIN_KEY, "spec_npy"]]
     lab_df = pd.read_csv(LABELS_CSV)[[JOIN_KEY] + EMOTIONS]
