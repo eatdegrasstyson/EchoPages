@@ -1,183 +1,176 @@
 import os
+import sys
 import numpy as np
-import pandas as pd
 import tensorflow as tf
 from tensorflow import keras
-from keras import layers
+from pathlib import Path
+
+from SpotifyToSpectrogram.mp3ToSpectrogram import audio_to_logmel_array
+from SpotifyToSpectrogram.name_to_audio import download_mp3_from_spotify_id
+from SpotifyToSpectrogram.get_metadata import get_data_from_id
 
 # =========================
 # Config
 # =========================
-N_MELS     = 128
-FIX_FRAMES = 512        # crop/pad to this many frames
-BATCH_SIZE = 16
-EPOCHS     = 5          # tweak as needed
-JOIN_KEY   = "spotifyid"
-EMOTIONS   = ["Wonder","Transcendence","Tenderness","Nostalgia","Peacefulness",
-              "Power","Joy","Tension","Sadness"]
+ARCH_PATH    = "Model/crnn_arch.json"
+WEIGHTS_PATH = "Model/crnn_weights.h5"
 
-# Paths (edit if needed)
-MAPPING_CSV = "DataSets/SpotifyIDMappings.csv"       # must contain [spotifyid, spec_npy]
-LABELS_CSV  = "DataSets/SpotifyMetaToGems_Final.csv" # must contain [spotifyid] + the 9 EMOTIONS columns
+TMP_AUDIO_PATH = Path("Temp/audio")
+TMP_SPEC_PATH  = Path("Temp/spec")
+
+N_MELS     = 128
+FIX_FRAMES = 512
+EMOTIONS   = [
+    "Wonder","Transcendence","Tenderness","Nostalgia","Peacefulness",
+    "Power","Joy","Tension","Sadness"
+]
+
+TMP_AUDIO_PATH.mkdir(parents=True, exist_ok=True)
+TMP_SPEC_PATH.mkdir(parents=True, exist_ok=True)
+
 
 # =========================
-# Preprocessing helpers
+# Preprocessing (same as training)
 # =========================
 def _random_crop_or_pad(x: tf.Tensor, target_frames: int = FIX_FRAMES) -> tf.Tensor:
-    # x: [mels, time]
+    """
+    x: [mels, time]
+    If time < target_frames: right-pad with zeros.
+    If time >= target_frames: random crop of length target_frames.
+    """
     t = tf.shape(x)[1]
+
     def pad():
         pad_amt = target_frames - t
         return tf.pad(x, [[0, 0], [0, pad_amt]])
+
     def crop():
         start = tf.random.uniform((), 0, t - target_frames + 1, dtype=tf.int32)
         return x[:, start:start + target_frames]
+
     return tf.cond(t < target_frames, pad, crop)
 
+
 def _standardize(x: tf.Tensor) -> tf.Tensor:
+    """
+    Per-clip standardization (zero mean, unit variance).
+    """
     mean = tf.reduce_mean(x)
     std  = tf.math.reduce_std(x) + 1e-6
     return (x - mean) / std
 
+
 # =========================
-# Model
+# Model loading
 # =========================
-def build_crnn(n_mels=N_MELS, frames=FIX_FRAMES, n_classes=9) -> keras.Model:
-    inp = keras.Input(shape=(n_mels, frames, 1))
-    x = layers.Conv2D(32, 3, padding="same")(inp)
-    x = layers.BatchNormalization()(x)
-    x = layers.ReLU()(x)
-    x = layers.MaxPool2D(pool_size=(2, 2))(x)     # [m/2, t/2]
+def load_model_from_json_and_weights(
+    arch_path: str = ARCH_PATH,
+    weights_path: str = WEIGHTS_PATH,
+) -> keras.Model:
+    """
+    Load CRNN architecture from JSON and weights from H5.
+    This avoids any issues with custom loss functions.
+    """
+    if not os.path.isfile(arch_path):
+        raise FileNotFoundError(f"Architecture JSON not found at {arch_path}")
+    if not os.path.isfile(weights_path):
+        raise FileNotFoundError(f"Weights file not found at {weights_path}")
 
-    x = layers.Conv2D(64, 3, padding="same")(x)
-    x = layers.BatchNormalization()(x)
-    x = layers.ReLU()(x)
-    x = layers.MaxPool2D(pool_size=(2, 2))(x)     # [m/4, t/4]
-
-    x = layers.Conv2D(128, 3, padding="same")(x)
-    x = layers.BatchNormalization()(x)
-    x = layers.ReLU()(x)
-    x = layers.MaxPool2D(pool_size=(2, 2))(x)     # [m/8, t/8]
-
-    # time-major sequence for RNN
-    x = layers.Permute((2, 1, 3))(x)              # [batch, time, freq, ch]
-    x = layers.Reshape((FIX_FRAMES // 8, (n_mels // 8) * 128))(x)
-
-    x = layers.Bidirectional(layers.GRU(128, return_sequences=True))(x)
-    x = layers.Bidirectional(layers.GRU(128, return_sequences=True))(x)
-
-    x = layers.GlobalAveragePooling1D()(x)
-    x = layers.Dense(256, activation="relu")(x)
-    x = layers.Dropout(0.3)(x)
-    out = layers.Dense(n_classes, activation="softmax")(x)
-
-    model = keras.Model(inp, out)
+    with open(arch_path) as f:
+        model = keras.models.model_from_json(f.read())
+    model.load_weights(weights_path)
     return model
 
-# =========================
-# I/O + tf.data
-# =========================
-def load_npy_tensor(path):
-    def _np_load(p):
-        arr = np.load(p.decode("utf-8")).astype(np.float32, copy=False)
-        if arr.ndim == 3:
-            arr = arr.squeeze()
-        return arr
-    x = tf.numpy_function(_np_load, [path], tf.float32)
-    x.set_shape([N_MELS, None])
-    return x
-
-def _map_fn(path, y):
-    x = load_npy_tensor(path)                 # [mels, time]
-    x = _random_crop_or_pad(x, FIX_FRAMES)    # [mels, FIX_FRAMES]
-    x = _standardize(x)
-    x = tf.expand_dims(x, -1)                 # [mels, frames, 1]
-    return x, y
 
 # =========================
-# Weighted KL loss
+# Full-song multi-window prediction
 # =========================
-def make_weighted_kl(class_w_np: np.ndarray):
-    """
-    class_w_np: np.ndarray shape (9,), higher weight => larger contribution for that emotion.
-    Uses per-sample normalization so overall loss scale is stable regardless of label mixture.
-    """
-    class_w = tf.constant(class_w_np.astype("float32"), dtype=tf.float32)  # (9,)
+def predict_emotion_full_song(model: keras.Model,
+                              spec: np.ndarray,
+                              fix_frames: int = FIX_FRAMES,
+                              stride: int | None = None) -> np.ndarray:
+    assert spec.ndim == 2 and spec.shape[0] == N_MELS, \
+        f"Expected spectrogram of shape [N_MELS, time], got {spec.shape}"
 
-    def weighted_kl(y_true, y_pred):
-        y_true = tf.clip_by_value(y_true, 1e-7, 1.0)
-        y_pred = tf.clip_by_value(y_pred, 1e-7, 1.0)
-        # KL per class: y * (log y - log p)
-        per_class = y_true * (tf.math.log(y_true) - tf.math.log(y_pred))  # [B,9]
-        weighted = per_class * class_w                                    # [B,9]
-        denom = tf.reduce_sum(class_w * y_true, axis=-1) + 1e-7           # [B]
-        return tf.reduce_sum(weighted, axis=-1) / denom                   # [B]
-    return weighted_kl
+    if stride is None:
+        stride = fix_frames // 2  # 50% overlap by default
 
+    T = spec.shape[1]
+
+    # If song shorter than a window, just do the usual crop/pad once
+    if T <= fix_frames:
+        x = tf.convert_to_tensor(spec, dtype=tf.float32)
+        x = _random_crop_or_pad(x, fix_frames)   # pad/crop
+        x = _standardize(x)
+        x = tf.expand_dims(x, -1)                # [mels, frames, 1]
+        x = tf.expand_dims(x, 0)                 # [1, mels, frames, 1]
+        return model.predict(x, verbose=0)[0]    # [9]
+
+    # Build sliding window start indices
+    starts = list(range(0, T - fix_frames + 1, stride))
+    if not starts:
+        starts = [0]
+
+    preds = []
+    for s in starts:
+        window = spec[:, s:s + fix_frames]       # [mels, FIX_FRAMES]
+        x = tf.convert_to_tensor(window, dtype=tf.float32)
+        x = _standardize(x)
+        x = tf.expand_dims(x, -1)                # [mels, frames, 1]
+        x = tf.expand_dims(x, 0)                 # [1, mels, frames, 1]
+        p = model.predict(x, verbose=0)[0]       # [9]
+        preds.append(p)
+
+    preds = np.stack(preds, axis=0)              # [num_windows, 9]
+    return preds.mean(axis=0)                    # [9]
+
+
+# =========================
+# End-to-end pipeline
+# =========================
+def predict_emotion(spotify_id: str):
+    print(f"Fetching metadata for Spotify ID: {spotify_id}")
+    track = get_data_from_id(spotify_id)  # (artist, title, duration_ms, ...)
+    mp3_path = download_mp3_from_spotify_id(track, TMP_AUDIO_PATH)
+
+    if not mp3_path or not os.path.exists(mp3_path):
+        print("Failed to download or locate audio.")
+        return
+
+    print(f"Downloaded audio: {mp3_path}")
+
+    # Convert to spectrogram array
+    print("Converting audio to log-mel spectrogram...")
+    spec = audio_to_logmel_array(mp3_path)  # [N_MELS, time]
+    spec_npy_path = TMP_SPEC_PATH / f"{Path(mp3_path).stem}.npy"
+    np.save(spec_npy_path, spec)
+    print(f"Saved spectrogram array to: {spec_npy_path}")
+
+    # Load model
+    print("Loading model from JSON + weights...")
+    model = load_model_from_json_and_weights()
+
+    # Predict over full song via multi-window averaging
+    print("Predicting emotion over full song (multi-window averaging)...")
+    probs = predict_emotion_full_song(model, spec, fix_frames=FIX_FRAMES, stride=FIX_FRAMES // 2)  # 50% overlap
+
+    # Show results sorted by confidence
+    results = sorted(zip(EMOTIONS, probs), key=lambda kv: kv[1], reverse=True)
+    print("\n=== Emotion Prediction ===")
+    for emo, p in results:
+        print(f"{emo:15s}: {p:.3f}")
+
+    top_emo, top_p = results[0]
+    print(f"\nDominant emotion: {top_emo} ({top_p:.2%})")
+
+
+# =========================
+# CLI entry
+# =========================
 if __name__ == "__main__":
-    # Build a joined DataFrame with paths + labels
-    map_df = pd.read_csv(MAPPING_CSV)[[JOIN_KEY, "spec_npy"]]
-    lab_df = pd.read_csv(LABELS_CSV)[[JOIN_KEY] + EMOTIONS]
-    full_df = map_df.merge(lab_df, on=JOIN_KEY, how="inner")
+    if len(sys.argv) < 2:
+        print("Usage: python -m YourModule.predict <spotify_id>")
+        sys.exit(1)
 
-    # Drop rows with empty/missing spectrogram paths and non-existent files
-    full_df = full_df[full_df["spec_npy"].notna() & (full_df["spec_npy"].astype(str).str.strip() != "")]
-    full_df = full_df[full_df["spec_npy"].apply(lambda p: os.path.isfile(str(p)))]
-    full_df = full_df.reset_index(drop=True)
-
-    # Train/val split
-    full_df = full_df.sample(frac=1.0, random_state=42).reset_index(drop=True)
-    n_val = int(0.1 * len(full_df))
-    train_df = full_df.iloc[n_val:].reset_index(drop=True)
-    val_df   = full_df.iloc[:n_val].reset_index(drop=True)
-
-    # tf.data pipelines
-    train_paths = train_df["spec_npy"].astype(str).values
-    train_y     = train_df[EMOTIONS].astype(np.float32).values
-    val_paths   = val_df["spec_npy"].astype(str).values
-    val_y       = val_df[EMOTIONS].astype(np.float32).values
-
-    # Optional: re-normalize rows to sum=1 if CSV rounding drifted
-    train_y = train_y / (train_y.sum(axis=1, keepdims=True) + 1e-8)
-    val_y   = val_y / (val_y.sum(axis=1, keepdims=True) + 1e-8)
-
-    # ---------- Compute class weights on the *training* set ----------
-    # Effective counts = sum of soft labels per class over all training rows
-    counts = train_df[EMOTIONS].sum(axis=0).to_numpy(dtype=np.float32)  # shape (9,)
-    eps = 1e-8
-    inv = 1.0 / (counts + eps)
-    class_w = inv / inv.mean()           # normalize to mean=1 for stability
-    # (Optional) clip extreme weights:
-    class_w = np.clip(class_w, 0.25, 4.0)
-
-    # Build datasets
-    train_ds = tf.data.Dataset.from_tensor_slices((train_paths, train_y))
-    train_ds = train_ds.shuffle(1000).map(_map_fn, num_parallel_calls=tf.data.AUTOTUNE)
-    train_ds = train_ds.batch(BATCH_SIZE).prefetch(tf.data.AUTOTUNE)
-
-    val_ds = tf.data.Dataset.from_tensor_slices((val_paths, val_y))
-    val_ds = val_ds.map(_map_fn, num_parallel_calls=tf.data.AUTOTUNE)
-    val_ds = val_ds.batch(BATCH_SIZE).prefetch(tf.data.AUTOTUNE)
-
-    # Model + weighted KL
-    model = build_crnn()
-    loss_fn = make_weighted_kl(class_w)
-    model.compile(
-        optimizer=keras.optimizers.Adam(3e-4),
-        loss=loss_fn,
-        metrics=[
-            keras.metrics.CategoricalAccuracy(name="cat_acc"),
-            keras.metrics.TopKCategoricalAccuracy(k=3, name="top3"),
-        ],
-    )
-
-    model.fit(train_ds, validation_data=val_ds, epochs=EPOCHS)
-
-    SAVE_DIR = "Model"
-    os.makedirs(SAVE_DIR, exist_ok=True)
-    model_path = os.path.join(SAVE_DIR, "crnn_emotion_model_weighted_kl.h5")
-    model.save(model_path)
-    with open("Model/crnn_arch.json", "w") as f:
-        f.write(model.to_json())
-    # Print class weights for reference
-    print("Class weights (mean=1):", dict(zip(EMOTIONS, class_w.tolist())))
+    spotify_id = sys.argv[1]
+    predict_emotion(spotify_id)
