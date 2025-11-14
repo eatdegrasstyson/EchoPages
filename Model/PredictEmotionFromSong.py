@@ -58,7 +58,10 @@ def predict_emotion(spotify_id):
     x = tf.expand_dims(x, 0)   #[1, n_mels, frames, 1]
 
     print("Loading model...")
-    model = keras.models.load_model(MODEL_PATH)
+    with open("Model/crnn_arch.json") as f:
+        model = keras.models.model_from_json(f.read())
+
+    model.load_weights("Model/crnn_weights.h5")
 
     # Predict
     print("Predicting emotion...")

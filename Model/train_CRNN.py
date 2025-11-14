@@ -177,6 +177,7 @@ if __name__ == "__main__":
     os.makedirs(SAVE_DIR, exist_ok=True)
     model_path = os.path.join(SAVE_DIR, "crnn_emotion_model_weighted_kl.h5")
     model.save(model_path)
-
+    with open("Model/crnn_arch.json", "w") as f:
+        f.write(model.to_json())
     # Print class weights for reference
     print("Class weights (mean=1):", dict(zip(EMOTIONS, class_w.tolist())))
