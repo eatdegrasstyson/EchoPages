@@ -74,6 +74,19 @@ def load_model_from_json_and_weights(
     model.load_weights(weights_path)
     return model
 
+def dummy_loss(y_true, y_pred):
+    return tf.reduce_mean(y_pred) * 0.0
+
+def load_saved_model(path: str) -> keras.Model:
+    if not os.path.isfile(path):
+        raise FileNotFoundError(f"Model file not found at {path}")
+    
+    # Load the model with a placeholder for the custom weighted KL loss
+    return keras.models.load_model(
+        path,
+        custom_objects={"weighted_kl": dummy_loss}  # match name used in training
+    )
+
 
 # =========================
 # Full-song multi-window prediction
@@ -141,7 +154,7 @@ def predict_emotion(spotify_id: str):
 
     # 3. Load model
     print("Loading model...")
-    model = load_model_from_json_and_weights()
+    model = load_saved_model("Model/epoch_09.h5")
 
     # 4. Predict over full song via sliding windows + averaging
     print("Predicting emotion over full song (sliding windows)...")
@@ -161,7 +174,7 @@ def predict_emotion(spotify_id: str):
 # CLI entry
 # =========================
 if __name__ == "__main__":
-    if len(sys.argv) < 1:
+    if len(sys.argv) < 2:
         print("Usage: python -m YourModule.predict <spotify_id>")
         sys.exit(1)
 
