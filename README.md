@@ -18,6 +18,15 @@ DataSets: Contains the raw and processed datasets used for training and validati
 Temp: Holds some our spectrogram and audio files for viewing and experimenting (may be removed)
 
 ### Text Engine
+The TextEngine focuses on extracting, analyzing, and modeling emotional content from written text.
+
+Preprocessing: Handles text cleaning, normalization, and tokenization. Removes noise such as punctuation, stop words, and formatting artifacts to prepare text for analysis.
+
+Sentiment & Emotion Analysis: Uses lexicon-based tools (e.g., NRC Emotion Lexicon via nrclex) and/or learned models to map text to emotional categories such as joy, sadness, anger, fear, trust, and anticipation.
+
+Feature Extraction: Converts text into numerical representations (e.g., emotion scores, sentiment polarity, frequency-based features).
+
+Modeling (Planned / In Progress):
 
 ## Getting Started
 ### Prerequisites (In Progress)
@@ -31,3 +40,4 @@ Clone the repository:
 Bash
 git clone https://github.com/eatdegrasstyson/EchoPages.git
 Navigate to the project root and install dependencies.
+
