@@ -31,10 +31,3 @@ Clone the repository:
 Bash
 git clone https://github.com/eatdegrasstyson/EchoPages.git
 Navigate to the project root and install dependencies.
-
-## Roadmap
-[ ] Integration of Music and Text engines for cross-modal sentiment mapping.
-
-[ ] Refinement of the CRNN model for higher prediction accuracy.
-
-[ ] Expansion of the dataset to include more diverse musical genres.
