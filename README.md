@@ -26,7 +26,9 @@ Sentiment & Emotion Analysis: Uses lexicon-based tools (e.g., NRC Emotion Lexico
 
 Feature Extraction: Converts text into numerical representations (e.g., emotion scores, sentiment polarity, frequency-based features).
 
-Modeling (Planned / In Progress):
+Modeling (Planned / In Progress): Predicts emotional responses from text using machine learning or deep learning models. 
+
+Datasets: Stores raw and processed text datasets used for training and evaluation. May include annotated text samples, lyrics, or aligned text–music emotion pairs.
 
 ## Getting Started
 ### Prerequisites (In Progress)
@@ -40,4 +42,5 @@ Clone the repository:
 Bash
 git clone https://github.com/eatdegrasstyson/EchoPages.git
 Navigate to the project root and install dependencies.
+
 
