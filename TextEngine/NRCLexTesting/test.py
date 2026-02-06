@@ -1,13 +1,22 @@
 from nrclex import NRCLex
 
-text = "I feel excited but also a little nervous about tomorrow. I love learning new things."
-
+text = "He was looking with fear at his mother as she was coming at him with a dagger in her hand, with an intent to kill him; suddenly he heard a knock, and another knock, and other and suddenly he woke up to the glaring eyes of his teacher who was tapping on his bench, trying to wake him up; little did he know that he was snoring loudly."
 # lex (NRCLex): analyzer object created from text
 lex = NRCLex(text)
 
-print("Affect frequencies:", lex.affect_frequencies)
-print("Raw emotion scores:", lex.raw_emotion_scores)
-print("Top emotions:", lex.top_emotions)
+print("Affect frequencies:")
+for emotion, score in lex.affect_frequencies.items():
+    print(f"\t{emotion}: {score}")
+
+print("\nRaw emotion scores:")
+for emotion, score in lex.raw_emotion_scores.items():
+    print(f"\t{emotion}: {score}")
+
+print("\n")
+count = 0
+for emotion in lex.top_emotions:
+    count += 1
+    print(f"Emotion {count}: {emotion}")
 
 # Terminal Test Code
 
