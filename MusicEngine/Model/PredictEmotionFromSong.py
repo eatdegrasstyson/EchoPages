@@ -94,7 +94,8 @@ def load_saved_model(path: str) -> keras.Model:
 def predict_emotion_full_song(model: keras.Model,
                               spec: np.ndarray,
                               fix_frames: int = FIX_FRAMES,
-                              stride_frames: int = STRIDE_FRAMES) -> np.ndarray:
+                              stride_frames: int = STRIDE_FRAMES,
+                              chunking: bool = False) -> tuple[np.ndarray,np.ndarray]:
     """
     spec: np.ndarray [n_mels, time]
     Returns: np.ndarray [9] averaged emotion distribution over the whole song.
@@ -132,7 +133,18 @@ def predict_emotion_full_song(model: keras.Model,
         preds.append(p)
 
     preds = np.stack(preds, axis=0)              # [num_windows, 9]
-    return preds.mean(axis=0)                    # [9], averaged distribution
+    
+    # assumes: hop_size is same as stride_frames in frames
+    # and spectrogram was created at sr=32000 Hz
+    sr = 32000
+    hop_size = 320  # must match audio_to_logmel_array hop
+    chunk_times = np.array(starts) * hop_size / sr
+
+
+    if not chunking:
+        return preds.mean(axis=0),chunk_times                 # [9], averaged distribution
+    else:
+        return preds,chunk_times
 
 
 # =========================
@@ -158,7 +170,7 @@ def predict_emotion(spotify_id: str):
 
     # 4. Predict over full song via sliding windows + averaging
     print("Predicting emotion over full song (sliding windows)...")
-    preds = predict_emotion_full_song(model, spec)
+    preds,_ = predict_emotion_full_song(model, spec)
 
     # 5. Show results
     results = sorted(zip(EMOTIONS, preds), key=lambda kv: kv[1], reverse=True)
@@ -170,13 +182,36 @@ def predict_emotion(spotify_id: str):
     print(f"\nDominant emotion: {top_emo} ({top_p:.2%})")
 
 
+def predict_spectrogram(spec, chunking=False):
+    # 3. Load model
+    print("Loading model...")
+    model = load_saved_model("Model/epoch_09.h5")
+    preds,times = predict_emotion_full_song(model, spec, chunking=chunking)
+    return preds,times
+
+
+def chunkingData(preds, times):
+    print(preds)
+    print("Times: ")
+    print(times)
+
+    return preds
+
+
+
 # =========================
 # CLI entry
 # =========================
 if __name__ == "__main__":
+    '''
     if len(sys.argv) < 2:
         print("Usage: python -m YourModule.predict <spotify_id>")
         sys.exit(1)
 
     spotify_id = sys.argv[1]
     predict_emotion(spotify_id)
+    '''
+
+    spec = audio_to_logmel_array("Temp/audio/Klaus Badelt - He's a Pirate.mp3")
+    preds, times = predict_spectrogram(spec, chunking=True)
+    chunkingData(preds, times)
