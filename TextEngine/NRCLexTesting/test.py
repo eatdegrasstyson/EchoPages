@@ -1,6 +1,6 @@
 from nrclex import NRCLex
 
-text = "I absolutely love this product. It works perfectly and makes my life so much easier."
+text = "This was a complete waste of money. It broke after one use and customer service was terrible."
 # lex (NRCLex): analyzer object created from text
 lex = NRCLex(text)
 

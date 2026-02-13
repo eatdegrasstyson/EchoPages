@@ -120,3 +120,38 @@ Raw emotion scores:
 Emotion 1: ('positive', 0.5)
 Emotion 2: ('joy', 0.5)
 /--------------------------------------------------------------------------/
+(Very Clearly Negative)
+Text:
+        This was a complete waste of money. It broke after one use and customer service was terrible.
+
+Affect frequencies:
+        fear: 0.11764705882352941
+        anger: 0.11764705882352941
+        anticip: 0.0
+        trust: 0.058823529411764705
+        surprise: 0.058823529411764705
+        positive: 0.11764705882352941
+        negative: 0.17647058823529413
+        sadness: 0.11764705882352941
+        disgust: 0.11764705882352941
+        joy: 0.058823529411764705
+        anticipation: 0.058823529411764705
+
+Raw emotion scores:
+        disgust: 2
+        negative: 3
+        anger: 2
+        anticipation: 1
+        joy: 1
+        positive: 2
+        surprise: 1
+        trust: 1
+        fear: 2
+        sadness: 2
+
+
+Emotion 1: ('negative', 0.17647058823529413)
+/--------------------------------------------------------------------------/
+/--------------------------------------------------------------------------/
+/--------------------------------------------------------------------------/
+/--------------------------------------------------------------------------/
