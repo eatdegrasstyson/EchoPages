@@ -1,9 +1,10 @@
 from nrclex import NRCLex
 
-text = "He was looking with fear at his mother as she was coming at him with a dagger in her hand, with an intent to kill him; suddenly he heard a knock, and another knock, and other and suddenly he woke up to the glaring eyes of his teacher who was tapping on his bench, trying to wake him up; little did he know that he was snoring loudly."
+text = "I absolutely love this product. It works perfectly and makes my life so much easier."
 # lex (NRCLex): analyzer object created from text
 lex = NRCLex(text)
 
+print("Text:\n\t" + text + "\n")
 print("Affect frequencies:")
 for emotion, score in lex.affect_frequencies.items():
     print(f"\t{emotion}: {score}")
