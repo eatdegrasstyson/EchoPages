@@ -152,6 +152,91 @@ Raw emotion scores:
 
 Emotion 1: ('negative', 0.17647058823529413)
 /--------------------------------------------------------------------------/
+(Clear Positive(more detail))
+Text:
+        The experience was fantastic. The staff were friendly, the service was fast, and everything exceeded my expectations.
+
+Affect frequencies:
+        fear: 0.0
+        anger: 0.0
+        anticip: 0.0
+        trust: 0.25
+        surprise: 0.0
+        positive: 0.25
+        negative: 0.0
+        sadness: 0.0
+        disgust: 0.0
+        joy: 0.25
+        anticipation: 0.25
+
+Raw emotion scores:
+        anticipation: 1
+        joy: 1
+        positive: 1
+        trust: 1
+
+
+Emotion 1: ('trust', 0.25)
+Emotion 2: ('positive', 0.25)
+Emotion 3: ('joy', 0.25)
+Emotion 4: ('anticipation', 0.25)
+/--------------------------------------------------------------------------/
+(clear negative w explanation added)
+Text:
+        I’m really disappointed. The delivery was late, the packaging was damaged, and the item didn’t match the description.
+
+Affect frequencies:
+        fear: 0.0
+        anger: 0.125
+        anticip: 0.0
+        trust: 0.0
+        surprise: 0.0
+        positive: 0.125
+        negative: 0.25
+        sadness: 0.25
+        disgust: 0.125
+        joy: 0.0
+        anticipation: 0.125
+
+Raw emotion scores:
+        anger: 1
+        disgust: 1
+        negative: 2
+        sadness: 2
+        anticipation: 1
+        positive: 1
+
+
+Emotion 1: ('negative', 0.25)
+Emotion 2: ('sadness', 0.25)
+/--------------------------------------------------------------------------/
+(Mixed Sentiment)
+Text:
+        The design looks amazing and the performance is solid, but the battery life is frustratingly short.
+
+Affect frequencies:
+        fear: 0.0
+        anger: 0.3333333333333333
+        anticip: 0.0
+        trust: 0.0
+        surprise: 0.0
+        positive: 0.3333333333333333
+        negative: 0.3333333333333333
+        sadness: 0.0
+        disgust: 0.0
+        joy: 0.0
+
+Raw emotion scores:
+        positive: 1
+        anger: 1
+        negative: 1
+
+
+Emotion 1: ('anger', 0.3333333333333333)
+Emotion 2: ('positive', 0.3333333333333333)
+Emotion 3: ('negative', 0.3333333333333333)
+/--------------------------------------------------------------------------/
+
 /--------------------------------------------------------------------------/
 /--------------------------------------------------------------------------/
 /--------------------------------------------------------------------------/
