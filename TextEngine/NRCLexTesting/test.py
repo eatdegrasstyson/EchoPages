@@ -1,6 +1,6 @@
 from nrclex import NRCLex
 
-text = "The design looks amazing and the performance is solid, but the battery life is frustratingly short."
+text = "I didn’t expect much, and somehow it managed to surprise me — though I’m still not sure whether that’s a good thing."
 # lex (NRCLex): analyzer object created from text
 lex = NRCLex(text)
 

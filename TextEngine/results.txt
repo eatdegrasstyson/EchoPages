@@ -236,7 +236,88 @@ Emotion 1: ('anger', 0.3333333333333333)
 Emotion 2: ('positive', 0.3333333333333333)
 Emotion 3: ('negative', 0.3333333333333333)
 /--------------------------------------------------------------------------/
+(complex emotions(bittersweet))
+Text:
+        I’m proud of how far we’ve come, but it’s hard not to feel sad knowing this chapter of our lives is ending.
 
+Affect frequencies:
+        fear: 0.0
+        anger: 0.0
+        anticip: 0.0
+        trust: 0.2
+        surprise: 0.0
+        positive: 0.4
+        negative: 0.0
+        sadness: 0.0
+        disgust: 0.0
+        joy: 0.2
+        anticipation: 0.2
+
+Raw emotion scores:
+        anticipation: 1
+        joy: 1
+        positive: 2
+        trust: 1
+
+
+Emotion 1: ('positive', 0.4)
 /--------------------------------------------------------------------------/
+(Subtle Negative(implicits))
+Text:
+        Well, it technically functions the way it’s supposed to.
+
+Affect frequencies:
+        fear: 0.0
+        anger: 0.0
+        anticip: 0.0
+        trust: 0.0
+        surprise: 0.0
+        positive: 0.0
+        negative: 0.0
+        sadness: 0.0
+        disgust: 0.0
+        joy: 0.0
+
+Raw emotion scores:
+
+
+Emotion 1: ('fear', 0.0)
+Emotion 2: ('anger', 0.0)
+Emotion 3: ('anticip', 0.0)
+Emotion 4: ('trust', 0.0)
+Emotion 5: ('surprise', 0.0)
+Emotion 6: ('positive', 0.0)
+Emotion 7: ('negative', 0.0)
+Emotion 8: ('sadness', 0.0)
+Emotion 9: ('disgust', 0.0)
+Emotion 10: ('joy', 0.0)
 /--------------------------------------------------------------------------/
+(ambiguous)
+Text:
+        I didn’t expect much, and somehow it managed to surprise me — though I’m still not sure whether that’s a good thing.
+
+Affect frequencies:
+        fear: 0.07692307692307693
+        anger: 0.0
+        anticip: 0.0
+        trust: 0.15384615384615385
+        surprise: 0.23076923076923078
+        positive: 0.23076923076923078
+        negative: 0.0
+        sadness: 0.0
+        disgust: 0.0
+        joy: 0.15384615384615385
+        anticipation: 0.15384615384615385
+
+Raw emotion scores:
+        anticipation: 2
+        positive: 3
+        surprise: 3
+        trust: 2
+        fear: 1
+        joy: 2
+
+
+Emotion 1: ('surprise', 0.23076923076923078)
+Emotion 2: ('positive', 0.23076923076923078)
 /--------------------------------------------------------------------------/
