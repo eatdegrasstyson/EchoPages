@@ -189,13 +189,120 @@ def predict_spectrogram(spec, chunking=False):
     preds,times = predict_emotion_full_song(model, spec, chunking=chunking)
     return preds,times
 
+def cosine_dist(a, b, eps=1e-8):
+    return 1.0 - np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b) + eps)
 
 def chunkingData(preds, times):
-    print(preds)
-    print("Times: ")
-    print(times)
+    
+    hop_size = 320
+    sr = 32000
+    WINDOW_SEC = FIX_FRAMES * hop_size / sr
 
-    return preds
+    print("\n=== Raw Windows ===")
+    for i, vec in enumerate(preds):
+        top3_idx = vec.argsort()[-3:][::-1].astype(int)
+        top3_emotions = [EMOTIONS[j] for j in top3_idx]
+        start_time = times[i]
+        end_time = start_time + WINDOW_SEC
+        duration = end_time - start_time
+        print(f"[{i}] {start_time:6.1f}s → {end_time:6.1f}s ({duration:5.1f}s) | {', '.join(top3_emotions)}")
+
+    IMMEDIATE_CHANGE = 0.5
+    STRONG_CHANGE    = 0.35
+    MEDIUM_CHANGE    = 0.2
+    WEAK_CHANGE      = 0.12
+
+    MIN_PERSIST = 4
+    DRIFT_LIMIT = 0.9
+    MIN_SECONDS = 8.0
+
+    dt = times[1] - times[0]
+    min_frames = int(MIN_SECONDS / dt)
+    WINDOW_SEC = FIX_FRAMES * hop_size / sr
+
+    chunks = []
+    cur_start_idx = 0
+
+    def should_split(start_idx, lookahead=8):
+        persist_count = 0
+        drift_accum = 0.0
+        tmp = 0
+        for i in range(start_idx, min(len(preds),start_idx+lookahead)):
+            tmp = tmp + 1
+            cur_mean = np.mean(preds[cur_start_idx:i], axis=0)
+            v = cosine_dist(preds[i], cur_mean)
+            drift_accum += v
+
+            if v > IMMEDIATE_CHANGE and tmp <= 1:
+                return True, i
+            elif v > STRONG_CHANGE and tmp <= 3:
+                persist_count += 1
+                if persist_count >= 2:
+                    return True, start_idx
+            elif v > MEDIUM_CHANGE and tmp <= 6:
+                persist_count += 1
+                if persist_count >= MIN_PERSIST:
+                    return True, start_idx
+            elif v > WEAK_CHANGE and tmp <= 8:
+                persist_count += 1
+                if drift_accum >= DRIFT_LIMIT:
+                    return True, start_idx
+            else:
+                persist_count = max(persist_count - 1, 0)
+                drift_accum *= 0.9
+ 
+        return False, None
+
+    i = 1
+    while i < len(preds):
+        split = False
+        split_idx = None
+
+        #Check if the current frame is different enough to consider a split
+        v = cosine_dist(preds[i], np.mean(preds[cur_start_idx:i], axis=0))
+        if v > WEAK_CHANGE:
+            split, split_idx = should_split(i)
+
+        # enforce minimum chunk size
+        if split and (split_idx - cur_start_idx) < min_frames:
+            split = False
+            split_idx = None
+
+        if split:
+            # Compute mean for the chunk up to the split_idx
+            mean_vec = np.mean(preds[cur_start_idx:split_idx], axis=0)
+            top3_indices = mean_vec.argsort()[-3:][::-1]
+
+            chunks.append({
+                "start": times[cur_start_idx],
+                "end": times[split_idx-1] + WINDOW_SEC,
+                "emotion": mean_vec,
+                "label": [EMOTIONS[j] for j in top3_indices]
+            })
+
+            # reset state for next chunk
+            cur_start_idx = split_idx
+            i = split_idx  # continue from the split
+        else:
+            i += 1
+
+    # final chunk
+    mean_vec = np.mean(preds[cur_start_idx:], axis=0)
+    top3_indices = mean_vec.argsort()[-3:][::-1]
+    chunks.append({
+        "start": times[cur_start_idx],
+        "end": times[-1] + WINDOW_SEC,
+        "emotion": mean_vec,
+        "label": [EMOTIONS[j] for j in top3_indices]
+    })
+
+    # print chunks
+    print("\n=== Emotion Chunks ===")
+    for idx, c in enumerate(chunks):
+        dur = c["end"] - c["start"]
+        print(f"[{idx}] {c['start']:6.1f}s → {c['end']:6.1f}s ({dur:5.1f}s) | {', '.join(c['label'])}")
+
+    return chunks
 
 
 
