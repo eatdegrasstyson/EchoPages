@@ -321,3 +321,105 @@ Raw emotion scores:
 Emotion 1: ('surprise', 0.23076923076923078)
 Emotion 2: ('positive', 0.23076923076923078)
 /--------------------------------------------------------------------------/
+(mixed ambiguous)
+Text:
+        I smiled the entire time I was saying goodbye, which somehow made it hurt even more.
+
+Affect frequencies:
+        fear: 0.2
+        anger: 0.2
+        anticip: 0.0
+        trust: 0.0
+        surprise: 0.0
+        positive: 0.0
+        negative: 0.2
+        sadness: 0.2
+        disgust: 0.0
+        joy: 0.0
+        anticipation: 0.2
+
+Raw emotion scores:
+        anticipation: 1
+        anger: 1
+        fear: 1
+        negative: 1
+        sadness: 1
+
+
+Emotion 1: ('fear', 0.2)
+Emotion 2: ('anger', 0.2)
+Emotion 3: ('negative', 0.2)
+Emotion 4: ('sadness', 0.2)
+Emotion 5: ('anticipation', 0.2)
+/--------------------------------------------------------------------------/
+(mixed ambiguous)
+Text:
+        I’m proud of how far I’ve come, but I can’t shake the feeling that I lost something essential along the way.
+
+Affect frequencies:
+        fear: 0.058823529411764705
+        anger: 0.058823529411764705
+        anticip: 0.0
+        trust: 0.11764705882352941
+        surprise: 0.058823529411764705
+        positive: 0.17647058823529413
+        negative: 0.11764705882352941
+        sadness: 0.11764705882352941
+        disgust: 0.058823529411764705
+        joy: 0.11764705882352941
+        anticipation: 0.11764705882352941
+
+Raw emotion scores:
+        anticipation: 2
+        joy: 2
+        positive: 3
+        trust: 2
+        anger: 1
+        disgust: 1
+        fear: 1
+        negative: 2
+        sadness: 2
+        surprise: 1
+
+
+Emotion 1: ('positive', 0.17647058823529413)
+/--------------------------------------------------------------------------/
+(mixed ambiguos but no emotion stated(negative overrall))
+Text:
+        Watching you succeed felt like swallowing glass
+
+Affect frequencies:
+        fear: 0.0
+        anger: 0.0
+        anticip: 0.0
+        trust: 0.2
+        surprise: 0.2
+        positive: 0.2
+        negative: 0.0
+        sadness: 0.0
+        disgust: 0.0
+        joy: 0.2
+        anticipation: 0.2
+
+Raw emotion scores:
+        anticipation: 1
+        joy: 1
+        positive: 1
+        surprise: 1
+        trust: 1
+
+
+Emotion 1: ('trust', 0.2)
+Emotion 2: ('surprise', 0.2)
+Emotion 3: ('positive', 0.2)
+Emotion 4: ('joy', 0.2)
+Emotion 5: ('anticipation', 0.2)
+/--------------------------------------------------------------------------/
+
+/--------------------------------------------------------------------------/
+/--------------------------------------------------------------------------/
+/--------------------------------------------------------------------------/
+/--------------------------------------------------------------------------/
+/--------------------------------------------------------------------------/
+/--------------------------------------------------------------------------/
+/--------------------------------------------------------------------------/
