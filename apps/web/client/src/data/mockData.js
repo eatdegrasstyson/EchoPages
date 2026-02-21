@@ -5,8 +5,9 @@ export const mockTexts = {
     title: 'Sample Story',
     segments: [
       {
-        text: 'Once upon a time, in a land far away, there lived a young adventurer who dreamed of exploring the world.',
-        emotion: {
+        index: 0,
+        content: 'Once upon a time, in a land far away, there lived a young adventurer who dreamed of exploring the world.',
+        emotions: {
           Wonder: 0.8,
           Joy: 0.6,
           Peacefulness: 0.3,
@@ -24,8 +25,9 @@ export const mockTexts = {
         },
       },
       {
-        text: 'The journey was long and filled with challenges, but the adventurer pressed on with determination.',
-        emotion: {
+        index: 1,
+        content: 'The journey was long and filled with challenges, but the adventurer pressed on with determination.',
+        emotions: {
           Power: 0.7,
           Tension: 0.5,
           Joy: 0.3,
@@ -43,8 +45,9 @@ export const mockTexts = {
         },
       },
       {
-        text: 'At the end of the journey, the adventurer found something unexpected: a sense of peace and belonging.',
-        emotion: {
+        index: 2,
+        content: 'At the end of the journey, the adventurer found something unexpected: a sense of peace and belonging.',
+        emotions: {
           Peacefulness: 0.8,
           Tenderness: 0.7,
           Nostalgia: 0.4,
