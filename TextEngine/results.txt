@@ -415,11 +415,142 @@ Emotion 3: ('positive', 0.2)
 Emotion 4: ('joy', 0.2)
 Emotion 5: ('anticipation', 0.2)
 /--------------------------------------------------------------------------/
+(subtle and layered emotions)
+Text:
+        The silence between us said more than the argument ever could.
 
+Affect frequencies:
+        fear: 0.0
+        anger: 0.5
+        anticip: 0.0
+        trust: 0.0
+        surprise: 0.0
+        positive: 0.0
+        negative: 0.5
+        sadness: 0.0
+        disgust: 0.0
+        joy: 0.0
+
+Raw emotion scores:
+        anger: 1
+        negative: 1
+
+
+Emotion 1: ('anger', 0.5)
+Emotion 2: ('negative', 0.5)
 /--------------------------------------------------------------------------/
+(emotionally layered and subtle conflict)
+Text:
+        I’m exhausted from being the strong one, but I don’t know how to be anything else.
+
+Affect frequencies:
+        fear: 0.0
+        anger: 0.0
+        anticip: 0.0
+        trust: 0.25
+        surprise: 0.0
+        positive: 0.25
+        negative: 0.25
+        sadness: 0.25
+        disgust: 0.0
+        joy: 0.0
+
+Raw emotion scores:
+        negative: 1
+        sadness: 1
+        positive: 1
+        trust: 1
+
+
+Emotion 1: ('trust', 0.25)
+Emotion 2: ('positive', 0.25)
+Emotion 3: ('negative', 0.25)
+Emotion 4: ('sadness', 0.25)
 /--------------------------------------------------------------------------/
+(irony and emotional contradiction)
+Text:
+        I finally stopped caring, and that’s when you started trying.
+
+Affect frequencies:
+        fear: 0.0
+        anger: 0.0
+        anticip: 0.0
+        trust: 0.16666666666666666
+        surprise: 0.16666666666666666
+        positive: 0.16666666666666666
+        negative: 0.0
+        sadness: 0.0
+        disgust: 0.16666666666666666
+        joy: 0.16666666666666666
+        anticipation: 0.16666666666666666
+
+Raw emotion scores:
+        anticipation: 1
+        disgust: 1
+        joy: 1
+        positive: 1
+        surprise: 1
+        trust: 1
+
+
+Emotion 1: ('trust', 0.16666666666666666)
+Emotion 2: ('surprise', 0.16666666666666666)
+Emotion 3: ('positive', 0.16666666666666666)
+Emotion 4: ('disgust', 0.16666666666666666)
+Emotion 5: ('joy', 0.16666666666666666)
+Emotion 6: ('anticipation', 0.16666666666666666)
 /--------------------------------------------------------------------------/
+(irony and emotional contradiction)
+Text:
+        I told everyone I was fine until I almost believed it.
+
+Affect frequencies:
+        fear: 0.0
+        anger: 0.0
+        anticip: 0.0
+        trust: 1.0
+        surprise: 0.0
+        positive: 0.0
+        negative: 0.0
+        sadness: 0.0
+        disgust: 0.0
+        joy: 0.0
+
+Raw emotion scores:
+        trust: 1
+
+Emotion 1: ('trust', 1.0)
 /--------------------------------------------------------------------------/
+(irony/emotional contradiction)
+Text:
+        The closure I wanted came in the form of indifference.
+
+Affect frequencies:
+        fear: 0.1111111111111111
+        anger: 0.1111111111111111
+        anticip: 0.0
+        trust: 0.0
+        surprise: 0.0
+        positive: 0.1111111111111111
+        negative: 0.1111111111111111
+        sadness: 0.2222222222222222
+        disgust: 0.1111111111111111
+        joy: 0.1111111111111111
+        anticipation: 0.1111111111111111
+
+Raw emotion scores:
+        anticipation: 1
+        joy: 1
+        positive: 1
+        sadness: 2
+        anger: 1
+        disgust: 1
+        fear: 1
+        negative: 1
+
+
+Emotion 1: ('sadness', 0.2222222222222222)
 /--------------------------------------------------------------------------/
+
 /--------------------------------------------------------------------------/
 /--------------------------------------------------------------------------/

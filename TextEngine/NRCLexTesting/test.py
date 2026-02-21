@@ -1,6 +1,6 @@
 from nrclex import NRCLex
 
-text = "Watching you succeed felt like swallowing glass"
+text = "The closure I wanted came in the form of indifference."
 # lex (NRCLex): analyzer object created from text
 lex = NRCLex(text)
 
