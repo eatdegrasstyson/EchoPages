@@ -115,7 +115,7 @@ def predict_emotion_full_song(model: keras.Model,
         x = _standardize(x)
         x = tf.expand_dims(x, -1)                # [mels, frames, 1]
         x = tf.expand_dims(x, 0)                 # [1, mels, frames, 1]
-        return model.predict(x, verbose=0)[0]
+        return model.predict(x, verbose=0)[0], np.array([0.0])
 
     # Build sliding window start indices
     starts = list(range(0, T - fix_frames + 1, stride_frames))
