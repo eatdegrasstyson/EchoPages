@@ -193,116 +193,98 @@ def cosine_dist(a, b, eps=1e-8):
     return 1.0 - np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b) + eps)
 
 def chunkingData(preds, times):
-    
     hop_size = 320
     sr = 32000
     WINDOW_SEC = FIX_FRAMES * hop_size / sr
 
-    print("\n=== Raw Windows ===")
-    for i, vec in enumerate(preds):
-        top3_idx = vec.argsort()[-3:][::-1].astype(int)
-        top3_emotions = [EMOTIONS[j] for j in top3_idx]
-        start_time = times[i]
-        end_time = start_time + WINDOW_SEC
-        duration = end_time - start_time
-        print(f"[{i}] {start_time:6.1f}s → {end_time:6.1f}s ({duration:5.1f}s) | {', '.join(top3_emotions)}")
+    #Dynamic params:
 
-    IMMEDIATE_CHANGE = 0.5
-    STRONG_CHANGE    = 0.35
-    MEDIUM_CHANGE    = 0.2
-    WEAK_CHANGE      = 0.12
+    SMOOTH_WINDOW = 5
+    COMPARE_WINDOW = 6
 
-    MIN_PERSIST = 4
-    DRIFT_LIMIT = 0.9
-    MIN_SECONDS = 8.0
+    #Smoothed predictions
+    smoothed = []
+    for i in range(len(preds)):
+        start = max(0, i - SMOOTH_WINDOW)
+        end = min(len(preds), i + SMOOTH_WINDOW + 1)
+        smoothed.append(np.mean(preds[start:end], axis=0))
+    preds = np.array(smoothed)
+
+    structural_dists = []
+
+    for i in range(COMPARE_WINDOW, len(preds) - COMPARE_WINDOW):
+        past_mean = np.mean(preds[i-COMPARE_WINDOW:i], axis=0)
+        future_mean = np.mean(preds[i:i+COMPARE_WINDOW], axis=0)
+
+        v = cosine_dist(past_mean, future_mean)
+        structural_dists.append(v)
+
+    structural_dists = np.array(structural_dists)
+
+    #Reduce num for more chunks, increase for less chunks
+    chunkMultiplier = 85
+    SPLIT_THRESHOLD = np.percentile(structural_dists, chunkMultiplier)
+
+    MIN_SECONDS = 18.0
+    MERGE_THRESHOLD = 0.12
 
     dt = times[1] - times[0]
     min_frames = int(MIN_SECONDS / dt)
-    WINDOW_SEC = FIX_FRAMES * hop_size / sr
 
+    # Detect structural change via past vs future window comparison
+    candidate_splits = []
+    for i in range(COMPARE_WINDOW, len(preds) - COMPARE_WINDOW):
+        past_mean = np.mean(preds[i-COMPARE_WINDOW:i], axis=0)
+        future_mean = np.mean(preds[i:i+COMPARE_WINDOW], axis=0)
+
+        v = cosine_dist(past_mean, future_mean)
+
+        if v > SPLIT_THRESHOLD:
+            candidate_splits.append(i)
+
+    # Enforce min distance between splits
+    filtered_splits = []
+    last_split = -9999
+    for s in candidate_splits:
+        if s - last_split >= min_frames:
+            filtered_splits.append(s)
+            last_split = s
+
+    # Build chunks from filtered splits
     chunks = []
-    cur_start_idx = 0
+    split_points = [0] + filtered_splits + [len(preds)]
 
-    def should_split(start_idx, lookahead=8):
-        persist_count = 0
-        drift_accum = 0.0
-        tmp = 0
-        for i in range(start_idx, min(len(preds),start_idx+lookahead)):
-            tmp = tmp + 1
-            cur_mean = np.mean(preds[cur_start_idx:i], axis=0)
-            v = cosine_dist(preds[i], cur_mean)
-            drift_accum += v
+    for i in range(len(split_points) - 1):
+        start_idx = split_points[i]
+        end_idx = split_points[i+1]
 
-            if v > IMMEDIATE_CHANGE and tmp <= 1:
-                return True, i
-            elif v > STRONG_CHANGE and tmp <= 3:
-                persist_count += 1
-                if persist_count >= 2:
-                    return True, start_idx
-            elif v > MEDIUM_CHANGE and tmp <= 6:
-                persist_count += 1
-                if persist_count >= MIN_PERSIST:
-                    return True, start_idx
-            elif v > WEAK_CHANGE and tmp <= 8:
-                persist_count += 1
-                if drift_accum >= DRIFT_LIMIT:
-                    return True, start_idx
-            else:
-                persist_count = max(persist_count - 1, 0)
-                drift_accum *= 0.9
- 
-        return False, None
+        mean_vec = np.mean(preds[start_idx:end_idx], axis=0)
+        top3_indices = mean_vec.argsort()[-9:][::-1]
 
-    i = 1
-    while i < len(preds):
-        split = False
-        split_idx = None
+        chunks.append({
+            "start": times[start_idx],
+            "end": times[end_idx-1] + WINDOW_SEC,
+            "emotion": mean_vec,
+            "label": [(EMOTIONS[j], mean_vec[j]) for j in top3_indices]
+        })
 
-        #Check if the current frame is different enough to consider a split
-        v = cosine_dist(preds[i], np.mean(preds[cur_start_idx:i], axis=0))
-        if v > WEAK_CHANGE:
-            split, split_idx = should_split(i)
-
-        # enforce minimum chunk size
-        if split and (split_idx - cur_start_idx) < min_frames:
-            split = False
-            split_idx = None
-
-        if split:
-            # Compute mean for the chunk up to the split_idx
-            mean_vec = np.mean(preds[cur_start_idx:split_idx], axis=0)
-            top3_indices = mean_vec.argsort()[-3:][::-1]
-
-            chunks.append({
-                "start": times[cur_start_idx],
-                "end": times[split_idx-1] + WINDOW_SEC,
-                "emotion": mean_vec,
-                "label": [EMOTIONS[j] for j in top3_indices]
-            })
-
-            # reset state for next chunk
-            cur_start_idx = split_idx
-            i = split_idx  # continue from the split
+    # Merge emotionally similar adjacent chunks
+    merged = [chunks[0]]
+    for c in chunks[1:]:
+        prev = merged[-1]
+        if cosine_dist(prev["emotion"], c["emotion"]) < MERGE_THRESHOLD:
+            prev["end"] = c["end"]
+            prev["emotion"] = (prev["emotion"] + c["emotion"]) / 2
         else:
-            i += 1
+            merged.append(c)
 
-    # final chunk
-    mean_vec = np.mean(preds[cur_start_idx:], axis=0)
-    top3_indices = mean_vec.argsort()[-3:][::-1]
-    chunks.append({
-        "start": times[cur_start_idx],
-        "end": times[-1] + WINDOW_SEC,
-        "emotion": mean_vec,
-        "label": [EMOTIONS[j] for j in top3_indices]
-    })
-
-    # print chunks
-    print("\n=== Emotion Chunks ===")
-    for idx, c in enumerate(chunks):
+    for idx, c in enumerate(merged):
         dur = c["end"] - c["start"]
-        print(f"[{idx}] {c['start']:6.1f}s → {c['end']:6.1f}s ({dur:5.1f}s) | {', '.join(c['label'])}")
+        top3_str = ", ".join([f"{e} ({v:.2f})" for e, v in c['label']])
+        print(f"[{idx}] {c['start']:6.1f}s → {c['end']:6.1f}s ({dur:5.1f}s) | {top3_str}")
 
-    return chunks
+    return merged
+
 
 
 
@@ -318,7 +300,15 @@ if __name__ == "__main__":
     spotify_id = sys.argv[1]
     predict_emotion(spotify_id)
     '''
+    song_name = "Baby Keem - family ties (with Kendrick Lamar)"
+    path = f"Temp/audio/{song_name}.mp3"
+    spotify_id = "7tFiyTwD0nx5a1eklYtX2J"
+    if not os.path.exists(path):
+        predict_emotion(spotify_id)
 
-    spec = audio_to_logmel_array("Temp/audio/Klaus Badelt - He's a Pirate.mp3")
+    spec = audio_to_logmel_array(path)
     preds, times = predict_spectrogram(spec, chunking=True)
+
+    print("Chat GPT algorithm idea: ")
     chunkingData(preds, times)
+
