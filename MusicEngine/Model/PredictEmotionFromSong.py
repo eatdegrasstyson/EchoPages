@@ -401,6 +401,90 @@ def chunkingData_stable_merge(preds, times,
     return chunks
 
 
+#Segmented Least Squares via DP
+#0.6 needed to get good for hotel cali, 0.8 for all songs tested
+
+def chunkingData_dp(preds, times,
+                    lam=0.8,
+                    ema_alpha=0.3):
+    """
+    Globally optimal segmentation via dynamic programming.
+
+    Minimizes:  sum_chunks( intra-chunk variance ) + lambda * num_chunks
+
+    where intra-chunk variance = sum of squared cosine distances from each
+    window to the chunk mean.
+
+    lambda (lam) controls the trade-off: higher = fewer, larger chunks.
+    """
+    hop_size = 320
+    sr = 32000
+    window_sec = FIX_FRAMES * hop_size / sr
+
+    #_print_raw_windows(preds, times, window_sec)
+
+    n = len(preds)
+
+    # --- EMA smoothing ---
+    smoothed = np.empty_like(preds)
+    smoothed[0] = preds[0]
+    for i in range(1, n):
+        smoothed[i] = ema_alpha * preds[i] + (1 - ema_alpha) * smoothed[i - 1]
+
+    # --- Precompute segment costs ---
+    # cost[i][j] = intra-chunk variance for windows [i, j)
+    # To avoid O(n^3), compute incrementally using prefix sums.
+    # Variance = sum_k ||v_k - mean||^2  (cosine distance squared)
+    # We approximate with Euclidean variance for DP efficiency, which is
+    # monotonically related to cosine distance for normalized-ish vectors.
+
+    # prefix_sum[i] = sum of smoothed[0..i-1]
+    prefix_sum = np.zeros((n + 1, smoothed.shape[1]))
+    prefix_sq_sum = np.zeros(n + 1)  # sum of ||v_k||^2
+    for i in range(n):
+        prefix_sum[i + 1] = prefix_sum[i] + smoothed[i]
+        prefix_sq_sum[i + 1] = prefix_sq_sum[i] + np.dot(smoothed[i], smoothed[i])
+
+    def segment_cost(i, j):
+        """Variance of smoothed[i:j] = sum||v - mean||^2."""
+        length = j - i
+        if length <= 1:
+            return 0.0
+        seg_sum = prefix_sum[j] - prefix_sum[i]
+        seg_sq = prefix_sq_sum[j] - prefix_sq_sum[i]
+        mean_sq_norm = np.dot(seg_sum, seg_sum) / (length * length)
+        return seg_sq - length * mean_sq_norm
+
+    # --- DP ---
+    # dp[j] = minimum cost to segment windows [0, j)
+    dp = np.full(n + 1, np.inf)
+    dp[0] = 0.0
+    parent = np.zeros(n + 1, dtype=int)  # parent[j] = optimal split point i
+
+    for j in range(1, n + 1):
+        for i in range(j):
+            cost = dp[i] + segment_cost(i, j) + lam
+            if cost < dp[j]:
+                dp[j] = cost
+                parent[j] = i
+
+    # --- Backtrack to recover chunk boundaries ---
+    boundaries = []
+    j = n
+    while j > 0:
+        i = parent[j]
+        boundaries.append((i, j))
+        j = i
+    boundaries.reverse()
+
+    # --- Build output chunks (use original preds for emotion vectors) ---
+    chunks = []
+    for start, end in boundaries:
+        chunks.append(_build_chunk(preds, times, start, end, window_sec))
+
+    _print_chunks(chunks, header="Emotion Chunks (DP Segmented)")
+    return chunks
+
 if __name__ == "__main__":
     '''
     if len(sys.argv) < 2:
@@ -425,3 +509,7 @@ if __name__ == "__main__":
     print("Arnav algorithm idea: ")
     chunkingData_stable_merge(preds, times)
 
+    print("Claud algoirhtm idea: ")
+
+    #0.6 ish for hotel cali
+    chunkingData_dp(preds, times)
