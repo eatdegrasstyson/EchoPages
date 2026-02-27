@@ -286,11 +286,121 @@ def chunkingData(preds, times):
     return merged
 
 
+#Claud stuff
+def _print_raw_windows(preds, times, window_sec):
+    print("\n=== Raw Windows ===")
+    for i, vec in enumerate(preds):
+        top3_idx = vec.argsort()[-3:][::-1].astype(int)
+        top3_emotions = [EMOTIONS[j] for j in top3_idx]
+        start_time = times[i]
+        end_time = start_time + window_sec
+        print(f"[{i}] {start_time:6.1f}s → {end_time:6.1f}s ({window_sec:5.1f}s) | {', '.join(top3_emotions)}")
+
+def _build_chunk(preds, times, start_idx, end_idx, window_sec):
+    mean_vec = np.mean(preds[start_idx:end_idx], axis=0)
+    top_indices = mean_vec.argsort()[::-1]  # all indices sorted strongest → weakest
+    return {
+        "start": times[start_idx],
+        "end": times[end_idx - 1] + window_sec,
+        "emotion": mean_vec,
+        "label": [(EMOTIONS[j], mean_vec[j]) for j in top_indices]
+    }
 
 
-# =========================
-# CLI entry
-# =========================
+def _print_chunks(chunks, header="Emotion Chunks"):
+    print(f"\n=== {header} ===")
+    for idx, c in enumerate(chunks):
+        dur = c["end"] - c["start"]
+        top3_str = ", ".join([f"{e} ({v:.2f})" for e, v in c['label']])
+        print(f"[{idx}] {c['start']:6.1f}s → {c['end']:6.1f}s ({dur:5.1f}s) | {top3_str}")
+
+def chunkingData_stable_merge(preds, times,
+                              run_threshold=0.25,
+                              merge_threshold=0.12,
+                              ema_alpha=0.3):
+    """
+    Phase 1 — Stable runs: extend a run as long as every window has
+              cosine similarity >= run_threshold to the run centroid.
+    Phase 2 — Merge: merge adjacent micro-runs whose centroids are
+              within merge_threshold cosine distance.
+
+    EMA smoothing (alpha) is applied to preds before chunking to
+    absorb window-to-window noise.
+    """
+    hop_size = 320
+    sr = 32000
+    window_sec = FIX_FRAMES * hop_size / sr
+
+    #_print_raw_windows(preds, times, window_sec)
+
+    n = len(preds)
+
+    # --- EMA smoothing ---
+    smoothed = np.empty_like(preds)
+    smoothed[0] = preds[0]
+    for i in range(1, n):
+        smoothed[i] = ema_alpha * preds[i] + (1 - ema_alpha) * smoothed[i - 1]
+
+    # --- Phase 1: build maximally-stable micro-runs ---
+    runs = []  # list of (start_idx, end_idx) exclusive end
+    run_start = 0
+    centroid = smoothed[0].copy()
+    count = 1
+
+    for i in range(1, n):
+        dist = cosine_dist(smoothed[i], centroid)
+        if dist < run_threshold:
+            # extend run, update centroid incrementally
+            centroid = (centroid * count + smoothed[i]) / (count + 1)
+            count += 1
+        else:
+            runs.append((run_start, i))
+            run_start = i
+            centroid = smoothed[i].copy()
+            count = 1
+    runs.append((run_start, n))
+
+    # --- Phase 2: merge adjacent runs with similar centroids ---
+    def run_centroid(start, end):
+        return np.mean(smoothed[start:end], axis=0)
+
+    merged = [runs[0]]
+    for run in runs[1:]:
+        prev_start, prev_end = merged[-1]
+        cur_start, cur_end = run
+        prev_c = run_centroid(prev_start, prev_end)
+        cur_c = run_centroid(cur_start, cur_end)
+        if cosine_dist(prev_c, cur_c) < merge_threshold:
+            merged[-1] = (prev_start, cur_end)
+        else:
+            merged.append(run)
+
+    # Repeat merge passes until stable
+    changed = True
+    while changed:
+        changed = False
+        new_merged = [merged[0]]
+        for run in merged[1:]:
+            prev_start, prev_end = new_merged[-1]
+            cur_start, cur_end = run
+            prev_c = run_centroid(prev_start, prev_end)
+            cur_c = run_centroid(cur_start, cur_end)
+            if cosine_dist(prev_c, cur_c) < merge_threshold:
+                new_merged[-1] = (prev_start, cur_end)
+                changed = True
+            else:
+                new_merged.append(run)
+        merged = new_merged
+
+    # --- Build output chunks (use original preds for emotion vectors) ---
+    chunks = []
+    for start, end in merged:
+        chunks.append(_build_chunk(preds, times, start, end, window_sec))
+
+    _print_chunks(chunks, header="Emotion Chunks (Stable-Merge)")
+    return chunks
+
+
 if __name__ == "__main__":
     '''
     if len(sys.argv) < 2:
@@ -311,4 +421,7 @@ if __name__ == "__main__":
 
     print("Chat GPT algorithm idea: ")
     chunkingData(preds, times)
+
+    print("Arnav algorithm idea: ")
+    chunkingData_stable_merge(preds, times)
 
