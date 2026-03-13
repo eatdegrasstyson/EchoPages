@@ -19,35 +19,36 @@ GEMS_LABELS = [
 # GoEmotions 27 labels (+ neutral) -> GEMS bucket mapping.
 # Each GoEmotions label maps to one GEMS category (or None to discard).
 # Weights and exact assignments will be tuned in a later step.
-GOEMOTIONS_TO_GEMS = {
-    "admiration":    "Wonder",
-    "amusement":     "Joy",
-    "anger":         "Tension",
-    "annoyance":     "Tension",
-    "approval":      None,
-    "caring":        "Tenderness",
-    "confusion":     None,
-    "curiosity":     "Wonder",
-    "desire":        "Tenderness",
-    "disappointment": "Sadness",
-    "disapproval":   "Tension",
-    "disgust":       "Tension",
-    "embarrassment": "Tension",
-    "excitement":    "Power",
-    "fear":          "Tension",
-    "gratitude":     "Tenderness",
-    "grief":         "Sadness",
-    "joy":           "Joy",
-    "love":          "Tenderness",
-    "nervousness":   "Tension",
-    "optimism":      "Joy",
-    "pride":         "Power",
-    "realization":   "Transcendence",
-    "relief":        "Peacefulness",
-    "remorse":       "Sadness",
-    "sadness":       "Sadness",
-    "surprise":      "Wonder",
-    "neutral":       None,
+GOEMOTIONS_TO_GEMS = { #W,Tr, Ten, N, Pea, Pow, J, Tension, S
+
+    "admiration":    [1,0,0,0,0,0,0,0,0],
+    "amusement":     [0,0,0,0,0,0,1,0,0],
+    "anger":         [0,0,0,0,0,0,0,1,0],
+    "annoyance":     [0,0,0,0,0,0,0,1,0],
+    "approval":      [0,0,0,0,0,0,0,0,0],
+    "caring":        [0,0,1,0,0,0,0,0,0],
+    "confusion":     [0,0,0,0,0,0,0,0,0],
+    "curiosity":     [1,0,0,0,0,0,0,0,0],
+    "desire":        [0,0,1,0,0,0,0,0,0],
+    "disappointment":[0,0,0,0,0,0,0,0,1],
+    "disapproval":   [0,0,0,0,0,0,0,1,0],
+    "disgust":       [0,0,0,0,0,0,0,1,0],
+    "embarrassment": [0,0,0,0,0,0,0,1,0],
+    "excitement":    [0,0,0,0,0,1,0,0,0],
+    "fear":          [0,0,0,0,0,0,0,1,0],
+    "gratitude":     [0,0,1,0,0,0,0,0,0],
+    "grief":         [0,0,0,0,0,0,0,0,1],
+    "joy":           [0,0,0,0,0,0,1,0,0],
+    "love":          [0,0,1,0,0,0,0,0,0],
+    "nervousness":   [0,0,0,0,0,0,0,1,0],
+    "optimism":      [0,0,0,0,0,0,1,0,0],
+    "pride":         [0,0,0,0,0,1,0,0,0],
+    "realization":   [0,1,0,0,0,0,0,0,0],
+    "relief":        [0,0,0,0,1,0,0,0,0],
+    "remorse":       [0,0,0,0,0,0,0,0,1],
+    "sadness":       [0,0,0,0,0,0,0,0,1],
+    "surprise":      [1,0,0,0,0,0,0,0,0],
+    "neutral":       [0,0,0,0,0,0,0,0,0],
 }
 
 # ---------------------------------------------------------------------------
@@ -82,12 +83,26 @@ def aggregate_to_gems(goemotions_scores: dict) -> dict:
     using GOEMOTIONS_TO_GEMS. Returns a dict of {gems_label: score}
     normalized so all 9 values sum to 1.
     """
-    raise NotImplementedError
+    gems_scores = [0.0] * len(GEMS_LABELS)
+
+    for label, prob in goemotions_scores.items():
+        vec = GOEMOTIONS_TO_GEMS.get(label)
+        if vec is None:
+            continue
+        for i in range(len(GEMS_LABELS)):
+            gems_scores[i] += prob * vec[i]
+
+    total = sum(gems_scores)
+    if total > 0:
+        gems_scores = [v / total for v in gems_scores]
+
+    return {label: gems_scores[i] for i, label in enumerate(GEMS_LABELS)}
 
 
 def predict_gems(model, text: str) -> dict:
     """End-to-end: text -> GEMS emotion vector."""
-    raise NotImplementedError
+    go_scores = predict_goemotions(model, text)
+    return aggregate_to_gems(go_scores)
 
 
 # ---------------------------------------------------------------------------
