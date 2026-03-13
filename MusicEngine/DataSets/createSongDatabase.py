@@ -2,91 +2,62 @@ import csv
 import sys
 from pathlib import Path
 import numpy as np
+import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.append(str(ROOT))
 
 from Model.PredictEmotionFromSong import (
-    predict_spectrogram,
     chunkingData_dp,
+    predict_multiple_songs,
     EMOTIONS
 )
 
-INPUT_CSV = ROOT / "DataSets" / "SpotifyIDMappings.csv"
-AVG_OUT = ROOT / "DataSets" / "songDataBaseAveraged.csv"
-CHUNK_OUT = ROOT / "DataSets" / "songDataBaseChunked.csv"
+
+csv_path = "DataSets/SpotifyIDMappings.csv"
+df = pd.read_csv(csv_path)
+
+#Assuming column names: spotifyid, mp3, spec_npy, n_mels, n_frames
+spec_paths = df['spec_npy'].tolist()
+spotify_ids = df['spotifyid'].tolist()
 
 #Grabs the name of the song for good visuals (author too)
 def extract_song_text(mp3_path):
     return Path(mp3_path).stem
 
-#Gets the prediction given the spectrogram path if it exists.
-def process_song(spec_path):
-    spec = np.load(ROOT / spec_path)
-    preds, times = predict_spectrogram(spec, chunking=True)
 
-    avg_vec = preds.mean(axis=0)
-    chunks = chunkingData_dp(preds, times)
+def process_dataset(test_first_only=False, numSongs=0):
+    paths_to_process = spec_paths[:numSongs] if test_first_only else spec_paths
+    results = predict_multiple_songs(paths_to_process, chunking=True)
 
-    return avg_vec, chunks
+    #Averaged CSV
+    averaged_csv_path = "DataSets/songDataBaseAveraged.csv"
+    with open(averaged_csv_path, 'w', newline='') as f_avg:
+        writer = csv.writer(f_avg)
+        header = ['spotifyID', 'song_name'] + EMOTIONS
+        writer.writerow(header)
 
+        for (spec_path, avg_vec, _) in results:
+            song_name = extract_song_text(spec_path)
+            spotify_id = df.loc[df['spec_npy'] == spec_path, 'spotifyid'].values[0]
+            row = [spotify_id, song_name] + avg_vec.tolist()
+            writer.writerow(row)
 
-def process_dataset(test_first_only=False):
-    averaged_rows = []
-    chunk_rows = []
+    #Chunked CSV
+    chunked_csv_path = "DataSets/songDataBaseChunked.csv"
+    with open(chunked_csv_path, 'w', newline='') as f_chunk:
+        writer = csv.writer(f_chunk)
+        header = ['spotifyID', 'song_name', 'start', 'end'] + EMOTIONS
+        writer.writerow(header)
 
-    with open(INPUT_CSV, newline="", encoding="utf-8") as f:
-        reader = csv.DictReader(f)
-
-        for row in reader:
-            spotify_id = row["spotifyid"]
-            mp3_path = row["mp3"]
-            spec_path = row["spec_npy"]
-
-            song_text = extract_song_text(mp3_path)
-
-            try:
-                avg_vec, chunks = process_song(spec_path)
-            except Exception as e:
-                print(f"Skipping {spotify_id}: {e}")
-                continue
-
-            avg_row = {
-                "spotifyID": spotify_id,
-                "songtext": song_text
-            }
-            for i, emo in enumerate(EMOTIONS):
-                avg_row[emo] = float(avg_vec[i])
-            averaged_rows.append(avg_row)
-
-            for chunk in chunks:
-                row_data = {
-                    "spotifyID": spotify_id,
-                    "songtext": song_text,
-                    "start": float(chunk["start"]),
-                    "end": float(chunk["end"])
-                }
-                vec = chunk["emotion"]
-                for i, emo in enumerate(EMOTIONS):
-                    row_data[emo] = float(vec[i])
-                chunk_rows.append(row_data)
-
-            if test_first_only:
-                break
-
-    avg_fields = ["spotifyID", "songtext"] + EMOTIONS
-    with open(AVG_OUT, "w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=avg_fields)
-        writer.writeheader()
-        writer.writerows(averaged_rows)
-
-    chunk_fields = ["spotifyID", "songtext", "start", "end"] + EMOTIONS
-    with open(CHUNK_OUT, "w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=chunk_fields)
-        writer.writeheader()
-        writer.writerows(chunk_rows)
+        for (spec_path, _, chunks) in results:
+            song_name = extract_song_text(spec_path)
+            spotify_id = df.loc[df['spec_npy'] == spec_path, 'spotifyid'].values[0]
+            for c in chunks:
+                row = [spotify_id, song_name, c['start'], c['end']] + c['emotion'].tolist()
+                writer.writerow(row)
 
 
 if __name__ == "__main__":
     # test only first song
-    process_dataset(test_first_only=True)
+    process_dataset(test_first_only=True, numSongs=3)

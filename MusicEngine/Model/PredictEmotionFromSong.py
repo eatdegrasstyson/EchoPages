@@ -189,6 +189,35 @@ def predict_spectrogram(spec, chunking=False):
     preds,times = predict_emotion_full_song(model, spec, chunking=chunking)
     return preds,times
 
+def predict_multiple_songs(spec_paths, chunking=True):
+    """
+    Predicts multiple songs using the same loaded model, loading it only once.
+    
+    spec_paths: list of npy spectrogram paths (relative to root)
+    chunking: whether to run chunked predictions
+
+    Returns:
+        list of tuples: (spec_path, avg_vec, chunks)
+    """
+    # Load model once
+    model = load_saved_model("Model/epoch_09.h5")
+
+    results = []
+    for spec_path in spec_paths:
+        try:
+            spec = np.load(spec_path)
+        except Exception as e:
+            print(f"Skipping {spec_path}: failed to load spectrogram ({e})")
+            continue
+        preds, times = predict_emotion_full_song(model, spec, chunking=chunking)
+
+        avg_vec = preds.mean(axis=0)
+        chunks = chunkingData_dp(preds, times) if chunking else []
+
+        results.append((spec_path, avg_vec, chunks))
+
+    return results
+
 def cosine_dist(a, b, eps=1e-8):
     return 1.0 - np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b) + eps)
 
