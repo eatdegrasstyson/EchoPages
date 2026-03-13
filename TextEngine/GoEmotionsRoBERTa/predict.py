@@ -56,7 +56,11 @@ GOEMOTIONS_TO_GEMS = {
 
 def load_model():
     """Load the SamLowe/roberta-base-go_emotions pipeline."""
-    raise NotImplementedError
+    return pipeline(
+        task="text-classification",
+        model="SamLowe/roberta-base-go_emotions",
+        top_k=None,   # return scores for all 28 labels, not just the top one
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -68,7 +72,8 @@ def predict_goemotions(model, text: str) -> dict:
     Run the model on `text` and return a dict of
     {goemotions_label: probability} for all 28 labels.
     """
-    raise NotImplementedError
+    results = model(text)[0]  # list of {"label": str, "score": float}
+    return {entry["label"]: entry["score"] for entry in results}
 
 
 def aggregate_to_gems(goemotions_scores: dict) -> dict:
