@@ -1,0 +1,15 @@
+DataSets/Music-Mouv
+DataSets/Emotify
+DataSets/MuVi
+DataSets/Trompa-Mer
+DataSets/SpotifyMetaToGems.csv
+DataSets/audio
+DataSets/img
+SpotifyToSpectrogram/SpotifyCreds.py
+.cache
+__pycache__
+*.py[cod]
+*$py.class
+Emotify
+Spectrograms
+Temp
