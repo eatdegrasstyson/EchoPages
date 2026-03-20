@@ -72,7 +72,7 @@ export default function ReaderPage() {
                   borderRadius: '4px',
                   cursor: 'default',
                 }}
-                title={seg.dominant}
+                title={`${seg.dominant} | ${seg.matchedSong?.song_name || ''}`}
                 onClick={() => setActiveIndex(i)}
               >
                 {seg.text}{' '}
