@@ -63,6 +63,14 @@ model = load_model()
 print("Model loaded.")
 
 
+@app.route('/api/health', methods=['GET'])
+def health_check():
+    return jsonify({
+        'status': 'healthy',
+        'model_loaded': model is not None,
+    }), 200
+
+
 @app.route('/api/analyze', methods=['POST'])
 def analyze():
     data = request.get_json()
