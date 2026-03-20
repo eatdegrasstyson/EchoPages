@@ -7,6 +7,8 @@ export default function UploadPage() {
   const [rawText, setRawText] = useState('');
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploadMethod, setUploadMethod] = useState('text'); // 'text' or 'pdf'
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   function handleFileChange(e) {
@@ -19,11 +21,34 @@ export default function UploadPage() {
     }
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
+    setError(null);
 
-    if (uploadMethod === 'text' && (!title.trim() || !rawText.trim())) {
-      alert('Please provide both a title and text.');
+    if (uploadMethod === 'text') {
+      if (!title.trim() || !rawText.trim()) {
+        alert('Please provide both a title and text.');
+        return;
+      }
+
+      setLoading(true);
+      try {
+        const res = await fetch('/api/analyze', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: rawText }),
+        });
+        if (!res.ok) {
+          const err = await res.json();
+          throw new Error(err.error || `Server error ${res.status}`);
+        }
+        const { segments } = await res.json();
+        navigate('/read/result', { state: { segments, title: title.trim() } });
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
       return;
     }
 
@@ -32,8 +57,6 @@ export default function UploadPage() {
       return;
     }
 
-    // For demo purposes, just navigate to the sample reader
-    // In a real implementation, this would process the text/PDF
     navigate('/read/1');
   }
 
@@ -107,8 +130,14 @@ export default function UploadPage() {
           </div>
         )}
 
-        <button type="submit" className="btn btn-primary">
-          Continue to Reader
+        {error && (
+          <p style={{ color: 'var(--color-tension, #e74c3c)', marginTop: '0.5rem' }}>
+            Error: {error}
+          </p>
+        )}
+
+        <button type="submit" className="btn btn-primary" disabled={loading}>
+          {loading ? 'Analyzing...' : 'Continue to Reader'}
         </button>
       </form>
     </div>
