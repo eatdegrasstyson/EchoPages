@@ -50,30 +50,41 @@ export default function ReaderPage() {
       <div>
         <h2 style={{ marginBottom: '0.5rem' }}>{location.state?.title || 'Your Text'}</h2>
         <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem' }}>
-          {apiSegments.length} sentences
+          {apiSegments.length} chunks
         </p>
 
         <EmotionTimeline
           segments={apiSegments}
           activeIndex={activeIndex}
-          onSegmentClick={setActiveIndex}
+          onSegmentClick={scrollToSegment}
         />
 
         <div className="card" style={{ lineHeight: '2', fontSize: '1.05rem', marginTop: '1.5rem' }}>
           {apiSegments.map((seg, i) => {
             const color = GEMS_COLORS[seg.dominant] || '#666666';
             const bgColor = hexToRgba(color, 0.25);
+
             return (
               <span
                 key={i}
+                ref={(el) => (segmentRefs.current[i] = el)}
                 style={{
                   backgroundColor: bgColor,
-                  padding: '0.1em 0.3em',
+                  padding: '0.2em 0.4em',
                   borderRadius: '4px',
-                  cursor: 'default',
+                  cursor: 'pointer',
+                  marginRight: '4px',
+                  display: 'inline-block'
                 }}
-                title={`${seg.dominant} | ${seg.matchedSong?.song_name || ''}`}
-                onClick={() => setActiveIndex(i)}
+                onClick={() => scrollToSegment(i)}
+                title={
+                  `Dominant: ${seg.dominant}\n` +
+                  `Song: ${seg.matchedSong?.song_name || 'None'} ` +
+                  `(${seg.matchedSong?.start_formatted || '--'} - ${seg.matchedSong?.end_formatted || '--'})\n\n` +
+                  Object.entries(seg.emotions)
+                    .map(([k, v]) => `${k}: ${v.toFixed(2)}`)
+                    .join('\n')
+                }
               >
                 {seg.text}{' '}
               </span>
