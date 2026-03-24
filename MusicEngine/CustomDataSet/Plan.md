@@ -13,17 +13,23 @@
 
 ### Notes
     - We plan on using one of our team member's spotify library for now, as they can better attest to classification accuracy since they are familiar with the song personally.
+
+    PROS:
     - This approach employs a well established practice in MIR of using text as a proxy signal for emotion classification. 
     - However, this is typically applied for lyrics, which can still lead to some loss of information, as lyrics do not necessarily mirror song emotion.
     - Thus, our approach actually provides an advantage, as reviews can more wholistically express the emotions invoked by a certain song.
     - Therefore, song reviews are a suitable medium for distant supervision for the problem of MIR.
 
+    CONS:
+    - Coverage can be uneven depending on song popularity, as popular songs will have more reviews and thus more robust classifications.
+    - Reviews can be lengthy, thus, runtime may become a consideration.
+
 ### Resources
 Dedicated music review sites
-    - Rate Your Music
-    - Album of the Year
-    - Pitchfork
-    - AllMusic
+    - Rate Your Music   (album level reviews only, still shows promise as reviews are long, and songs "list" names can be used to classify instead)
+    - Album of the Year (album level reviews only)
+    - Pitchfork         (album and song reviews, but not great coverage)
+    - AllMusic          (not great coverage, but has a great moods and themes tab, along with reviews)
 
 General platforms
     - Amazon Music
