@@ -1,6 +1,24 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TextInput from '../components/TextInput';
+import * as pdfjsLib from 'pdfjs-dist';
+
+pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
+  'pdfjs-dist/build/pdf.worker.mjs',
+  import.meta.url
+).toString();
+
+async function extractTextFromPdf(file) {
+  const arrayBuffer = await file.arrayBuffer();
+  const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+  const pages = [];
+  for (let i = 1; i <= pdf.numPages; i++) {
+    const page = await pdf.getPage(i);
+    const content = await page.getTextContent();
+    pages.push(content.items.map((item) => item.str).join(' '));
+  }
+  return pages.join('\n\n');
+}
 
 export default function UploadPage() {
   const [title, setTitle] = useState('');
@@ -57,7 +75,29 @@ export default function UploadPage() {
       return;
     }
 
-    navigate('/read/1');
+    setLoading(true);
+    try {
+      const extractedText = await extractTextFromPdf(selectedFile);
+      if (!extractedText.trim()) {
+        throw new Error('Could not extract text from PDF. The file may be image-based or protected.');
+      }
+      const res = await fetch('/api/analyze', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: extractedText }),
+      });
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || `Server error ${res.status}`);
+      }
+      const { segments } = await res.json();
+      const pdfTitle = title.trim() || selectedFile.name.replace(/\.pdf$/i, '');
+      navigate('/read/result', { state: { segments, title: pdfTitle } });
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -107,27 +147,39 @@ export default function UploadPage() {
             </div>
           </>
         ) : (
-          <div>
-            <label htmlFor="pdf">Upload PDF</label>
-            <input
-              id="pdf"
-              type="file"
-              accept=".pdf"
-              onChange={handleFileChange}
-              style={{
-                padding: '0.75rem',
-                border: '2px dashed var(--border)',
-                borderRadius: '8px',
-                cursor: 'pointer',
-                width: '100%',
-              }}
-            />
-            {selectedFile && (
-              <p style={{ marginTop: '0.5rem', color: 'var(--text-secondary)' }}>
-                Selected: {selectedFile.name}
-              </p>
-            )}
-          </div>
+          <>
+            <div>
+              <label htmlFor="pdf-title">Title (optional)</label>
+              <input
+                id="pdf-title"
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder="Leave blank to use filename"
+              />
+            </div>
+            <div>
+              <label htmlFor="pdf">Upload PDF</label>
+              <input
+                id="pdf"
+                type="file"
+                accept=".pdf"
+                onChange={handleFileChange}
+                style={{
+                  padding: '0.75rem',
+                  border: '2px dashed var(--border)',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                  width: '100%',
+                }}
+              />
+              {selectedFile && (
+                <p style={{ marginTop: '0.5rem', color: 'var(--text-secondary)' }}>
+                  Selected: {selectedFile.name}
+                </p>
+              )}
+            </div>
+          </>
         )}
 
         {error && (
