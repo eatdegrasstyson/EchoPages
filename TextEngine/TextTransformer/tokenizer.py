@@ -106,6 +106,9 @@ class Tokenizer:
         for word, token_id in self.word_to_id.items():
             self.id_to_word[token_id] = word
 
+    def vocab_size(self):
+        return len(self.word_to_id)
+
 
 # sample main to test
 if __name__ == "__main__":
