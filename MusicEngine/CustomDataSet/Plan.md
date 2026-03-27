@@ -13,6 +13,8 @@
 
 ### Notes
     - We plan on using one of our team member's spotify library for now, as they can better attest to classification accuracy since they are familiar with the song personally.
+    - Potentially only use highly rated reviews, as those are more likely to speak to the song's emotional aspects.
+    - Consider an ensemble technique. Since our previous model was primarily focused on song emotion based on sound exclusively, and this new one may be more lyrically based (due to lyrical analysis in reviews), we could stack the two models to produce more robust classifications.
 
     PROS:
     - This approach employs a well established practice in MIR of using text as a proxy signal for emotion classification. 
@@ -30,6 +32,7 @@ Dedicated music review sites
     - Album of the Year (album level reviews only)
     - Pitchfork         (album and song reviews, but not great coverage)
     - AllMusic          (not great coverage, but has a great moods and themes tab, along with reviews)
+    - Musicboard        (Both album and track reviews, mediocore coverage)
 
 General platforms
     - Amazon Music
@@ -37,5 +40,5 @@ General platforms
     - YouTube comments
 
 Community/forum sources
-    - Reddit (r/Music, r/LetsTalkMusic)
-    - Last.fm
+    - Reddit
+    - Last.fm           (Has per track breakdowns, unique emotion tags, and backstories)
