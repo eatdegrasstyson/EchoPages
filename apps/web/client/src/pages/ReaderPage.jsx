@@ -13,6 +13,28 @@ function hexToRgba(hex, alpha) {
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
 
+function top3Color(emotions) {
+  const entries = Object.entries(emotions).sort((a, b) => b[1] - a[1]).slice(0, 3);
+  let r = 0, g = 0, b = 0, total = 0;
+  for (const [key, val] of entries) {
+    const hex = GEMS_COLORS[key] || '#666666';
+    const weight = val;
+    total += weight;
+    r += parseInt(hex.slice(1, 3), 16) * weight;
+    g += parseInt(hex.slice(3, 5), 16) * weight;
+    b += parseInt(hex.slice(5, 7), 16) * weight;
+  }
+  r = Math.round(r / total);
+  g = Math.round(g / total);
+  b = Math.round(b / total);
+  return `rgb(${r}, ${g}, ${b})`;
+}
+
+function top3Text(emotions) {
+  const entries = Object.entries(emotions).sort((a, b) => b[1] - a[1]).slice(0, 3);
+  return entries.map(([k, v]) => `${k}: ${v.toFixed(2)}`).join('\n');
+}
+
 export default function ReaderPage() {
   const { id } = useParams();
   const location = useLocation();
@@ -61,8 +83,11 @@ export default function ReaderPage() {
 
         <div className="card" style={{ lineHeight: '2', fontSize: '1.05rem', marginTop: '1.5rem' }}>
           {apiSegments.map((seg, i) => {
-            const color = GEMS_COLORS[seg.dominant] || '#666666';
-            const bgColor = hexToRgba(color, 0.25);
+            const topColors = seg.dominant.slice(0, 3).map(d => GEMS_COLORS[d] || '#666666');
+
+            const bgColor = topColors.length === 1
+              ? hexToRgba(topColors[0], 0.25)
+              : `linear-gradient(90deg, ${topColors.map(c => hexToRgba(c, 0.25)).join(', ')})`;
 
             return (
               <span
@@ -78,7 +103,7 @@ export default function ReaderPage() {
                 }}
                 onClick={() => scrollToSegment(i)}
                 title={
-                  `Dominant: ${seg.dominant}\n` +
+                  `Top emotions: ${seg.dominant.join(', ')}\n` +
                   `Song: ${seg.matchedSong?.song_name || 'None'} ` +
                   `(${seg.matchedSong?.start_formatted || '--'} - ${seg.matchedSong?.end_formatted || '--'})\n\n` +
                   Object.entries(seg.emotions)

@@ -55,6 +55,29 @@ def find_best_song(sentence_vector, use_chunked=False):
 
     return result
 
+
+#Exp smoothing
+def smooth_vectors_time_decay(vectors, decay=0.75, max_lookback=15):
+    """
+    Smooth sentence vectors using backward-looking exponential decay.
+    
+    vectors: np.array of shape (num_sentences, num_emotions)
+    decay: float (0 < decay <= 1), weight factor for previous sentences
+    max_lookback: int, max number of past sentences to consider
+    """
+    smoothed = []
+    for t in range(len(vectors)):
+        weighted_sum = np.zeros_like(vectors[0])
+        total_weight = 0.0
+        # look back at most max_lookback sentences
+        for k in range(min(t + 1, max_lookback)):
+            weight = decay ** k
+            weighted_sum += vectors[t - k] * weight
+            total_weight += weight
+        smoothed.append(weighted_sum / total_weight)
+    return np.array(smoothed)
+
+
 #Dp chunking of sentences:
 def chunk_text_dp(sentences, vectors,
                   lam=0.05,
@@ -79,10 +102,7 @@ def chunk_text_dp(sentences, vectors,
         word_counts[i + 1] = word_counts[i] + len(s.split())
 
     # --- EMA smoothing ---
-    smoothed = np.empty_like(vectors)
-    smoothed[0] = vectors[0]
-    for i in range(1, n):
-        smoothed[i] = ema_alpha * vectors[i] + (1 - ema_alpha) * smoothed[i - 1]
+    smoothed = smooth_vectors_time_decay(vectors, ema_alpha, 3)
 
     # --- Prefix sums for fast variance ---
     prefix_sum = np.zeros((n + 1, vectors.shape[1]))
@@ -119,7 +139,8 @@ def chunk_text_dp(sentences, vectors,
 
             # --- Length penalty (KEY PART) ---
             length_ratio = target_words / (words_in_chunk + 1e-8)
-            length_penalty = lam * (length_ratio ** length_power)
+            #length_penalty = lam * (length_ratio ** length_power)
+            length_penalty = lam * ((words_in_chunk - target_words) / target_words) ** length_power
 
             cost = dp[i] + segment_cost(i, j) + length_penalty
 
@@ -157,7 +178,12 @@ def build_text_chunks(sentences, vectors, boundaries, GEMS_KEYS):
             for i in range(len(GEMS_KEYS))
         }
 
-        dominant = max(emotions, key=emotions.get)
+        #dominant = max(emotions, key=emotions.get)
+        # Sort emotions by intensity, descending
+        sorted_emotions = sorted(emotions.items(), key=lambda x: x[1], reverse=True)
+
+        # Take top 3
+        dominant_top3 = [k for k, v in sorted_emotions[:3]]
 
         chunks.append({
             "text": " ".join(chunk_sentences),
@@ -165,7 +191,7 @@ def build_text_chunks(sentences, vectors, boundaries, GEMS_KEYS):
             "end_idx": int(end),
             "word_count": int(sum(len(s.split()) for s in chunk_sentences)),
             "emotions": emotions,
-            "dominant": dominant
+            "dominant": dominant_top3
         })
 
     return chunks
@@ -214,11 +240,11 @@ def analyze():
     boundaries = chunk_text_dp(
         sentences,
         sentence_vectors,
-        lam=0.2,
-        target_words=25,
-        length_power=1.5,
-        ema_alpha=0.6,
-        min_words=6
+        lam=0.1,
+        target_words=380,
+        length_power=2.5,
+        ema_alpha=0.1,
+        min_words=70
     )
 
     print("DP boundaries BEFORE fallback:", boundaries)
