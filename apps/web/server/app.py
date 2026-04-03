@@ -81,28 +81,31 @@ def smooth_vectors_time_decay(vectors, decay=0.75, max_lookback=15):
 #Dp chunking of sentences:
 def chunk_text_dp(sentences, vectors,
                   lam=0.05,
-                  target_words=25,
-                  length_power=1.0,
-                  ema_alpha=0.8,
-                  min_words=5):
+                  ema_alpha=0.3,
+                  min_words=200):
     """
-    DP-based text segmentation.
+    DP-based text segmentation (mirrors MusicEngine's chunkingData_dp).
 
     Minimizes:
-        intra-chunk variance + length penalty
+        sum(intra-chunk variance) + lam * num_chunks
 
-    Strongly penalizes small chunks to encourage paragraph-sized segments.
+    lam controls chunk count: higher = fewer, longer chunks.
+    min_words enforces a floor on chunk size (~reading time).
+        At ~250 WPM: 200 words ≈ 48s, 250 words ≈ 60s.
     """
 
     n = len(vectors)
 
-    # --- Precompute word counts ---
-    word_counts = np.zeros(n + 1)
+    # --- Precompute cumulative word counts ---
+    cum_words = np.zeros(n + 1)
     for i, s in enumerate(sentences):
-        word_counts[i + 1] = word_counts[i] + len(s.split())
+        cum_words[i + 1] = cum_words[i] + len(s.split())
 
     # --- EMA smoothing ---
-    smoothed = smooth_vectors_time_decay(vectors, ema_alpha, 3)
+    smoothed = np.empty_like(vectors)
+    smoothed[0] = vectors[0]
+    for i in range(1, n):
+        smoothed[i] = ema_alpha * vectors[i] + (1 - ema_alpha) * smoothed[i - 1]
 
     # --- Prefix sums for fast variance ---
     prefix_sum = np.zeros((n + 1, vectors.shape[1]))
@@ -131,24 +134,12 @@ def chunk_text_dp(sentences, vectors,
     for j in range(1, n + 1):
         for i in range(j):
 
-            words_in_chunk = word_counts[j] - word_counts[i]
-
-            # --- Hard constraint ---
-            if words_in_chunk < min_words:
+            # --- Hard constraint: minimum words per chunk ---
+            if (cum_words[j] - cum_words[i]) < min_words:
                 continue
 
-            # --- Length penalty (KEY PART) ---
-            length_ratio = target_words / (words_in_chunk + 1e-8)
-            #length_penalty = lam * (length_ratio ** length_power)
-            length_penalty = 0
-            if(words_in_chunk-target_words > 0):
-                length_penalty = lam * ((words_in_chunk - target_words) / target_words) ** length_power
-            else:
-                length_penalty = lam * ((words_in_chunk - target_words) / target_words)
-            
-            
-
-            cost = dp[i] + segment_cost(i, j) + length_penalty
+            # Flat per-chunk penalty (same as music DP)
+            cost = dp[i] + segment_cost(i, j) + lam
 
             if cost < dp[j]:
                 dp[j] = cost
@@ -246,11 +237,9 @@ def analyze():
     boundaries = chunk_text_dp(
         sentences,
         sentence_vectors,
-        lam=1.8,
-        target_words=420,
-        length_power=2,
-        ema_alpha=0.1,
-        min_words=120
+        lam=0.08,
+        ema_alpha=0.3,
+        min_words=200
     )
 
     print("DP boundaries BEFORE fallback:", boundaries)
