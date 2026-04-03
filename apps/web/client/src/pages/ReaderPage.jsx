@@ -30,9 +30,25 @@ function top3Color(emotions) {
   return `rgb(${r}, ${g}, ${b})`;
 }
 
-function top3Text(emotions) {
-  const entries = Object.entries(emotions).sort((a, b) => b[1] - a[1]).slice(0, 3);
-  return entries.map(([k, v]) => `${k}: ${v.toFixed(2)}`).join('\n');
+function segmentBgColor(seg) {
+  const entries = Object.entries(seg.emotions)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3);
+
+  let r = 0, g = 0, b = 0, total = 0;
+  for (const [key, val] of entries) {
+    const hex = GEMS_COLORS[key] || '#666666';
+    total += val;
+    r += parseInt(hex.slice(1, 3), 16) * val;
+    g += parseInt(hex.slice(3, 5), 16) * val;
+    b += parseInt(hex.slice(5, 7), 16) * val;
+  }
+
+  r = Math.round(r / total);
+  g = Math.round(g / total);
+  b = Math.round(b / total);
+
+  return `rgba(${r}, ${g}, ${b}, 0.25)`;
 }
 
 export default function ReaderPage() {
@@ -83,11 +99,7 @@ export default function ReaderPage() {
 
         <div className="card" style={{ lineHeight: '2', fontSize: '1.05rem', marginTop: '1.5rem' }}>
           {apiSegments.map((seg, i) => {
-            const topColors = seg.dominant.slice(0, 3).map(d => GEMS_COLORS[d] || '#666666');
-
-            const bgColor = topColors.length === 1
-              ? hexToRgba(topColors[0], 0.25)
-              : `linear-gradient(90deg, ${topColors.map(c => hexToRgba(c, 0.25)).join(', ')})`;
+            const bgColor = segmentBgColor(seg);
 
             return (
               <span

@@ -140,7 +140,13 @@ def chunk_text_dp(sentences, vectors,
             # --- Length penalty (KEY PART) ---
             length_ratio = target_words / (words_in_chunk + 1e-8)
             #length_penalty = lam * (length_ratio ** length_power)
-            length_penalty = lam * ((words_in_chunk - target_words) / target_words) ** length_power
+            length_penalty = 0
+            if(words_in_chunk-target_words > 0):
+                length_penalty = lam * ((words_in_chunk - target_words) / target_words) ** length_power
+            else:
+                length_penalty = lam * ((words_in_chunk - target_words) / target_words)
+            
+            
 
             cost = dp[i] + segment_cost(i, j) + length_penalty
 
@@ -240,11 +246,11 @@ def analyze():
     boundaries = chunk_text_dp(
         sentences,
         sentence_vectors,
-        lam=0.1,
-        target_words=380,
-        length_power=2.5,
+        lam=1.8,
+        target_words=420,
+        length_power=2,
         ema_alpha=0.1,
-        min_words=70
+        min_words=120
     )
 
     print("DP boundaries BEFORE fallback:", boundaries)
