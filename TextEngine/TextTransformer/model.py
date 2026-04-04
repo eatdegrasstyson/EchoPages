@@ -46,6 +46,8 @@ class EmotionTransformer(nn.Module):
         # final classifier: one logit per emotion
         self.classifier = nn.Linear(d_model, num_classes)
 
+
+    # attention mask - marks real tokens as 1 and padding as 0
     def forward(self, input_ids, attention_mask=None):
         """
         input_ids shape:      (batch_size, seq_length)
@@ -64,6 +66,7 @@ class EmotionTransformer(nn.Module):
         x = self.positional_encoding(x)
 
         # PyTorch transformer expects True where padding should be ignored
+        # converts into Pytorch transformer format
         src_key_padding_mask = (attention_mask == 0)
 
         # contextualize token embeddings
