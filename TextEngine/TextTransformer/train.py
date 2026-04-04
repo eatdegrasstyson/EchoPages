@@ -5,7 +5,7 @@ from tokenizer import Tokenizer
 from dataset import GoEmotionsDataset
 from model import EmotionTransformer
 
-csv_path = "goemotions_1.csv"
+csv_path = "../GoEmotions/data/full_dataset/goemotions_1.csv"
 max_length = 64
 batch_size = 16
 
@@ -21,3 +21,10 @@ dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
 
 print("Dataset size:", len(dataset))
 print("Vocab size:", len(tokenizer.word_to_id))
+
+for batch in dataloader:
+    print("input_ids shape:", batch["input_ids"].shape)
+    print("labels shape:", batch["labels"].shape)
+    print(batch["input_ids"][0])
+    print(batch["labels"][0])
+    break
