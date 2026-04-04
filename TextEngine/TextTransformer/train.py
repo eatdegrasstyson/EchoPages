@@ -28,3 +28,12 @@ for batch in dataloader:
     print(batch["input_ids"][0])
     print(batch["labels"][0])
     break
+
+model = EmotionTransformer(vocab_size=len(tokenizer.word_to_id))
+
+for batch in dataloader:
+    input_ids = batch["input_ids"]
+    logits = model(input_ids)
+
+    print("logits shape:", logits.shape)
+    break
