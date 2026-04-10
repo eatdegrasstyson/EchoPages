@@ -7,22 +7,24 @@ from tokenizer import Tokenizer
 from dataset import GoEmotionsDataset
 from model import EmotionTransformer
 
-csv_path = "../GoEmotions/data/full_dataset/goemotions_1.csv"
-max_length = 64
-batch_size = 16
-num_epochs = 1
+csv_paths = [
+    "../GoEmotions/data/full_dataset/goemotions_1.csv",
+    "../GoEmotions/data/full_dataset/goemotions_2.csv",
+    "../GoEmotions/data/full_dataset/goemotions_3.csv"
+]
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-print("Using device:", device)
+df_list = [pd.read_csv(path) for path in csv_paths]
+df = pd.concat(df_list, ignore_index=True)
 
-# load text so tokenizer can build vocab
-df = pd.read_csv(csv_path)
+combined_csv_path = "goemotions_combined.csv"
+df.to_csv(combined_csv_path, index=False)
+
 texts = df["text"].tolist()
 
 tokenizer = Tokenizer()
 tokenizer.build_vocab(texts)
 
-dataset = GoEmotionsDataset(csv_path, tokenizer, max_length=max_length)
+dataset = GoEmotionsDataset(combined_csv_path, tokenizer, max_length=max_length)
 dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
 
 print("Dataset size:", len(dataset))
