@@ -5,6 +5,7 @@ import EmotionTimeline from '../components/EmotionTimeline';
 import SegmentCard from '../components/SegmentCard';
 import AudioPlayer from '../components/AudioPlayer';
 import { GEMS_COLORS } from '../utils/emotions';
+import { useSpotify } from '../context/SpotifyContext';
 
 function hexToRgba(hex, alpha) {
   const r = parseInt(hex.slice(1, 3), 16);
@@ -58,6 +59,7 @@ export default function ReaderPage() {
   const [loading, setLoading] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0);
   const segmentRefs = useRef([]);
+  const { isReady, playTrack } = useSpotify();
 
   const apiSegments = location.state?.segments || null;
 
@@ -71,6 +73,14 @@ export default function ReaderPage() {
       setLoading(false);
     }, 300);
   }, [id]);
+
+  // Auto-play the matched song whenever the active segment changes
+  useEffect(() => {
+    if (!isReady || !apiSegments) return;
+    const seg = apiSegments[activeIndex];
+    if (!seg?.matchedSong?.spotifyID) return;
+    playTrack(seg.matchedSong.spotifyID, seg.matchedSong.start ?? 0);
+  }, [activeIndex, isReady]); // eslint-disable-line react-hooks/exhaustive-deps
 
   function scrollToSegment(index) {
     setActiveIndex(index);
@@ -129,7 +139,7 @@ export default function ReaderPage() {
           })}
         </div>
 
-        <AudioPlayer song={null} />
+        <AudioPlayer />
       </div>
     );
   }
@@ -164,7 +174,7 @@ export default function ReaderPage() {
         ))}
       </div>
 
-      <AudioPlayer song={activeSong} />
+      <AudioPlayer />
     </div>
   );
 }

@@ -1,7 +1,9 @@
 import sys
 import os
 import re
-from flask import Flask, request, jsonify
+import urllib.parse
+import requests as http_requests
+from flask import Flask, request, jsonify, redirect
 from flask_cors import CORS
 
 #Load the temp database:
@@ -198,6 +200,15 @@ def build_text_chunks(sentences, vectors, boundaries, GEMS_KEYS):
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '..', 'TextEngine', 'GoEmotionsRoBERTa'))
 from predict import load_model, predict_gems
 
+sys.path.insert(0, os.path.join(BASE_DIR, '..', '..', '..', 'MusicEngine', 'SpotifyToSpectrogram'))
+from SpotifyCreds import SpotifyCreds
+
+SPOTIFY_CLIENT_ID = SpotifyCreds.CLIENT
+SPOTIFY_CLIENT_SECRET = SpotifyCreds.CLIENT_SECRET
+SPOTIFY_REDIRECT_URI = "http://127.0.0.1:5000/api/auth/callback"
+FRONTEND_URL = "http://localhost:3000"
+SPOTIFY_SCOPES = "streaming user-read-email user-read-private user-modify-playback-state"
+
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "*"}})
 
@@ -274,6 +285,69 @@ def analyze():
     return jsonify({'segments': chunks})
 
     
+
+
+@app.route('/api/auth/login')
+def spotify_login():
+    params = {
+        'response_type': 'code',
+        'client_id': SPOTIFY_CLIENT_ID,
+        'scope': SPOTIFY_SCOPES,
+        'redirect_uri': SPOTIFY_REDIRECT_URI,
+    }
+    auth_url = 'https://accounts.spotify.com/authorize?' + urllib.parse.urlencode(params)
+    return redirect(auth_url)
+
+
+@app.route('/api/auth/callback')
+def spotify_callback():
+    code = request.args.get('code')
+    error = request.args.get('error')
+
+    if error or not code:
+        return redirect(f'{FRONTEND_URL}/callback?error={error or "unknown"}')
+
+    token_resp = http_requests.post(
+        'https://accounts.spotify.com/api/token',
+        data={
+            'grant_type': 'authorization_code',
+            'code': code,
+            'redirect_uri': SPOTIFY_REDIRECT_URI,
+        },
+        headers={'Content-Type': 'application/x-www-form-urlencoded'},
+        auth=(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET),
+    )
+    tokens = token_resp.json()
+
+    qs = urllib.parse.urlencode({
+        'access_token': tokens.get('access_token', ''),
+        'refresh_token': tokens.get('refresh_token', ''),
+        'expires_in': tokens.get('expires_in', 3600),
+    })
+    return redirect(f'{FRONTEND_URL}/callback?{qs}')
+
+
+@app.route('/api/auth/refresh', methods=['POST'])
+def spotify_refresh():
+    data = request.get_json()
+    refresh_token = data.get('refresh_token') if data else None
+    if not refresh_token:
+        return jsonify({'error': 'Missing refresh_token'}), 400
+
+    token_resp = http_requests.post(
+        'https://accounts.spotify.com/api/token',
+        data={
+            'grant_type': 'refresh_token',
+            'refresh_token': refresh_token,
+        },
+        headers={'Content-Type': 'application/x-www-form-urlencoded'},
+        auth=(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET),
+    )
+    tokens = token_resp.json()
+    return jsonify({
+        'access_token': tokens.get('access_token'),
+        'expires_in': tokens.get('expires_in', 3600),
+    })
 
 
 if __name__ == '__main__':
