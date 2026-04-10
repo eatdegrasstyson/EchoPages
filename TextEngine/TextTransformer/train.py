@@ -10,6 +10,10 @@ from model import EmotionTransformer
 csv_path = "../GoEmotions/data/full_dataset/goemotions_1.csv"
 max_length = 64
 batch_size = 16
+num_epochs = 1
+
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print("Using device:", device)
 
 # load text so tokenizer can build vocab
 df = pd.read_csv(csv_path)
@@ -24,33 +28,10 @@ dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
 print("Dataset size:", len(dataset))
 print("Vocab size:", len(tokenizer.word_to_id))
 
-for batch in dataloader:
-    print("input_ids shape:", batch["input_ids"].shape)
-    print("labels shape:", batch["labels"].shape)
-    print(batch["input_ids"][0])
-    print(batch["labels"][0])
-    break
-
-model = EmotionTransformer(vocab_size=len(tokenizer.word_to_id))
-
-for batch in dataloader:
-    input_ids = batch["input_ids"]
-    attention_mask = batch["attention_mask"].to(device)
-    logits = model(input_ids, attention_mask=attention_mask)
-
-    print("logits shape:", logits.shape)
-    break
-
-
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-print("Using device:", device)
-
 model = EmotionTransformer(vocab_size=len(tokenizer.word_to_id)).to(device)
 
 loss_fn = nn.BCEWithLogitsLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
-
-num_epochs = 1
 
 model.train()
 
@@ -59,9 +40,10 @@ for epoch in range(num_epochs):
 
     for batch in dataloader:
         input_ids = batch["input_ids"].to(device)
+        attention_mask = batch["attention_mask"].to(device)
         labels = batch["labels"].to(device)
 
-        logits = model(input_ids)
+        logits = model(input_ids, attention_mask=attention_mask)
         loss = loss_fn(logits, labels)
 
         optimizer.zero_grad()
@@ -72,7 +54,6 @@ for epoch in range(num_epochs):
 
     avg_loss = total_loss / len(dataloader)
     print(f"Epoch {epoch + 1}/{num_epochs}, Loss: {avg_loss:.4f}")
-
 
 torch.save(model.state_dict(), "emotion_transformer.pt")
 tokenizer.save_vocab("vocab.json")
