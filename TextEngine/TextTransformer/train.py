@@ -13,6 +13,13 @@ csv_paths = [
     "../GoEmotions/data/full_dataset/goemotions_3.csv"
 ]
 
+max_length = 64
+batch_size = 16
+num_epochs = 1
+
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print("Using device:", device)
+
 df_list = [pd.read_csv(path) for path in csv_paths]
 df = pd.concat(df_list, ignore_index=True)
 
