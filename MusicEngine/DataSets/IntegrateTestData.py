@@ -83,8 +83,8 @@ for idx, row in df.iterrows():
         "spotifyid": uid,
         "mp3": song_path,
         "spec_npy": str(npy_path),
-        "n_mels": spec.shape[0],
-        "n_frames": spec.shape[1],
+        "n_mels": int(spec.shape[0]),
+        "n_frames": int(spec.shape[1]),
     }
 
     gems_rows.append(gems_row)
@@ -92,16 +92,45 @@ for idx, row in df.iterrows():
 
     print(f"Added: {uid}")
 
+#def audio_to_logmel_array(path, sr=32000, n_fft=1024, hop=320, n_mels=128):
+MAX_DURATION_SECONDS = 20 * 60
+HOP_LENGTH = 320
+SR = 32000
+
 if gems_rows:
     gems_df_new = pd.DataFrame(gems_rows)
     mapping_df_new = pd.DataFrame(mapping_rows)
 
-    gems_final = pd.concat([gems_df_existing, gems_df_new], ignore_index=True)
-    mapping_final = pd.concat([mapping_df_existing, mapping_df_new], ignore_index=True)
-
-    gems_final.to_csv(GEMS_CSV, index=False)
-    mapping_final.to_csv(MAPPING_CSV, index=False)
-
-    print(f"\nAdded {len(gems_rows)} new entries.")
+    gems_combined = pd.concat([gems_df_existing, gems_df_new], ignore_index=True)
+    mapping_combined = pd.concat([mapping_df_existing, mapping_df_new], ignore_index=True)
 else:
-    print("\nNo new entries added.")
+    gems_combined = gems_df_existing.copy()
+    mapping_combined = mapping_df_existing.copy()
+
+# Compute duration from n_frames
+def is_valid_length(n_frames):
+    try:
+        duration = (int(n_frames) * HOP_LENGTH) / SR
+        return duration <= MAX_DURATION_SECONDS
+    except:
+        return False
+    
+# Filter mapping
+mapping_clean = mapping_combined[
+    mapping_combined["n_frames"].apply(is_valid_length)
+].copy()
+
+# Keep only valid IDs
+valid_ids = set(mapping_clean["spotifyid"])
+
+gems_clean = gems_combined[
+    gems_combined["spotifyid"].isin(valid_ids)
+].copy()
+
+# Save cleaned versions
+mapping_clean["n_mels"] = mapping_clean["n_mels"].astype(int)
+mapping_clean["n_frames"] = mapping_clean["n_frames"].astype(int)
+gems_clean.to_csv(GEMS_CSV, index=False)
+mapping_clean.to_csv(MAPPING_CSV, index=False)
+
+print(f"\nFinal dataset size: {len(valid_ids)} entries (after removing long songs)")
