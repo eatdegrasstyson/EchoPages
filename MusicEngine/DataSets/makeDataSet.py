@@ -15,9 +15,27 @@ AUDIO_OUTPUT_PATH.mkdir(parents=True, exist_ok=True)
 df = pd.read_csv("DataSets/SpotifyMetaToGems_Final.csv")
 
 rows = []
+MAX_DURATION_MS = 12 * 60 * 1000  #20 minutes
 
 for spotify_id in df["spotifyid"]:
     track = get_data_from_id(spotify_id)
+
+    if not track or track == "Invalid ID or unsupported type":
+        print(f"Invalid track: {spotify_id}")
+        continue
+    duration_ms = track[2]
+    if duration_ms > MAX_DURATION_MS:
+        print(f"Skipping long track ({duration_ms/1000/60} hrs): {spotify_id}")
+        row = {
+            "spotifyid": spotify_id,
+            "mp3": None,
+            "spec_npy": None,
+            "n_mels": None,
+            "n_frames": None,
+        }
+        rows.append(row)
+        continue
+
     full_audio_path = download_mp3_from_spotify_id(track, AUDIO_OUTPUT_PATH)
 
     if full_audio_path:
