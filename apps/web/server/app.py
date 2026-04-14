@@ -36,6 +36,10 @@ song_chunked_df = pd.read_csv(song_chunked_path, encoding='latin-1')
 # GEMS-9 keys
 GEMS_KEYS = ['Wonder','Transcendence','Tenderness','Nostalgia','Peacefulness','Power','Joy','Tension','Sadness']
 
+# Must match PAGE_CHAR_CAP in apps/web/client/src/pages/ReaderPage.jsx.
+# If you change one, change the other.
+PAGE_CHAR_CAP = 1200
+
 # Function to find best song
 def find_best_song(sentence_vector, use_chunked=False):
     df = song_chunked_df if use_chunked else song_avg_df
@@ -84,7 +88,7 @@ def smooth_vectors_time_decay(vectors, decay=0.75, max_lookback=15):
 def chunk_text_dp(sentences, vectors,
                   lam=0.05,
                   ema_alpha=0.3,
-                  min_words=200):
+                  min_chars=PAGE_CHAR_CAP):
     """
     DP-based text segmentation (mirrors MusicEngine's chunkingData_dp).
 
@@ -92,16 +96,18 @@ def chunk_text_dp(sentences, vectors,
         sum(intra-chunk variance) + lam * num_chunks
 
     lam controls chunk count: higher = fewer, longer chunks.
-    min_words enforces a floor on chunk size (~reading time).
-        At ~250 WPM: 200 words ≈ 48s, 250 words ≈ 60s.
+    min_chars enforces a 1-page minimum on chunk size. Must match the
+    frontend's PAGE_CHAR_CAP — this guarantees that paginateSegments
+    cannot pack two chunks onto one page, yielding exactly one chunk
+    per page and a clean page-turn -> song-change mapping.
     """
 
     n = len(vectors)
 
-    # --- Precompute cumulative word counts ---
-    cum_words = np.zeros(n + 1)
+    # --- Precompute cumulative character counts ---
+    cum_chars = np.zeros(n + 1)
     for i, s in enumerate(sentences):
-        cum_words[i + 1] = cum_words[i] + len(s.split())
+        cum_chars[i + 1] = cum_chars[i] + len(s)
 
     # --- EMA smoothing ---
     smoothed = np.empty_like(vectors)
@@ -136,8 +142,8 @@ def chunk_text_dp(sentences, vectors,
     for j in range(1, n + 1):
         for i in range(j):
 
-            # --- Hard constraint: minimum words per chunk ---
-            if (cum_words[j] - cum_words[i]) < min_words:
+            # --- Hard constraint: minimum characters (1 page) per chunk ---
+            if (cum_chars[j] - cum_chars[i]) < min_chars:
                 continue
 
             # Flat per-chunk penalty (same as music DP)
@@ -250,7 +256,7 @@ def analyze():
         sentence_vectors,
         lam=0.08,
         ema_alpha=0.3,
-        min_words=200
+        min_chars=PAGE_CHAR_CAP
     )
 
     print("DP boundaries BEFORE fallback:", boundaries)
