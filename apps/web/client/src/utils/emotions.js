@@ -33,3 +33,38 @@ export function getDominantEmotion(emotions) {
 export function getEmotionColor(emotion) {
   return GEMS_COLORS[emotion] || '#666';
 }
+
+
+export function getTop3Emotions(emotions) {
+  return Object.entries(emotions)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3);
+}
+
+// Blend the top 3 colors weighted by their emotion values
+export function getTop3Color(emotions) {
+  const top3 = getTop3Emotions(emotions);
+  let r = 0, g = 0, b = 0, total = 0;
+
+  top3.forEach(([key, value]) => {
+    const hex = GEMS_COLORS[key] || '#666666';
+    const weight = value;
+    total += weight;
+    r += parseInt(hex.slice(1, 3), 16) * weight;
+    g += parseInt(hex.slice(3, 5), 16) * weight;
+    b += parseInt(hex.slice(5, 7), 16) * weight;
+  });
+
+  r = Math.round(r / total);
+  g = Math.round(g / total);
+  b = Math.round(b / total);
+
+  return `rgb(${r}, ${g}, ${b})`;
+}
+
+// Format top 3 for tooltip
+export function formatTop3Tooltip(emotions) {
+  return getTop3Emotions(emotions)
+    .map(([key, val]) => `${key}: ${val.toFixed(2)}`)
+    .join('\n');
+}

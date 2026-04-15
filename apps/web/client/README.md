@@ -7,7 +7,6 @@ A simple frontend demo for the EchoPages immersive reading platform.
 - **PDF Upload**: Upload PDF files for reading
 - **Text Input**: Paste text directly into the reader
 - **E-Reader Interface**: Clean reading experience with emotion-matched music concept
-- **Mock Data**: Uses sample data to demonstrate the UI (no backend required)
 
 ## Running the App
 

@@ -199,6 +199,12 @@ textarea:focus {
   color: var(--text-secondary);
 }
 
+.audio-volume {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
 /* Segment card */
 .segment-card {
   position: relative;

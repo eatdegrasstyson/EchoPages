@@ -2,12 +2,17 @@ import os, sys, re
 from pathlib import Path
 import yt_dlp
 from SpotifyToSpectrogram.get_metadata import get_data_from_id
+import platform
 
 # ffmpeg locations
-FFMPEG_DIR   = Path(sys.prefix) / "Library" / "bin"
-# FFMPEG_DIR   = Path(r"C:\FFMPEG\bin")
-FFMPEG_EXE   = FFMPEG_DIR / "ffmpeg.EXE"
-FFPROBE_EXE  = FFMPEG_DIR / "ffprobe.EXE"
+if platform.system() == "Windows":
+    FFMPEG_DIR = Path(sys.prefix) / "Library" / "bin"
+    FFMPEG_EXE = FFMPEG_DIR / "ffmpeg.EXE"
+    FFPROBE_EXE = FFMPEG_DIR / "ffprobe.EXE"
+else:
+    FFMPEG_DIR = Path(sys.prefix) / "bin"
+    FFMPEG_EXE = FFMPEG_DIR / "ffmpeg"
+    FFPROBE_EXE = FFMPEG_DIR / "ffprobe"
 
 # Define audio output path using pathlib
 
@@ -39,7 +44,7 @@ def download_mp3_from_spotify_id(track, output_dir):
             "preferredcodec": "mp3",
             "preferredquality": "192",
         }],
-        "postprocessor_args": ["-c:a", "mp3_mf", "-b:a", "192k"],
+        "postprocessor_args": ["-b:a", "192k"],
         "retries": 3,
         "fragment_retries": 3,
         "extractor_retries": 3,

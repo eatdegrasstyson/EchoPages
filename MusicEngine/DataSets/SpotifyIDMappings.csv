@@ -79,7 +79,6 @@ spotifyid,mp3,spec_npy,n_mels,n_frames
 6MTuYHLWVgs25adPBzg5X6,DataSets\audio\Yves Deruyter - Animals - Remix.mp3,DataSets\img\Yves Deruyter - Animals - Remix.npy,128,25915
 0HqZX76SFLDz2aW8aiqi7G,DataSets\audio\Imagine Dragons - Bones.mp3,DataSets\img\Imagine Dragons - Bones.npy,128,9299
 7bp3zmEvpHLa0h32nhDUkB,DataSets\audio\Stromae - L’enfer.mp3,DataSets\img\Stromae - L’enfer.npy,128,10676
-4oPa1RJ2FrPwEcbnBhEtPQ,,,,
 3aQem4jVGdhtg116TmJnHz,DataSets\audio\Drake - What’s Next.mp3,DataSets\img\Drake - What’s Next.npy,128,10030
 4h9wh7iOZ0GGn8QVp4RAOB,DataSets\audio\OneRepublic - I Ain't Worried.mp3,DataSets\img\OneRepublic - I Ain't Worried.npy,128,8382
 1OSSwdPGbRPm6PkugpOQhP,DataSets\audio\Mozart Opera Rock - Bim bam boum.mp3,DataSets\img\Mozart Opera Rock - Bim bam boum.npy,128,16927
@@ -254,9 +253,7 @@ spotifyid,mp3,spec_npy,n_mels,n_frames
 3Wr7UYZZ6wEWrK5CPVArwW,DataSets\audio\Tumbao - El negro bantu.mp3,DataSets\img\Tumbao - El negro bantu.npy,128,32067
 1FYbPdUIHGvU98PGjM8aTb,DataSets\audio\Pablo Carcamo - Cumbia p'a bailar.mp3,DataSets\img\Pablo Carcamo - Cumbia p'a bailar.npy,128,18967
 30B35IICvccL9zJa1CPb2s,DataSets\audio\Miguel Castro - Desde lejos.mp3,DataSets\img\Miguel Castro - Desde lejos.npy,128,25095
-0ka7k2Zym4Ndwq9PseTTZz,DataSets\audio\Rafa El Tachuela - Brisa caliente.mp3,DataSets\img\Rafa El Tachuela - Brisa caliente.npy,128,1249880
 6sMRk3bTuyt3Gzb5EURN2c,DataSets\audio\Jorge & Techi - Perfidia _ Quizás _ Quiéreme mucho _ Me voy pa'l Pueblo.mp3,DataSets\img\Jorge & Techi - Perfidia _ Quizás _ Quiéreme mucho _ Me voy pa'l Pueblo.npy,128,29356
-6CoQlf5lzri1H7d2aJyLLT,,,,
 1FKMxoO6dHG5SnUdhoXZKC,DataSets\audio\Rafael & Energía Dominicana - Tu Belleza.mp3,DataSets\img\Rafael & Energía Dominicana - Tu Belleza.npy,128,26999
 3Z5FGHV9s2SGsitrwWwB9R,DataSets\audio\Soneros De Verdad - Changüi A Revé.mp3,DataSets\img\Soneros De Verdad - Changüi A Revé.npy,128,32023
 0IX3uFkn2Cgl8IWJ2Zl3bM,DataSets\audio\Traditional - El Lerele.mp3,DataSets\img\Traditional - El Lerele.npy,128,18079
@@ -272,9 +269,7 @@ spotifyid,mp3,spec_npy,n_mels,n_frames
 65Z1jsDjf8oEt1qPZ5TapG,DataSets\audio\Ana Alcaide - Akelarre.mp3,DataSets\img\Ana Alcaide - Akelarre.npy,128,22407
 66JZbQD3tIVdIb02I0OsbR,DataSets\audio\Amanda Martinez - Diciembre.mp3,DataSets\img\Amanda Martinez - Diciembre.npy,128,31004
 5O0uvBWcxhihEQEDyTHzxb,DataSets\audio\Sacha Nairobi - Congelados en el Tiempo.mp3,DataSets\img\Sacha Nairobi - Congelados en el Tiempo.npy,128,17339
-0GjDd8RhXXcx2y5dCl06Ks,,,,
 4esgwVBS391XTjRZwh64iw,DataSets\audio\Jorge & Techi - Cuando salí de Cuba.mp3,DataSets\img\Jorge & Techi - Cuando salí de Cuba.npy,128,14570
-3ZcCCQhbKASDXssUwJotDd,,,,
 7aBcV2AVrYqwMJBntO01an,"DataSets\audio\Pedro Torres - Jamás, Jamás.mp3","DataSets\img\Pedro Torres - Jamás, Jamás.npy",128,18201
 2v4dgGQiRLrUI4flSDmiFi,DataSets\audio\Las Hermanas García - Como un Lunar.mp3,DataSets\img\Las Hermanas García - Como un Lunar.npy,128,17329
 3e1M4JcAHEJlSrVBPYicjQ,DataSets\audio\Grupo Cimarron De Cuba - Rabo de nube.mp3,DataSets\img\Grupo Cimarron De Cuba - Rabo de nube.npy,128,25200
@@ -289,7 +284,6 @@ spotifyid,mp3,spec_npy,n_mels,n_frames
 6WJsSJt1axczSrzp6I1PJd,DataSets\audio\Fidela Peláez - Por Qué Me Pides Más.mp3,DataSets\img\Fidela Peláez - Por Qué Me Pides Más.npy,128,16663
 5yVRc5GJvf816BcHe4tqdp,DataSets\audio\Grupo Cimarron De Cuba - Yolanda.mp3,DataSets\img\Grupo Cimarron De Cuba - Yolanda.npy,128,32880
 42OhD1wOjZ6VD31q8UAGhy,DataSets\audio\Los Tres Amuzgos - Tres Besos.mp3,DataSets\img\Los Tres Amuzgos - Tres Besos.npy,128,30743
-0tty3jG9d2Kcw3I5VDot3K,,,,
 2CimHhLjxIQVLfo5T75ABN,DataSets\audio\Anonymous - Los aretes.mp3,DataSets\img\Anonymous - Los aretes.npy,128,14999
 7obHCV8TS8g4XBAayBhab7,DataSets\audio\Jorge Anibal Mendoza - Andrecito Reina.mp3,DataSets\img\Jorge Anibal Mendoza - Andrecito Reina.npy,128,20699
 4pnIr684OzidkR8ThjVcUS,DataSets\audio\Pablo Carcamo - El pescador.mp3,DataSets\img\Pablo Carcamo - El pescador.npy,128,15114
@@ -327,7 +321,6 @@ spotifyid,mp3,spec_npy,n_mels,n_frames
 40XlJilMDtJd6ZlOG06DO3,DataSets\audio\M'Bady Kouyaté - Laguiya _ Kelefaba.mp3,DataSets\img\M'Bady Kouyaté - Laguiya _ Kelefaba.npy,128,32232
 2ePwLdOo5Gy4QxaXMMePcY,DataSets\audio\Sory Kandia Kouyaté - Sakhodougou.mp3,DataSets\img\Sory Kandia Kouyaté - Sakhodougou.npy,128,66199
 0KeZrlIFUKmev3jaDn9LHk,DataSets\audio\Bako Dagnon - M'Ba.mp3,DataSets\img\Bako Dagnon - M'Ba.npy,128,27600
-6BeyOjnrePICbpdXarIICw,,,,
 5BrIw5uu3epbUF1xxsPvTY,DataSets\audio\Kemba Sussoko - Ca va _.mp3,DataSets\img\Kemba Sussoko - Ca va _.npy,128,41064
 2PL6N5HkFDM0gUnbuTHhHQ,DataSets\audio\Kassé-Mady Diabaté - Balakono.mp3,DataSets\img\Kassé-Mady Diabaté - Balakono.npy,128,20678
 04WC5DUgZzObyLu589TyQF,DataSets\audio\Salif Keita - Folon.mp3,DataSets\img\Salif Keita - Folon.npy,128,33167
@@ -339,7 +332,6 @@ spotifyid,mp3,spec_npy,n_mels,n_frames
 641ccA4oR8TkRkJVr1h2T4,DataSets\audio\Ablaye Cissoko - Niamokono.mp3,DataSets\img\Ablaye Cissoko - Niamokono.npy,128,46194
 6xxlrH5t6ocdNzWi3Qm1Kp,DataSets\audio\Dembo Konte & Kausu Kuyateh - Mamma Maneh.mp3,DataSets\img\Dembo Konte & Kausu Kuyateh - Mamma Maneh.npy,128,26686
 4FMxdw2gD0irWTVFe3qd4N,DataSets\audio\Jali Nyama Suso - Fanta.mp3,DataSets\img\Jali Nyama Suso - Fanta.npy,128,88500
-0XBdjdlqdgemfuPNUHOPqt,,,,
 5aCshn965AVkXXSiEiXxoF,DataSets\audio\Kassé-Mady Diabaté - Kaira.mp3,DataSets\img\Kassé-Mady Diabaté - Kaira.npy,128,49399
 59dTd8o79f00OjiFI7YFkN,DataSets\audio\Les frères Coulibaly - Beni Nakan Lon.mp3,DataSets\img\Les frères Coulibaly - Beni Nakan Lon.npy,128,32799
 4zDf6Odl6QJGkUohG1gyqs,DataSets\audio\Jorge Arduh y Su Orquesta Típica - Lluvia de Estrellas.mp3,DataSets\img\Jorge Arduh y Su Orquesta Típica - Lluvia de Estrellas.npy,128,16786
@@ -366,7 +358,6 @@ spotifyid,mp3,spec_npy,n_mels,n_frames
 2ccyfMLrk0e83ufjIzx7nP,DataSets\audio\Novalima - Tumbala.mp3,DataSets\img\Novalima - Tumbala.npy,128,37143
 5lbK51v4BbQl50hcKyroaD,DataSets\audio\Susana Baca - Baho Kende y Palo Mayimbe.mp3,DataSets\img\Susana Baca - Baho Kende y Palo Mayimbe.npy,128,31216
 4RvfozaNchxoTv78xt7UZ4,DataSets\audio\Matus - Hada Morgana.mp3,DataSets\img\Matus - Hada Morgana.npy,128,13332
-6OjM6qMiIeDMPsq0i5zgEv,,,,
 3MCIcDhQnSu71locMLkDd2,DataSets\audio\Novalima - Festejo.mp3,DataSets\img\Novalima - Festejo.npy,128,25638
 08QEqmZqmgSgbkSX3DJhVe,DataSets\audio\Manuel Silva - El Hombre.mp3,DataSets\img\Manuel Silva - El Hombre.npy,128,22339
 0IMuTDzuwr8xBH17gdyiMt,DataSets\audio\Chabuca Granda - Pobre Voz.mp3,DataSets\img\Chabuca Granda - Pobre Voz.npy,128,16801
@@ -397,7 +388,6 @@ spotifyid,mp3,spec_npy,n_mels,n_frames
 6weKmnkc7RLosuMYy7vBlf,DataSets\audio\Mariana Montalvo - Mi canci_n.mp3,DataSets\img\Mariana Montalvo - Mi canci_n.npy,128,20161
 0TeNSuU1JhgWjm9zhhGWaU,DataSets\audio\Carmen González - Fuego en el 23.mp3,DataSets\img\Carmen González - Fuego en el 23.npy,128,34463
 4jq6tNgOkmHvpifn5jIaGD,DataSets\audio\Eljuri - Peligrosa.mp3,DataSets\img\Eljuri - Peligrosa.npy,128,23896
-3ECnCdukTcI9iBhOr10n0n,,,,
 3qGXHZsCiDfKB3jgbaiEZw,DataSets\audio\Julio Jaramillo - Aquellos Ojos.mp3,DataSets\img\Julio Jaramillo - Aquellos Ojos.npy,128,18139
 636V3Uz1Urbr9KwlncyMmv,DataSets\audio\Julio Jaramillo - Despertar Llorando.mp3,DataSets\img\Julio Jaramillo - Despertar Llorando.npy,128,16718
 42vJEokMX1n4uvaw9qo2Rp,DataSets\audio\Traditional - Entrando a la iglesia.mp3,DataSets\img\Traditional - Entrando a la iglesia.npy,128,28212
@@ -412,7 +402,6 @@ spotifyid,mp3,spec_npy,n_mels,n_frames
 1Ai6HBxGvkIJ7oakCbcor0,DataSets\audio\Susana Baca - El Fusil del Poeta.mp3,DataSets\img\Susana Baca - El Fusil del Poeta.npy,128,30834
 3m8iCkusLrMAGlaGM5Vz0l,DataSets\audio\Chabuca Granda - Donde Estas Adelita.mp3,DataSets\img\Chabuca Granda - Donde Estas Adelita.npy,128,17958
 7zX9GYeecG23zb0aoCImXk,DataSets\audio\Don Francisco Pezo Alva - Rostro De Sangre (Bloody Face).mp3,DataSets\img\Don Francisco Pezo Alva - Rostro De Sangre (Bloody Face).npy,128,18032
-3wb8yPZwJoF4grugTS0Lcf,DataSets\audio\Don Francisco Pezo Alva - Espejo De La Vida.mp3,DataSets\img\Don Francisco Pezo Alva - Espejo De La Vida.npy,128,3351184
 6j35G4WM4iU9yeJaKlL9C2,DataSets\audio\El Hijo De La Cumbia - Para Bailar - Alika Y Nueva Alianza Remix.mp3,DataSets\img\El Hijo De La Cumbia - Para Bailar - Alika Y Nueva Alianza Remix.npy,128,20542
 4kAHu3oCCUxGcgGJqPGQqO,DataSets\audio\Michi Sarmiento y su Combo Bravo - Mirame San Miguel.mp3,DataSets\img\Michi Sarmiento y su Combo Bravo - Mirame San Miguel.npy,128,16193
 0TubItHcnUNfjN0uAnycx0,DataSets\audio\Son Palenque - Dame Un Trago.mp3,DataSets\img\Son Palenque - Dame Un Trago.npy,128,26305
@@ -450,12 +439,10 @@ spotifyid,mp3,spec_npy,n_mels,n_frames
 6PUZONcaV2zDpla9EAWbVQ,DataSets\audio\Caterina Valente - Quiéreme mucho.mp3,DataSets\img\Caterina Valente - Quiéreme mucho.npy,128,18823
 15VJ4TNlnzk8RMSRl64WTt,DataSets\audio\De Norte A Sur - El gavilan (Venezuela).mp3,DataSets\img\De Norte A Sur - El gavilan (Venezuela).npy,128,14986
 4O2LZzOjxDem3j71yhin48,DataSets\audio\Guillermo Portabales - Se contento el jibarito.mp3,DataSets\img\Guillermo Portabales - Se contento el jibarito.npy,128,16336
-3HWHxXHUce8CoNRKYbZdKJ,,,,
 2ntFTAnS3pwXsSP0PXTVm6,DataSets\audio\Mercedes Sosa - Chacarera De Las Piedras.mp3,DataSets\img\Mercedes Sosa - Chacarera De Las Piedras.npy,128,6334
 6tx719DGT8HQhTN61h3CAj,DataSets\audio\Juan Gabriel - Buenos Días Señor Sol.mp3,DataSets\img\Juan Gabriel - Buenos Días Señor Sol.npy,128,16357
 0Rz0bLu0ksdYv8Szl4yxM7,DataSets\audio\Chalino Sanchez - El Cabo Sauceda.mp3,DataSets\img\Chalino Sanchez - El Cabo Sauceda.npy,128,25952
 2Wt26eFSwT5bSZV6QmtmEB,DataSets\audio\Zoé - Renacer.mp3,DataSets\img\Zoé - Renacer.npy,128,21091
-0MKIqxYl2dWOzoZ1CVmewF,,,,
 7CkmgkUbROGmod72MW5SCy,DataSets\audio\Trio Mexico - Peregrina.mp3,DataSets\img\Trio Mexico - Peregrina.npy,128,23220
 4SG79mPALRVkhL33THFL8v,DataSets\audio\Pedro Infante - Fallaste Corazón.mp3,DataSets\img\Pedro Infante - Fallaste Corazón.npy,128,22499
 60uWDMpOnm7dK3KhRKsMQQ,DataSets\audio\Lydia Mendoza - Te Dedico Esta Canción.mp3,DataSets\img\Lydia Mendoza - Te Dedico Esta Canción.npy,128,16227
@@ -500,7 +487,6 @@ spotifyid,mp3,spec_npy,n_mels,n_frames
 2QQMjvrRlC0zBQCrlWijSf,DataSets\audio\Los Hermanos Pérez Maya - La Presumida.mp3,DataSets\img\Los Hermanos Pérez Maya - La Presumida.npy,128,21300
 3jylBcSC2wYbH6QVD9Sadn,DataSets\audio\Cristina Maica - Qué Te Pasa Corazón.mp3,DataSets\img\Cristina Maica - Qué Te Pasa Corazón.npy,128,19066
 1ziEb2b34hEssVrITjrX5a,DataSets\audio\Marco Toro Y Su Ensamble - Civilizacion.mp3,DataSets\img\Marco Toro Y Su Ensamble - Civilizacion.npy,128,18173
-6mnNjGT492kwXUGXvFEAjN,,,,
 1h3LHues4x1LNBWXr3lqFI,DataSets\audio\Vasallos del Sol - Sirenas.mp3,DataSets\img\Vasallos del Sol - Sirenas.npy,128,13243
 5sKkHrBJeXaJVxsKF7iRXP,DataSets\audio\Alberto Naranjo - Sin Tu Mirada.mp3,DataSets\img\Alberto Naranjo - Sin Tu Mirada.npy,128,23123
 1IfwdtV2kstO6WqKUpOQy5,DataSets\audio\Soledad Bravo - Los caminos.mp3,DataSets\img\Soledad Bravo - Los caminos.npy,128,19970
@@ -521,7 +507,6 @@ spotifyid,mp3,spec_npy,n_mels,n_frames
 0H5HuPHYnAbx1xinL5Jw3r,DataSets\audio\Víctor Víctor & La Vellonera - La Casita.mp3,DataSets\img\Víctor Víctor & La Vellonera - La Casita.npy,128,21503
 47WfVHxxA4D8hxyFeyXVK7,DataSets\audio\Cuco Valoy - Matilda.mp3,DataSets\img\Cuco Valoy - Matilda.npy,128,29306
 4THV8iU0E5bW9uPLjDVWSC,DataSets\audio\Los Amigos Invisibles - Llegaste Tarde.mp3,DataSets\img\Los Amigos Invisibles - Llegaste Tarde.npy,128,41599
-56nJpkd8pEn0s201DX5jee,DataSets\audio\Allanamiento Moral - Un Sol Apagado.mp3,DataSets\img\Allanamiento Moral - Un Sol Apagado.npy,128,877523
 3JXsJ1Lr8nlFXWwWWfAklr,DataSets\audio\Huracán de Fuego - El Arca de Noé.mp3,DataSets\img\Huracán de Fuego - El Arca de Noé.npy,128,31007
 6JG5mw3SiruA9BaL274qZK,DataSets\audio\LIlia Vera - Son Chispitas.mp3,DataSets\img\LIlia Vera - Son Chispitas.npy,128,20683
 7zuWTpms4sU8bDxMp8xOGV,DataSets\audio\Freyah - El Caminante.mp3,DataSets\img\Freyah - El Caminante.npy,128,19803
@@ -547,7 +532,6 @@ spotifyid,mp3,spec_npy,n_mels,n_frames
 6Pyuw6xvtv388idxtnPUDp,DataSets\audio\Carlos Gardel - Anclao En París.mp3,DataSets\img\Carlos Gardel - Anclao En París.npy,128,7214
 3P9Q36GhjO5CfQxYo6Rwro,DataSets\audio\Los Chalchaleros - Lopez Pereyra - 1° Version - Remastered 2003.mp3,DataSets\img\Los Chalchaleros - Lopez Pereyra - 1° Version - Remastered 2003.npy,128,21678
 5c3ziCfMcJxProIZ7yg7yq,DataSets\audio\Barbara Luna - Jinete de los Tiempos.mp3,DataSets\img\Barbara Luna - Jinete de los Tiempos.npy,128,23222
-4tkj0pCl3SCr1FXYW44Z6g,,,,
 4dioJLMxQwZdGvPcjRCJK9,DataSets\audio\Jorge Cafrune - La Olvidada.mp3,DataSets\img\Jorge Cafrune - La Olvidada.npy,128,13570
 012WbwBgON9prZ6BPdVCsy,DataSets\audio\Electro Dub Tango - Gira.mp3,DataSets\img\Electro Dub Tango - Gira.npy,128,22420
 1KCYGpZvA6p89gTIug8NpV,DataSets\audio\Suni Paz - El Aromo (The Aromo Tree) - milonga pampeana.mp3,DataSets\img\Suni Paz - El Aromo (The Aromo Tree) - milonga pampeana.npy,128,19471
@@ -572,7 +556,6 @@ spotifyid,mp3,spec_npy,n_mels,n_frames
 6GpAcQZTJbkJmNU2KJ2NKa,DataSets\audio\AJ Davila - Es Verano Ya.mp3,DataSets\img\AJ Davila - Es Verano Ya.npy,128,12052
 6HJhgsBH1X66AAP1Zoh4Aa,DataSets\audio\Cheo Feliciano - Oh Vida.mp3,DataSets\img\Cheo Feliciano - Oh Vida.npy,128,12515
 5If50NnehMpnjnCY9Biwk9,DataSets\audio\Tito Gomez - Alma Con Alma.mp3,DataSets\img\Tito Gomez - Alma Con Alma.npy,128,24257
-1ombx8R3gSgsgtiKDdMQXm,,,,
 7BVLM729wsbZ74O4v2F8e6,DataSets\audio\Trio Contradanza - Mi Fiesta.mp3,DataSets\img\Trio Contradanza - Mi Fiesta.npy,128,20654
 026qZ5acPeMcd8SEo9C7JG,DataSets\audio\Chavela Vargas - Vereda Tropical.mp3,DataSets\img\Chavela Vargas - Vereda Tropical.npy,128,28713
 4zgOjpfmEszhtx3sx8r6jk,DataSets\audio\Chavela Vargas - Las Ciudades.mp3,DataSets\img\Chavela Vargas - Las Ciudades.npy,128,21506
@@ -581,13 +564,11 @@ spotifyid,mp3,spec_npy,n_mels,n_frames
 57JPMlmvqLK5X7EZUj6rfd,DataSets\audio\Chavela Vargas - En el Último Trago.mp3,DataSets\img\Chavela Vargas - En el Último Trago.npy,128,15344
 16XeWeNlIfVEXyNSg4picj,DataSets\audio\Luis Aguilar Lopez - Amor por las Carretas.mp3,DataSets\img\Luis Aguilar Lopez - Amor por las Carretas.npy,128,17219
 5iG2Xk9gQH5Vv8oLFKUg9C,DataSets\audio\Chavela Vargas - Ojos Tristes.mp3,DataSets\img\Chavela Vargas - Ojos Tristes.npy,128,18494
-2pZ5mZ1Fcte4SEQ4v7pKF9,,,,
 2hVU6nWU88APN9iXcRZG3t,DataSets\audio\Chavela Vargas - Corrido de Cananea.mp3,DataSets\img\Chavela Vargas - Corrido de Cananea.npy,128,25811
 4x4NkS9KMKEBQTubib8Gau,DataSets\audio\Chavela Vargas - Desdeñosa.mp3,DataSets\img\Chavela Vargas - Desdeñosa.npy,128,19591
 5i1wCKZQms8RW4C8xCVUA9,DataSets\audio\Pixvae - El Curruco.mp3,DataSets\img\Pixvae - El Curruco.npy,128,29899
 1TFE0TEc9ACT0xXPzFv53u,DataSets\audio\Aura Gonzales - El Paseo.mp3,DataSets\img\Aura Gonzales - El Paseo.npy,128,16989
 4qxerm408czRjGGatkWBvQ,DataSets\audio\Pernett - Gracias.mp3,DataSets\img\Pernett - Gracias.npy,128,31840
-0kIvaUbLCHmTdm3iP0q2uF,DataSets\audio\Lido Pimienta - Ruleta.mp3,DataSets\img\Lido Pimienta - Ruleta.npy,128,131649
 0L9TXvZfJNQ59sMEBa75aF,DataSets\audio\Grupo Galé - Nadie Te Ama Como Yo.mp3,DataSets\img\Grupo Galé - Nadie Te Ama Como Yo.npy,128,33120
 2K1cSORoG0qwsATaSPVhhd,DataSets\audio\Blanca Lucumi - Rororo Mi Niñito.mp3,DataSets\img\Blanca Lucumi - Rororo Mi Niñito.npy,128,16464
 3sjHMJScVx9GiRflGC3N0x,DataSets\audio\Various Artists - Muerte de dumar aljure.mp3,DataSets\img\Various Artists - Muerte de dumar aljure.npy,128,24173
@@ -602,10 +583,8 @@ spotifyid,mp3,spec_npy,n_mels,n_frames
 65mzay1qpkonZeZ5vg3CNm,DataSets\audio\Paul Hindemith - Lieder nach alten Texten op. 33 VI. Landknechtstrinklied.mp3,DataSets\img\Paul Hindemith - Lieder nach alten Texten op. 33 VI. Landknechtstrinklied.npy,128,6943
 1slphQRhQIw9qGadK6RXAN,"DataSets\audio\Bob Chilcott - Ophelia, Caliban & Miranda_ I. River Bride (Ophelia).mp3","DataSets\img\Bob Chilcott - Ophelia, Caliban & Miranda_ I. River Bride (Ophelia).npy",128,109536
 0AgnD6SqI1PZ2foVYhgLY2,"DataSets\audio\Johann Sebastian Bach - Goldberg Variations, BWV 988_ Variation 5, Nun komm.mp3","DataSets\img\Johann Sebastian Bach - Goldberg Variations, BWV 988_ Variation 5, Nun komm.npy",128,25923
-4mQeN215yLkfsp4FtibFIV,,,,
 0bgU12wnOBsOSKwYALZaNt,"DataSets\audio\Francis Poulenc - 4 Motets pour un temps de pénitence, FP 97_ No. 1, Timore et tremor.mp3","DataSets\img\Francis Poulenc - 4 Motets pour un temps de pénitence, FP 97_ No. 1, Timore et tremor.npy",128,91057
 5LHdiHe2STOGLqCsmvE8J5,DataSets\audio\Veljo Tormis - Mardilaulud_ V. Lausumine (Martinmas Songs) [Casting a Spell].mp3,DataSets\img\Veljo Tormis - Mardilaulud_ V. Lausumine (Martinmas Songs) [Casting a Spell].npy,128,8680
-51LyQ6hNUA8SYfgUaWyFd6,,,,
 0gut4KjRdBjFWh6Ntqsr2p,"DataSets\audio\Olli Kortekangas - 3 Fiord Sketches_ No. 2, Sun and Moon.mp3","DataSets\img\Olli Kortekangas - 3 Fiord Sketches_ No. 2, Sun and Moon.npy",128,16880
 0ehijscn7nA2lK0595kXJG,DataSets\audio\Francis Poulenc - Un soir de neige FP 126 (Kantate)_ No. 3 Bois meurtri.mp3,DataSets\img\Francis Poulenc - Un soir de neige FP 126 (Kantate)_ No. 3 Bois meurtri.npy,128,14466
 1FOyn8GnJaaEeaSBeHIA1s,"DataSets\audio\Johannes Brahms - 12 Lieder und Romanzen, Op. 44_ No. 1, Minnelied.mp3","DataSets\img\Johannes Brahms - 12 Lieder und Romanzen, Op. 44_ No. 1, Minnelied.npy",128,7943
@@ -626,8 +605,6 @@ spotifyid,mp3,spec_npy,n_mels,n_frames
 2VhIYX89AJV2rEpFzyHPAJ,"DataSets\audio\Juan-Alfonso Garcia - 6 Caprichos_ No. 2, Candil.mp3","DataSets\img\Juan-Alfonso Garcia - 6 Caprichos_ No. 2, Candil.npy",128,10806
 1xIyQEcnbco2Xi2kpFmQwq,"DataSets\audio\Juan-Alfonso Garcia - 6 Caprichos_ No. 6, Cruz.mp3","DataSets\img\Juan-Alfonso Garcia - 6 Caprichos_ No. 6, Cruz.npy",128,12627
 3zWLGLDtXn84S5YnOJNJWN,DataSets\audio\Pablo Ortiz - Gallos y Huesos_ Si Cuando Cae la Noche.mp3,DataSets\img\Pablo Ortiz - Gallos y Huesos_ Si Cuando Cae la Noche.npy,128,35620
-4Fzg2fINfuvfLF3RIdDgkZ,,,,
-6qtEvMImPiolMMFb6JVB2q,,,,
 79OvD8Uk5EKoFt5kRfNIxr,DataSets\audio\Pablo Ortiz - Notker_ XIII. Organ Solo.mp3,DataSets\img\Pablo Ortiz - Notker_ XIII. Organ Solo.npy,128,4615
 7rKbARub9Y2wdfgCk8OOCL,DataSets\audio\Pablo Ortiz - Teatro Martín Fierro Suite for 3 Sopranos_ II. A Pedido Suyo....mp3,DataSets\img\Pablo Ortiz - Teatro Martín Fierro Suite for 3 Sopranos_ II. A Pedido Suyo....npy,128,5414
 5RrNHFDYr7xwJU4Di6Ns9o,DataSets\audio\April Stevens - Teach Me Tiger (Arr. R. Sund).mp3,DataSets\img\April Stevens - Teach Me Tiger (Arr. R. Sund).npy,128,1901
@@ -636,11 +613,9 @@ spotifyid,mp3,spec_npy,n_mels,n_frames
 7BNo2o4lNCZHHtbiSrwG3k,"DataSets\audio\Benjamin Britten - Sacred and Profane, Op. 91_ No. 1, St. Godric's Hymn.mp3","DataSets\img\Benjamin Britten - Sacred and Profane, Op. 91_ No. 1, St. Godric's Hymn.npy",128,11799
 0faLF4FhS55lO2lrLE2r1l,"DataSets\audio\Benjamin Britten - Sacred and Profane, Op. 91_ No. 8, A death.mp3","DataSets\img\Benjamin Britten - Sacred and Profane, Op. 91_ No. 8, A death.npy",128,21874
 0CHQJ0VzghuyunbsToP1Vz,"DataSets\audio\Frank Martin - Songs Of Ariel From Shakespeare's Tempest Iii, Act 4, Sc. Iii.mp3","DataSets\img\Frank Martin - Songs Of Ariel From Shakespeare's Tempest Iii, Act 4, Sc. Iii.npy",128,26111
-6JoJe5zn3pvdwtBc1EOWHd,"DataSets\audio\Edward Elgar - Scenes from the Bavarian Highlands, Op. 27_ No. 5. On the Alm.mp3","DataSets\img\Edward Elgar - Scenes from the Bavarian Highlands, Op. 27_ No. 5. On the Alm.npy",128,150718
 2QQMwyq7TvBuZ8aQZAsZF2,"DataSets\audio\Frank Martin - Songs Of Ariel From Shakespeare's Tempest I, Act 1, Sc. Ii.mp3","DataSets\img\Frank Martin - Songs Of Ariel From Shakespeare's Tempest I, Act 1, Sc. Ii.npy",128,9019
 2TICIDkyiu7NmVczC4tWyj,"DataSets\audio\William Schuman - Carols of Death_ No. 1, The Last Invocation.mp3","DataSets\img\William Schuman - Carols of Death_ No. 1, The Last Invocation.npy",128,20902
 3rB5h93plfZW3B3DMDJQf5,"DataSets\audio\William Bolcom - The Mask_ No. 1, We Wear the Mask.mp3","DataSets\img\William Bolcom - The Mask_ No. 1, We Wear the Mask.npy",128,399
-62yH0ofV5045MVZS8iBV2K,"DataSets\audio\Edward Elgar - Scenes from the Bavarian Highlands, Op. 27_ No. 1. The Dance.mp3","DataSets\img\Edward Elgar - Scenes from the Bavarian Highlands, Op. 27_ No. 1. The Dance.npy",128,150718
 6fOL6xjXCP8HN1WKZjdEVk,DataSets\audio\Kate Whitley - Theories of Quantum Mechanics_ II. Loop Quantum Gravity.mp3,DataSets\img\Kate Whitley - Theories of Quantum Mechanics_ II. Loop Quantum Gravity.npy,128,4469
 3aYBoCig7uTHMYxyGr3wAy,DataSets\audio\Bob Chilcott - You and Me_ I. Brightness.mp3,DataSets\img\Bob Chilcott - You and Me_ I. Brightness.npy,128,12964
 11uWBIkJDSGhP1vB7zWryz,"DataSets\audio\Johannes Brahms - 12 Lieder und Romanzen, Op. 44_ No. 9, Am Wildbach die Weiden.mp3","DataSets\img\Johannes Brahms - 12 Lieder und Romanzen, Op. 44_ No. 9, Am Wildbach die Weiden.npy",128,4414
@@ -651,11 +626,8 @@ spotifyid,mp3,spec_npy,n_mels,n_frames
 31kHSVt0VGt38rg0903Dgj,"DataSets\audio\Johannes Brahms - 12 Deutsche Volkslieder, WoO 35_ No. 12, Altdeutsches Kampflied.mp3","DataSets\img\Johannes Brahms - 12 Deutsche Volkslieder, WoO 35_ No. 12, Altdeutsches Kampflied.npy",128,29565
 4vJxWO3XpcE9agrMwJ30rF,"DataSets\audio\Johannes Brahms - Fest-und Gedenksprüche, Op. 109_ II. Wenn ein starker Gewappneter.mp3","DataSets\img\Johannes Brahms - Fest-und Gedenksprüche, Op. 109_ II. Wenn ein starker Gewappneter.npy",128,34196
 15MWl1GYa2yIQXfYZQldwH,"DataSets\audio\Johannes Brahms - Fest-und Gedenksprüche, Op. 109_ III. Wo ist ein so herrlich Volk.mp3","DataSets\img\Johannes Brahms - Fest-und Gedenksprüche, Op. 109_ III. Wo ist ein so herrlich Volk.npy",128,25004
-7Dw8gdCKqFs0TRqQ2oEOjc,"DataSets\audio\Johannes Brahms - 7 Lieder, Op. 62_ No. 6, Es geht ein Wehen.mp3","DataSets\img\Johannes Brahms - 7 Lieder, Op. 62_ No. 6, Es geht ein Wehen.npy",128,137210
 0jicUl62JnKRdcDFK3zgdE,DataSets\audio\Paul Hindemith - Eine lichte Mitternacht.mp3,DataSets\img\Paul Hindemith - Eine lichte Mitternacht.npy,128,19100
 7wL0Ik6NgyKop2Nq0p3IPB,"DataSets\audio\Robert Schumann - Romanzen und Balladen, Book 2, Op. 75_ Schnitter Tod.mp3","DataSets\img\Robert Schumann - Romanzen und Balladen, Book 2, Op. 75_ Schnitter Tod.npy",128,17608
-2weOn3S9Ngnqz12J4LJ3xI,,,,
-77uJ4jU8UDiHXUaA5H9xWj,,,,
 7HoKAXINCEnv8lnqMA1HKx,"DataSets\audio\Johannes Brahms - 12 Deutsche Volkslieder, WoO 35_ No. 3, Erlaube mir.mp3","DataSets\img\Johannes Brahms - 12 Deutsche Volkslieder, WoO 35_ No. 3, Erlaube mir.npy",128,10132
 4KuV3snd78C4143lQzbOJm,DataSets\audio\Karlheinz Stockhausen - Stimmung_ Model 24.mp3,DataSets\img\Karlheinz Stockhausen - Stimmung_ Model 24.npy,128,49352
 6tUDAhxHNwTdr2k2mQ1u8J,"DataSets\audio\Johannes Brahms - Warum ist das Licht gegeben den Mühseligen, Op. 74 No. 1_ IV. Mit Fried und Freud.mp3","DataSets\img\Johannes Brahms - Warum ist das Licht gegeben den Mühseligen, Op. 74 No. 1_ IV. Mit Fried und Freud.npy",128,64046
@@ -665,7 +637,6 @@ spotifyid,mp3,spec_npy,n_mels,n_frames
 1TwvdP2fQKOJr6fejMdu8T,DataSets\audio\King Kora - Nialing Koli.mp3,DataSets\img\King Kora - Nialing Koli.npy,128,33185
 2ZXvgMJEQvayhSEgeZd7ss,DataSets\audio\Harouna Samake - Lanaya Fouru.mp3,DataSets\img\Harouna Samake - Lanaya Fouru.npy,128,29732
 5B9z8tzuRDusKjctuOGZ71,DataSets\audio\Sory Diabate - Dimboré.mp3,DataSets\img\Sory Diabate - Dimboré.npy,128,31127
-5djsiqc8TERPfHy6wt853D,,,,
 13G8hYGWfdoJWsauBG9z6l,DataSets\audio\Samba Touré - Goye.mp3,DataSets\img\Samba Touré - Goye.npy,128,33543
 05lArncCXvMB7f95cDRVTi,DataSets\audio\Fatou Guewel - Mooda.mp3,DataSets\img\Fatou Guewel - Mooda.npy,128,32271
 7h9VcY0dnEhFeZjvPXmG4y,DataSets\audio\Kiné Lam - Souma Sagnone.mp3,DataSets\img\Kiné Lam - Souma Sagnone.npy,128,28238
@@ -763,7 +734,6 @@ spotifyid,mp3,spec_npy,n_mels,n_frames
 1EjpWmaYLCMhSRtqftMQRq,DataSets\audio\La Jose - Nacerá.mp3,DataSets\img\La Jose - Nacerá.npy,128,35168
 1XGeGlG2vjQtgPSNOTlTas,DataSets\audio\Mari Nieto - En la Mancha.mp3,DataSets\img\Mari Nieto - En la Mancha.npy,128,13570
 6s558VuXmEeFXIG2L527ep,DataSets\audio\Anonymous - Súbele que súbele.mp3,DataSets\img\Anonymous - Súbele que súbele.npy,128,16315
-4czvSiTLl5vOgHmHA1lida,DataSets\audio\La Jose - Paciencia.mp3,DataSets\img\La Jose - Paciencia.npy,128,160274
 67svDyHuaWENLGwtcKUmNy,DataSets\audio\Hanne Tveter - Noche De Paz.mp3,DataSets\img\Hanne Tveter - Noche De Paz.npy,128,19197
 1fdGnYSaqiKsfHyAeAEOWz,DataSets\audio\Savina Yannatou - El Sueño de la Hija del Rey.mp3,DataSets\img\Savina Yannatou - El Sueño de la Hija del Rey.npy,128,29303
 5zTBUCUuIeOaUdHaEGkDTL,DataSets\audio\Buenos Aires Tango Trio - Cuesta abajo.mp3,DataSets\img\Buenos Aires Tango Trio - Cuesta abajo.npy,128,19685
@@ -773,7 +743,6 @@ spotifyid,mp3,spec_npy,n_mels,n_frames
 0atZgCHkteao7V1bkn80LH,DataSets\audio\Traditional - Echa la Soga al Barco.mp3,DataSets\img\Traditional - Echa la Soga al Barco.npy,128,26237
 6znU4uVOKgC1EzhusTEbrc,DataSets\audio\Hector Pavez - Salomas.mp3,DataSets\img\Hector Pavez - Salomas.npy,128,27180
 4cYjzQZUX5gferbdOBzmz6,"DataSets\audio\Fernando Z. Maldonado - Volver, Volver - El Rey.mp3","DataSets\img\Fernando Z. Maldonado - Volver, Volver - El Rey.npy",128,17710
-333tUNQ441MezoiBaB1Frt,,,,
 6dJHoXkjNbHSJKZ2dLrBgW,DataSets\audio\Eladia Blázquez - Contame una Historia (Live).mp3,DataSets\img\Eladia Blázquez - Contame una Historia (Live).npy,128,19756
 0Hd24ad9U8EktoHYEQAdG1,DataSets\audio\Fortuna - Mi Suegra.mp3,DataSets\img\Fortuna - Mi Suegra.npy,128,14999
 4VvzZJHForqSUN7BRHcqFM,DataSets\audio\Dueto de Tinito y Porfirio - La Petrona.mp3,DataSets\img\Dueto de Tinito y Porfirio - La Petrona.npy,128,24377
@@ -782,18 +751,11 @@ spotifyid,mp3,spec_npy,n_mels,n_frames
 7j2sZarYV82rwC2qIf7XjQ,DataSets\audio\Traditional - La Niña de Sevilla.mp3,DataSets\img\Traditional - La Niña de Sevilla.npy,128,10790
 1kIUlJdTXhh1YbrCYUpE3E,DataSets\audio\Andres Fernandez Amador - Yo sólo quiero caminar.mp3,DataSets\img\Andres Fernandez Amador - Yo sólo quiero caminar.npy,128,21373
 7aj72frVkPlfEwj5Uppa8K,DataSets\audio\Alfredo Fernando - milonga de ojos dorados.mp3,DataSets\img\Alfredo Fernando - milonga de ojos dorados.npy,128,18141
-3MjKCGmpHW7w6GoyCDPceE,,,,
 6xKts3hmF9Dl0gy10SFzAu,DataSets\audio\Umm Kulthum - Ala Balad El Mahboob.mp3,DataSets\img\Umm Kulthum - Ala Balad El Mahboob.npy,128,42736
-06ZEK0BzTb5i1hUAyWm8Ih,,,,
-0VC8hwUZniePxwic1ew4he,,,,
-2f1o50qMVyK9N2uqm4k2MQ,,,,
-3BxVGsCpJGdecoS7DLAL7C,,,,
 2pXuhRORtSU8iDD7P4MUvb,DataSets\audio\Hussein Ali-Hijazi - Ghazal.mp3,DataSets\img\Hussein Ali-Hijazi - Ghazal.npy,128,29716
 3tKBNIFzpuCqGpAz5BQBpD,DataSets\audio\Yakya Faradj - Rahil.mp3,DataSets\img\Yakya Faradj - Rahil.npy,128,21634
-5jUEFmi1JNuz4BUYfRRWyf,,,,
 3ONNA9NZP1vDY6ldBhsOFO,DataSets\audio\Traditional - Yedid Nafshi (Yemen).mp3,DataSets\img\Traditional - Yedid Nafshi (Yemen).npy,128,37153
 740lvg9PUjGa6CeS6Hv8Zn,DataSets\audio\The Sisters Chaaran - Ghina.mp3,DataSets\img\The Sisters Chaaran - Ghina.npy,128,67458
-5LU2tZh6T3x61X9o6Q9TtL,,,,
 7DvrUmhzdoc5HIxtfsKUX7,DataSets\audio\Mohammad al-Harithi - Li-llah mâ yahwî hadha-l-maqâm.mp3,DataSets\img\Mohammad al-Harithi - Li-llah mâ yahwî hadha-l-maqâm.npy,128,96924
 5wNT4rI7NaOyqVl1rHGKDu,DataSets\audio\Bachar Mar-Khalifé - Wolf Pack.mp3,DataSets\img\Bachar Mar-Khalifé - Wolf Pack.npy,128,26490
 04pgSH9zPo6yGvGR0XkUIT,DataSets\audio\Yasmine Hamdan - Café - Acid Arab Remix.mp3,DataSets\img\Yasmine Hamdan - Café - Acid Arab Remix.npy,128,34097
@@ -811,12 +773,8 @@ spotifyid,mp3,spec_npy,n_mels,n_frames
 12IvSp1bU5gcx6RRCtkvr0,DataSets\audio\The Kamkars - Har Yakam Bahar.mp3,DataSets\img\The Kamkars - Har Yakam Bahar.npy,128,29612
 0RVakKHgqiOZOJSnXq3Sqk,DataSets\audio\Al Turath Ensemble - Dulab Hozam.mp3,DataSets\img\Al Turath Ensemble - Dulab Hozam.npy,128,4918
 7fWlu4wDVBbspdWqezWocs,DataSets\audio\Maya Youssef - Hi-Jazz.mp3,DataSets\img\Maya Youssef - Hi-Jazz.npy,128,23951
-6JLn8QoqSAqvqy6Je4G27P,,,,
-2qUrVEQLiT6PagGJHcM6fX,,,,
 1OQuapYpOVDtnPY7K4xrgP,DataSets\audio\Al Turath Ensemble - Taqsim Qanun.mp3,DataSets\img\Al Turath Ensemble - Taqsim Qanun.npy,128,17499
 58gg2XzmmeX50c7XQVUpcy,DataSets\audio\Waed Bouhassoun - Yâ nâ'iman.mp3,DataSets\img\Waed Bouhassoun - Yâ nâ'iman.npy,128,48856
-0XDlVrqggDH5LYoQpUDltV,,,,
-5pqEjS1nz8wvRzgitNI8mk,,,,
 7wuMwC1tbCfskyqiMt5yTd,DataSets\audio\Kheireiddine Mkachiche - Bahdja.mp3,DataSets\img\Kheireiddine Mkachiche - Bahdja.npy,128,67066
 2dZh0iGwmzUTY8aKWJKMpT,DataSets\audio\Hussam Aliwat - Out of the Blue.mp3,DataSets\img\Hussam Aliwat - Out of the Blue.npy,128,31845
 174xSa0dQWMBpJYZmb0pFk,DataSets\audio\Setrak Sarkissian - Boos Shoof.mp3,DataSets\img\Setrak Sarkissian - Boos Shoof.npy,128,14022
@@ -825,10 +783,6 @@ spotifyid,mp3,spec_npy,n_mels,n_frames
 0skkPAL5GCC8lTnopb6Hbb,DataSets\audio\Mosavo - Sapurey's Mantra.mp3,DataSets\img\Mosavo - Sapurey's Mantra.npy,128,24019
 1q3NQj58dB1HVMt028o1MF,DataSets\audio\Munir Bashir - Dabkâ.mp3,DataSets\img\Munir Bashir - Dabkâ.npy,128,76264
 3a7f8uqWVnHaMtz8q1rcdr,DataSets\audio\Munir Bashir - Arabesque.mp3,DataSets\img\Munir Bashir - Arabesque.npy,128,59809
-79gi17KK3n95eqru1U6yTG,,,,
-7wc3wkDtLObYo4Iu5ywshC,,,,
-27obfTHef7okGrDZPgGjmv,,,,
-6kK6e9MlE14q1iHYIE06Jc,,,,
 0Rk788LDbCBz2j0j8HbMar,DataSets\audio\Naseer Shamma - Min adh-Dhâkira.mp3,DataSets\img\Naseer Shamma - Min adh-Dhâkira.npy,128,53576
 4PQcpuXtjA1OGO9tcnbDSH,DataSets\audio\Rahim AlHaj - Taqsīm Maqām Ājam.mp3,DataSets\img\Rahim AlHaj - Taqsīm Maqām Ājam.npy,128,41207
 21FoPJ0XKfnKwnxIsf69wi,DataSets\audio\Moutribia - Tchambar 'Iraq.mp3,DataSets\img\Moutribia - Tchambar 'Iraq.npy,128,18572
@@ -840,7 +794,6 @@ spotifyid,mp3,spec_npy,n_mels,n_frames
 0TW2XLh5ONMOpA6Mf4JXSp,DataSets\audio\Rahim AlHaj - Taqsīm Maqām Hijaz.mp3,DataSets\img\Rahim AlHaj - Taqsīm Maqām Hijaz.npy,128,16501
 4TIB1KsGYbx1nogXgeGLEJ,DataSets\audio\Rahim AlHaj - A Gift from a Sufi Soul.mp3,DataSets\img\Rahim AlHaj - A Gift from a Sufi Soul.npy,128,54888
 3TdWv4oZvTiDsFb71RryPq,DataSets\audio\Naseer Shamma - Ughniya'irâqiyya.mp3,DataSets\img\Naseer Shamma - Ughniya'irâqiyya.npy,128,46730
-3Ter5oa5CrXYIlznClc0x5,,,,
 5MUgBNGDvej9S3z65uRYvl,DataSets\audio\Traditional - Iraqi Cafe.mp3,DataSets\img\Traditional - Iraqi Cafe.npy,128,31772
 15tXEvJGaHZaRDN7s0KvjT,DataSets\audio\Traditional - Segah.mp3,DataSets\img\Traditional - Segah.npy,128,21895
 1RmBztBCZbLt8OIqbtK6gF,DataSets\audio\Joce Mienniel - Caravan of Horses.mp3,DataSets\img\Joce Mienniel - Caravan of Horses.npy,128,80072
@@ -849,9 +802,6 @@ spotifyid,mp3,spec_npy,n_mels,n_frames
 4rugjFRLbZb2IQs0UhhBrh,DataSets\audio\Smadar Levi - Ghali Ya Bouy.mp3,DataSets\img\Smadar Levi - Ghali Ya Bouy.npy,128,33452
 6kImA90CJMatZyEKJPwx8O,DataSets\audio\Hossein Farjami - Jahromi (Iran).mp3,DataSets\img\Hossein Farjami - Jahromi (Iran).npy,128,22872
 7dAiCpxN4cScoE5npxiINM,DataSets\audio\Hussam Aliwat - Gently Wild.mp3,DataSets\img\Hussam Aliwat - Gently Wild.npy,128,33535
-0P7PCkKyY7iINIWOY8i6wT,,,,
-04F7Y1amF3e3PJQTBNNuHz,DataSets\audio\Antranik Askarian - Song of Complaint.mp3,DataSets\img\Antranik Askarian - Song of Complaint.npy,128,451348
-6QcdpaUxTXQKYBeGwDnIPZ,,,,
 5dlAGQZdBI3mbOLzAgbevb,DataSets\audio\Emad Sayyah - Tabbel Tabbel.mp3,DataSets\img\Emad Sayyah - Tabbel Tabbel.npy,128,18183
 14rtSRzEsu2xOOVtv9pqHK,DataSets\audio\Rabih Abou-Khalil - Q-Tips.mp3,DataSets\img\Rabih Abou-Khalil - Q-Tips.npy,128,27412
 4rSMILvr9UZ0K2tjcAd7jz,DataSets\audio\Yolla Khalife - Mann Ana (feat. Sary Khalife).mp3,DataSets\img\Yolla Khalife - Mann Ana (feat. Sary Khalife).npy,128,42171
@@ -861,7 +811,406 @@ spotifyid,mp3,spec_npy,n_mels,n_frames
 2XKHS9QIMw9QJ1hYeW9kNw,DataSets\audio\Marwan Abado - Flotte lotte.mp3,DataSets\img\Marwan Abado - Flotte lotte.npy,128,38078
 1AlPA6TQ6yHYetqgPuAmUC,DataSets\audio\Nizar Rohana Trio - Dalya.mp3,DataSets\img\Nizar Rohana Trio - Dalya.npy,128,39768
 2fR9oemdW4IRBxbzr1izHp,DataSets\audio\Ramzi Aburedwan - Sans Adresse.mp3,DataSets\img\Ramzi Aburedwan - Sans Adresse.npy,128,36163
-5coueTpjwJaxqX3L3O4JdP,,,,
 6Y2qQjwjjs1e0bvI5ANLee,DataSets\audio\Ramzi Aburedwan - Bahar.mp3,DataSets\img\Ramzi Aburedwan - Bahar.npy,128,30965
 6NX4Dir73H4psL6kyWCfVO,DataSets\audio\Ahmad Al Khatib - Sifr El-Khuruj I - Musa.mp3,DataSets\img\Ahmad Al Khatib - Sifr El-Khuruj I - Musa.npy,128,25834
 6kJrQzcIN8WPiQT2p5pO9c,DataSets\audio\Ramzi Aburedwan - Samai Farah Faza.mp3,DataSets\img\Ramzi Aburedwan - Samai Farah Faza.npy,128,42412
+1,DataSets/Emotify/classical/1.mp3,DataSets\img\1.npy,128,6003
+2,DataSets/Emotify/classical/2.mp3,DataSets\img\2.npy,128,6003
+3,DataSets/Emotify/classical/3.mp3,DataSets\img\3.npy,128,6003
+4,DataSets/Emotify/classical/4.mp3,DataSets\img\4.npy,128,6003
+5,DataSets/Emotify/classical/5.mp3,DataSets\img\5.npy,128,6003
+6,DataSets/Emotify/classical/6.mp3,DataSets\img\6.npy,128,6003
+7,DataSets/Emotify/classical/7.mp3,DataSets\img\7.npy,128,6003
+8,DataSets/Emotify/classical/8.mp3,DataSets\img\8.npy,128,6003
+9,DataSets/Emotify/classical/9.mp3,DataSets\img\9.npy,128,6003
+10,DataSets/Emotify/classical/10.mp3,DataSets\img\10.npy,128,6003
+11,DataSets/Emotify/classical/11.mp3,DataSets\img\11.npy,128,6003
+12,DataSets/Emotify/classical/12.mp3,DataSets\img\12.npy,128,6003
+13,DataSets/Emotify/classical/13.mp3,DataSets\img\13.npy,128,6003
+14,DataSets/Emotify/classical/14.mp3,DataSets\img\14.npy,128,6003
+15,DataSets/Emotify/classical/15.mp3,DataSets\img\15.npy,128,6003
+16,DataSets/Emotify/classical/16.mp3,DataSets\img\16.npy,128,4235
+17,DataSets/Emotify/classical/17.mp3,DataSets\img\17.npy,128,6003
+18,DataSets/Emotify/classical/18.mp3,DataSets\img\18.npy,128,6003
+19,DataSets/Emotify/classical/19.mp3,DataSets\img\19.npy,128,6003
+20,DataSets/Emotify/classical/20.mp3,DataSets\img\20.npy,128,6003
+21,DataSets/Emotify/classical/21.mp3,DataSets\img\21.npy,128,6003
+22,DataSets/Emotify/classical/22.mp3,DataSets\img\22.npy,128,6003
+23,DataSets/Emotify/classical/23.mp3,DataSets\img\23.npy,128,6003
+24,DataSets/Emotify/classical/24.mp3,DataSets\img\24.npy,128,6003
+25,DataSets/Emotify/classical/25.mp3,DataSets\img\25.npy,128,6003
+26,DataSets/Emotify/classical/26.mp3,DataSets\img\26.npy,128,6003
+27,DataSets/Emotify/classical/27.mp3,DataSets\img\27.npy,128,6003
+28,DataSets/Emotify/classical/28.mp3,DataSets\img\28.npy,128,6003
+29,DataSets/Emotify/classical/29.mp3,DataSets\img\29.npy,128,6003
+30,DataSets/Emotify/classical/30.mp3,DataSets\img\30.npy,128,6003
+31,DataSets/Emotify/classical/31.mp3,DataSets\img\31.npy,128,6003
+32,DataSets/Emotify/classical/32.mp3,DataSets\img\32.npy,128,6003
+33,DataSets/Emotify/classical/33.mp3,DataSets\img\33.npy,128,6003
+34,DataSets/Emotify/classical/34.mp3,DataSets\img\34.npy,128,6003
+35,DataSets/Emotify/classical/35.mp3,DataSets\img\35.npy,128,6003
+36,DataSets/Emotify/classical/36.mp3,DataSets\img\36.npy,128,6003
+37,DataSets/Emotify/classical/37.mp3,DataSets\img\37.npy,128,6003
+38,DataSets/Emotify/classical/38.mp3,DataSets\img\38.npy,128,6003
+39,DataSets/Emotify/classical/39.mp3,DataSets\img\39.npy,128,6003
+40,DataSets/Emotify/classical/40.mp3,DataSets\img\40.npy,128,3497
+41,DataSets/Emotify/classical/41.mp3,DataSets\img\41.npy,128,6003
+42,DataSets/Emotify/classical/42.mp3,DataSets\img\42.npy,128,6003
+43,DataSets/Emotify/classical/43.mp3,DataSets\img\43.npy,128,6003
+44,DataSets/Emotify/classical/44.mp3,DataSets\img\44.npy,128,6003
+45,DataSets/Emotify/classical/45.mp3,DataSets\img\45.npy,128,6003
+46,DataSets/Emotify/classical/46.mp3,DataSets\img\46.npy,128,6003
+47,DataSets/Emotify/classical/47.mp3,DataSets\img\47.npy,128,6003
+48,DataSets/Emotify/classical/48.mp3,DataSets\img\48.npy,128,6003
+49,DataSets/Emotify/classical/49.mp3,DataSets\img\49.npy,128,6003
+50,DataSets/Emotify/classical/50.mp3,DataSets\img\50.npy,128,5964
+51,DataSets/Emotify/classical/51.mp3,DataSets\img\51.npy,128,6003
+52,DataSets/Emotify/classical/52.mp3,DataSets\img\52.npy,128,6003
+53,DataSets/Emotify/classical/53.mp3,DataSets\img\53.npy,128,6003
+54,DataSets/Emotify/classical/54.mp3,DataSets\img\54.npy,128,6003
+55,DataSets/Emotify/classical/55.mp3,DataSets\img\55.npy,128,6003
+56,DataSets/Emotify/classical/56.mp3,DataSets\img\56.npy,128,6003
+57,DataSets/Emotify/classical/57.mp3,DataSets\img\57.npy,128,5842
+58,DataSets/Emotify/classical/58.mp3,DataSets\img\58.npy,128,6003
+59,DataSets/Emotify/classical/59.mp3,DataSets\img\59.npy,128,6003
+60,DataSets/Emotify/classical/60.mp3,DataSets\img\60.npy,128,6003
+61,DataSets/Emotify/classical/61.mp3,DataSets\img\61.npy,128,6003
+62,DataSets/Emotify/classical/62.mp3,DataSets\img\62.npy,128,6003
+63,DataSets/Emotify/classical/63.mp3,DataSets\img\63.npy,128,6003
+64,DataSets/Emotify/classical/64.mp3,DataSets\img\64.npy,128,6003
+65,DataSets/Emotify/classical/65.mp3,DataSets\img\65.npy,128,6003
+66,DataSets/Emotify/classical/66.mp3,DataSets\img\66.npy,128,2584
+67,DataSets/Emotify/classical/67.mp3,DataSets\img\67.npy,128,6003
+68,DataSets/Emotify/classical/68.mp3,DataSets\img\68.npy,128,6003
+69,DataSets/Emotify/classical/69.mp3,DataSets\img\69.npy,128,6003
+70,DataSets/Emotify/classical/70.mp3,DataSets\img\70.npy,128,6003
+71,DataSets/Emotify/classical/71.mp3,DataSets\img\71.npy,128,6003
+72,DataSets/Emotify/classical/72.mp3,DataSets\img\72.npy,128,6003
+73,DataSets/Emotify/classical/73.mp3,DataSets\img\73.npy,128,3028
+74,DataSets/Emotify/classical/74.mp3,DataSets\img\74.npy,128,6003
+75,DataSets/Emotify/classical/75.mp3,DataSets\img\75.npy,128,6003
+76,DataSets/Emotify/classical/76.mp3,DataSets\img\76.npy,128,6003
+77,DataSets/Emotify/classical/77.mp3,DataSets\img\77.npy,128,6003
+78,DataSets/Emotify/classical/78.mp3,DataSets\img\78.npy,128,6003
+79,DataSets/Emotify/classical/79.mp3,DataSets\img\79.npy,128,6003
+80,DataSets/Emotify/classical/80.mp3,DataSets\img\80.npy,128,6003
+81,DataSets/Emotify/classical/81.mp3,DataSets\img\81.npy,128,6003
+82,DataSets/Emotify/classical/82.mp3,DataSets\img\82.npy,128,6003
+83,DataSets/Emotify/classical/83.mp3,DataSets\img\83.npy,128,6003
+84,DataSets/Emotify/classical/84.mp3,DataSets\img\84.npy,128,6003
+85,DataSets/Emotify/classical/85.mp3,DataSets\img\85.npy,128,6003
+86,DataSets/Emotify/classical/86.mp3,DataSets\img\86.npy,128,6003
+87,DataSets/Emotify/classical/87.mp3,DataSets\img\87.npy,128,6003
+88,DataSets/Emotify/classical/88.mp3,DataSets\img\88.npy,128,6003
+89,DataSets/Emotify/classical/89.mp3,DataSets\img\89.npy,128,6003
+90,DataSets/Emotify/classical/90.mp3,DataSets\img\90.npy,128,6003
+91,DataSets/Emotify/classical/91.mp3,DataSets\img\91.npy,128,6003
+92,DataSets/Emotify/classical/92.mp3,DataSets\img\92.npy,128,6003
+93,DataSets/Emotify/classical/93.mp3,DataSets\img\93.npy,128,6003
+94,DataSets/Emotify/classical/94.mp3,DataSets\img\94.npy,128,6003
+95,DataSets/Emotify/classical/95.mp3,DataSets\img\95.npy,128,6003
+96,DataSets/Emotify/classical/96.mp3,DataSets\img\96.npy,128,6003
+97,DataSets/Emotify/classical/97.mp3,DataSets\img\97.npy,128,6003
+98,DataSets/Emotify/classical/98.mp3,DataSets\img\98.npy,128,6003
+99,DataSets/Emotify/classical/99.mp3,DataSets\img\99.npy,128,6003
+100,DataSets/Emotify/classical/100.mp3,DataSets\img\100.npy,128,6003
+101,DataSets/Emotify/rock/1.mp3,DataSets\img\101.npy,128,6003
+102,DataSets/Emotify/rock/2.mp3,DataSets\img\102.npy,128,6003
+103,DataSets/Emotify/rock/3.mp3,DataSets\img\103.npy,128,6003
+104,DataSets/Emotify/rock/4.mp3,DataSets\img\104.npy,128,6003
+105,DataSets/Emotify/rock/5.mp3,DataSets\img\105.npy,128,6003
+106,DataSets/Emotify/rock/6.mp3,DataSets\img\106.npy,128,6003
+107,DataSets/Emotify/rock/7.mp3,DataSets\img\107.npy,128,6003
+108,DataSets/Emotify/rock/8.mp3,DataSets\img\108.npy,128,6003
+109,DataSets/Emotify/rock/9.mp3,DataSets\img\109.npy,128,6003
+110,DataSets/Emotify/rock/10.mp3,DataSets\img\110.npy,128,6003
+111,DataSets/Emotify/rock/11.mp3,DataSets\img\111.npy,128,6003
+112,DataSets/Emotify/rock/12.mp3,DataSets\img\112.npy,128,6003
+113,DataSets/Emotify/rock/13.mp3,DataSets\img\113.npy,128,6003
+114,DataSets/Emotify/rock/14.mp3,DataSets\img\114.npy,128,6003
+115,DataSets/Emotify/rock/15.mp3,DataSets\img\115.npy,128,6003
+116,DataSets/Emotify/rock/16.mp3,DataSets\img\116.npy,128,6003
+117,DataSets/Emotify/rock/17.mp3,DataSets\img\117.npy,128,6003
+118,DataSets/Emotify/rock/18.mp3,DataSets\img\118.npy,128,6003
+119,DataSets/Emotify/rock/19.mp3,DataSets\img\119.npy,128,6003
+120,DataSets/Emotify/rock/20.mp3,DataSets\img\120.npy,128,6003
+121,DataSets/Emotify/rock/21.mp3,DataSets\img\121.npy,128,6003
+122,DataSets/Emotify/rock/22.mp3,DataSets\img\122.npy,128,6003
+123,DataSets/Emotify/rock/23.mp3,DataSets\img\123.npy,128,6003
+124,DataSets/Emotify/rock/24.mp3,DataSets\img\124.npy,128,6003
+125,DataSets/Emotify/rock/25.mp3,DataSets\img\125.npy,128,6003
+126,DataSets/Emotify/rock/26.mp3,DataSets\img\126.npy,128,6003
+127,DataSets/Emotify/rock/27.mp3,DataSets\img\127.npy,128,6003
+128,DataSets/Emotify/rock/28.mp3,DataSets\img\128.npy,128,6003
+129,DataSets/Emotify/rock/29.mp3,DataSets\img\129.npy,128,6003
+130,DataSets/Emotify/rock/30.mp3,DataSets\img\130.npy,128,6003
+131,DataSets/Emotify/rock/31.mp3,DataSets\img\131.npy,128,6003
+132,DataSets/Emotify/rock/32.mp3,DataSets\img\132.npy,128,6003
+133,DataSets/Emotify/rock/33.mp3,DataSets\img\133.npy,128,6003
+134,DataSets/Emotify/rock/34.mp3,DataSets\img\134.npy,128,6003
+135,DataSets/Emotify/rock/35.mp3,DataSets\img\135.npy,128,6003
+136,DataSets/Emotify/rock/36.mp3,DataSets\img\136.npy,128,6003
+137,DataSets/Emotify/rock/37.mp3,DataSets\img\137.npy,128,6003
+138,DataSets/Emotify/rock/38.mp3,DataSets\img\138.npy,128,6003
+139,DataSets/Emotify/rock/39.mp3,DataSets\img\139.npy,128,6003
+140,DataSets/Emotify/rock/40.mp3,DataSets\img\140.npy,128,6003
+141,DataSets/Emotify/rock/41.mp3,DataSets\img\141.npy,128,6003
+142,DataSets/Emotify/rock/42.mp3,DataSets\img\142.npy,128,6003
+143,DataSets/Emotify/rock/43.mp3,DataSets\img\143.npy,128,6003
+144,DataSets/Emotify/rock/44.mp3,DataSets\img\144.npy,128,6003
+145,DataSets/Emotify/rock/45.mp3,DataSets\img\145.npy,128,6003
+146,DataSets/Emotify/rock/46.mp3,DataSets\img\146.npy,128,6003
+147,DataSets/Emotify/rock/47.mp3,DataSets\img\147.npy,128,6003
+148,DataSets/Emotify/rock/48.mp3,DataSets\img\148.npy,128,6003
+149,DataSets/Emotify/rock/49.mp3,DataSets\img\149.npy,128,6003
+150,DataSets/Emotify/rock/50.mp3,DataSets\img\150.npy,128,6003
+151,DataSets/Emotify/rock/51.mp3,DataSets\img\151.npy,128,6003
+152,DataSets/Emotify/rock/52.mp3,DataSets\img\152.npy,128,6003
+153,DataSets/Emotify/rock/53.mp3,DataSets\img\153.npy,128,6003
+154,DataSets/Emotify/rock/54.mp3,DataSets\img\154.npy,128,6003
+155,DataSets/Emotify/rock/55.mp3,DataSets\img\155.npy,128,6003
+156,DataSets/Emotify/rock/56.mp3,DataSets\img\156.npy,128,6003
+157,DataSets/Emotify/rock/57.mp3,DataSets\img\157.npy,128,6003
+158,DataSets/Emotify/rock/58.mp3,DataSets\img\158.npy,128,6003
+159,DataSets/Emotify/rock/59.mp3,DataSets\img\159.npy,128,6003
+160,DataSets/Emotify/rock/60.mp3,DataSets\img\160.npy,128,6003
+161,DataSets/Emotify/rock/61.mp3,DataSets\img\161.npy,128,6003
+162,DataSets/Emotify/rock/62.mp3,DataSets\img\162.npy,128,6003
+163,DataSets/Emotify/rock/63.mp3,DataSets\img\163.npy,128,6003
+164,DataSets/Emotify/rock/64.mp3,DataSets\img\164.npy,128,6003
+165,DataSets/Emotify/rock/65.mp3,DataSets\img\165.npy,128,6003
+166,DataSets/Emotify/rock/66.mp3,DataSets\img\166.npy,128,6003
+167,DataSets/Emotify/rock/67.mp3,DataSets\img\167.npy,128,6003
+168,DataSets/Emotify/rock/68.mp3,DataSets\img\168.npy,128,6003
+169,DataSets/Emotify/rock/69.mp3,DataSets\img\169.npy,128,6003
+170,DataSets/Emotify/rock/70.mp3,DataSets\img\170.npy,128,6003
+171,DataSets/Emotify/rock/71.mp3,DataSets\img\171.npy,128,6003
+172,DataSets/Emotify/rock/72.mp3,DataSets\img\172.npy,128,6003
+173,DataSets/Emotify/rock/73.mp3,DataSets\img\173.npy,128,6003
+174,DataSets/Emotify/rock/74.mp3,DataSets\img\174.npy,128,6003
+175,DataSets/Emotify/rock/75.mp3,DataSets\img\175.npy,128,6003
+176,DataSets/Emotify/rock/76.mp3,DataSets\img\176.npy,128,6003
+177,DataSets/Emotify/rock/77.mp3,DataSets\img\177.npy,128,6003
+178,DataSets/Emotify/rock/78.mp3,DataSets\img\178.npy,128,6003
+179,DataSets/Emotify/rock/79.mp3,DataSets\img\179.npy,128,6003
+180,DataSets/Emotify/rock/80.mp3,DataSets\img\180.npy,128,6003
+181,DataSets/Emotify/rock/81.mp3,DataSets\img\181.npy,128,6003
+182,DataSets/Emotify/rock/82.mp3,DataSets\img\182.npy,128,6003
+183,DataSets/Emotify/rock/83.mp3,DataSets\img\183.npy,128,6003
+184,DataSets/Emotify/rock/84.mp3,DataSets\img\184.npy,128,6003
+185,DataSets/Emotify/rock/85.mp3,DataSets\img\185.npy,128,6003
+186,DataSets/Emotify/rock/86.mp3,DataSets\img\186.npy,128,6003
+187,DataSets/Emotify/rock/87.mp3,DataSets\img\187.npy,128,6003
+188,DataSets/Emotify/rock/88.mp3,DataSets\img\188.npy,128,6003
+189,DataSets/Emotify/rock/89.mp3,DataSets\img\189.npy,128,6003
+190,DataSets/Emotify/rock/90.mp3,DataSets\img\190.npy,128,6003
+191,DataSets/Emotify/rock/91.mp3,DataSets\img\191.npy,128,6003
+192,DataSets/Emotify/rock/92.mp3,DataSets\img\192.npy,128,6003
+193,DataSets/Emotify/rock/93.mp3,DataSets\img\193.npy,128,6003
+194,DataSets/Emotify/rock/94.mp3,DataSets\img\194.npy,128,6003
+195,DataSets/Emotify/rock/95.mp3,DataSets\img\195.npy,128,6003
+196,DataSets/Emotify/rock/96.mp3,DataSets\img\196.npy,128,6003
+197,DataSets/Emotify/rock/97.mp3,DataSets\img\197.npy,128,6003
+198,DataSets/Emotify/rock/98.mp3,DataSets\img\198.npy,128,6003
+199,DataSets/Emotify/rock/99.mp3,DataSets\img\199.npy,128,6003
+200,DataSets/Emotify/rock/100.mp3,DataSets\img\200.npy,128,6003
+201,DataSets/Emotify/electronic/1.mp3,DataSets\img\201.npy,128,6003
+202,DataSets/Emotify/electronic/2.mp3,DataSets\img\202.npy,128,6003
+203,DataSets/Emotify/electronic/3.mp3,DataSets\img\203.npy,128,6003
+204,DataSets/Emotify/electronic/4.mp3,DataSets\img\204.npy,128,6003
+205,DataSets/Emotify/electronic/5.mp3,DataSets\img\205.npy,128,6003
+206,DataSets/Emotify/electronic/6.mp3,DataSets\img\206.npy,128,6003
+207,DataSets/Emotify/electronic/7.mp3,DataSets\img\207.npy,128,6003
+208,DataSets/Emotify/electronic/8.mp3,DataSets\img\208.npy,128,6003
+209,DataSets/Emotify/electronic/9.mp3,DataSets\img\209.npy,128,6003
+210,DataSets/Emotify/electronic/10.mp3,DataSets\img\210.npy,128,6003
+211,DataSets/Emotify/electronic/11.mp3,DataSets\img\211.npy,128,6003
+212,DataSets/Emotify/electronic/12.mp3,DataSets\img\212.npy,128,6003
+213,DataSets/Emotify/electronic/13.mp3,DataSets\img\213.npy,128,6003
+214,DataSets/Emotify/electronic/14.mp3,DataSets\img\214.npy,128,6003
+215,DataSets/Emotify/electronic/15.mp3,DataSets\img\215.npy,128,6003
+216,DataSets/Emotify/electronic/16.mp3,DataSets\img\216.npy,128,6003
+217,DataSets/Emotify/electronic/17.mp3,DataSets\img\217.npy,128,6003
+218,DataSets/Emotify/electronic/18.mp3,DataSets\img\218.npy,128,6003
+219,DataSets/Emotify/electronic/19.mp3,DataSets\img\219.npy,128,6060
+220,DataSets/Emotify/electronic/20.mp3,DataSets\img\220.npy,128,6003
+221,DataSets/Emotify/electronic/21.mp3,DataSets\img\221.npy,128,6003
+222,DataSets/Emotify/electronic/22.mp3,DataSets\img\222.npy,128,6003
+223,DataSets/Emotify/electronic/23.mp3,DataSets\img\223.npy,128,6003
+224,DataSets/Emotify/electronic/24.mp3,DataSets\img\224.npy,128,6003
+225,DataSets/Emotify/electronic/25.mp3,DataSets\img\225.npy,128,6003
+226,DataSets/Emotify/electronic/26.mp3,DataSets\img\226.npy,128,6003
+227,DataSets/Emotify/electronic/27.mp3,DataSets\img\227.npy,128,6003
+228,DataSets/Emotify/electronic/28.mp3,DataSets\img\228.npy,128,6003
+229,DataSets/Emotify/electronic/29.mp3,DataSets\img\229.npy,128,6003
+230,DataSets/Emotify/electronic/30.mp3,DataSets\img\230.npy,128,6003
+231,DataSets/Emotify/electronic/31.mp3,DataSets\img\231.npy,128,6003
+232,DataSets/Emotify/electronic/32.mp3,DataSets\img\232.npy,128,6003
+233,DataSets/Emotify/electronic/33.mp3,DataSets\img\233.npy,128,6003
+234,DataSets/Emotify/electronic/34.mp3,DataSets\img\234.npy,128,6003
+235,DataSets/Emotify/electronic/35.mp3,DataSets\img\235.npy,128,6003
+236,DataSets/Emotify/electronic/36.mp3,DataSets\img\236.npy,128,6003
+237,DataSets/Emotify/electronic/37.mp3,DataSets\img\237.npy,128,6003
+238,DataSets/Emotify/electronic/38.mp3,DataSets\img\238.npy,128,6003
+239,DataSets/Emotify/electronic/39.mp3,DataSets\img\239.npy,128,6003
+240,DataSets/Emotify/electronic/40.mp3,DataSets\img\240.npy,128,6003
+241,DataSets/Emotify/electronic/41.mp3,DataSets\img\241.npy,128,6003
+242,DataSets/Emotify/electronic/42.mp3,DataSets\img\242.npy,128,6003
+243,DataSets/Emotify/electronic/43.mp3,DataSets\img\243.npy,128,6003
+244,DataSets/Emotify/electronic/44.mp3,DataSets\img\244.npy,128,6003
+245,DataSets/Emotify/electronic/45.mp3,DataSets\img\245.npy,128,6003
+246,DataSets/Emotify/electronic/46.mp3,DataSets\img\246.npy,128,6003
+247,DataSets/Emotify/electronic/47.mp3,DataSets\img\247.npy,128,6003
+248,DataSets/Emotify/electronic/48.mp3,DataSets\img\248.npy,128,6003
+249,DataSets/Emotify/electronic/49.mp3,DataSets\img\249.npy,128,6003
+250,DataSets/Emotify/electronic/50.mp3,DataSets\img\250.npy,128,6003
+251,DataSets/Emotify/electronic/51.mp3,DataSets\img\251.npy,128,6003
+252,DataSets/Emotify/electronic/52.mp3,DataSets\img\252.npy,128,6003
+253,DataSets/Emotify/electronic/53.mp3,DataSets\img\253.npy,128,6003
+254,DataSets/Emotify/electronic/54.mp3,DataSets\img\254.npy,128,6003
+255,DataSets/Emotify/electronic/55.mp3,DataSets\img\255.npy,128,6003
+256,DataSets/Emotify/electronic/56.mp3,DataSets\img\256.npy,128,6003
+257,DataSets/Emotify/electronic/57.mp3,DataSets\img\257.npy,128,6003
+258,DataSets/Emotify/electronic/58.mp3,DataSets\img\258.npy,128,6003
+259,DataSets/Emotify/electronic/59.mp3,DataSets\img\259.npy,128,6003
+260,DataSets/Emotify/electronic/60.mp3,DataSets\img\260.npy,128,6003
+261,DataSets/Emotify/electronic/61.mp3,DataSets\img\261.npy,128,6003
+262,DataSets/Emotify/electronic/62.mp3,DataSets\img\262.npy,128,6003
+263,DataSets/Emotify/electronic/63.mp3,DataSets\img\263.npy,128,6003
+264,DataSets/Emotify/electronic/64.mp3,DataSets\img\264.npy,128,6003
+265,DataSets/Emotify/electronic/65.mp3,DataSets\img\265.npy,128,6003
+266,DataSets/Emotify/electronic/66.mp3,DataSets\img\266.npy,128,6003
+267,DataSets/Emotify/electronic/67.mp3,DataSets\img\267.npy,128,6003
+268,DataSets/Emotify/electronic/68.mp3,DataSets\img\268.npy,128,6003
+269,DataSets/Emotify/electronic/69.mp3,DataSets\img\269.npy,128,6003
+270,DataSets/Emotify/electronic/70.mp3,DataSets\img\270.npy,128,6003
+271,DataSets/Emotify/electronic/71.mp3,DataSets\img\271.npy,128,6003
+272,DataSets/Emotify/electronic/72.mp3,DataSets\img\272.npy,128,6003
+273,DataSets/Emotify/electronic/73.mp3,DataSets\img\273.npy,128,6003
+274,DataSets/Emotify/electronic/74.mp3,DataSets\img\274.npy,128,6003
+275,DataSets/Emotify/electronic/75.mp3,DataSets\img\275.npy,128,6003
+276,DataSets/Emotify/electronic/76.mp3,DataSets\img\276.npy,128,6003
+277,DataSets/Emotify/electronic/77.mp3,DataSets\img\277.npy,128,6003
+278,DataSets/Emotify/electronic/78.mp3,DataSets\img\278.npy,128,6003
+279,DataSets/Emotify/electronic/79.mp3,DataSets\img\279.npy,128,6003
+280,DataSets/Emotify/electronic/80.mp3,DataSets\img\280.npy,128,6003
+281,DataSets/Emotify/electronic/81.mp3,DataSets\img\281.npy,128,6003
+282,DataSets/Emotify/electronic/82.mp3,DataSets\img\282.npy,128,6003
+283,DataSets/Emotify/electronic/83.mp3,DataSets\img\283.npy,128,6003
+284,DataSets/Emotify/electronic/84.mp3,DataSets\img\284.npy,128,6003
+285,DataSets/Emotify/electronic/85.mp3,DataSets\img\285.npy,128,6003
+286,DataSets/Emotify/electronic/86.mp3,DataSets\img\286.npy,128,6003
+287,DataSets/Emotify/electronic/87.mp3,DataSets\img\287.npy,128,6003
+288,DataSets/Emotify/electronic/88.mp3,DataSets\img\288.npy,128,6003
+289,DataSets/Emotify/electronic/89.mp3,DataSets\img\289.npy,128,6003
+290,DataSets/Emotify/electronic/90.mp3,DataSets\img\290.npy,128,6003
+291,DataSets/Emotify/electronic/91.mp3,DataSets\img\291.npy,128,6003
+292,DataSets/Emotify/electronic/92.mp3,DataSets\img\292.npy,128,6003
+293,DataSets/Emotify/electronic/93.mp3,DataSets\img\293.npy,128,6003
+294,DataSets/Emotify/electronic/94.mp3,DataSets\img\294.npy,128,6003
+295,DataSets/Emotify/electronic/95.mp3,DataSets\img\295.npy,128,6003
+296,DataSets/Emotify/electronic/96.mp3,DataSets\img\296.npy,128,6003
+297,DataSets/Emotify/electronic/97.mp3,DataSets\img\297.npy,128,6003
+298,DataSets/Emotify/electronic/98.mp3,DataSets\img\298.npy,128,6003
+299,DataSets/Emotify/electronic/99.mp3,DataSets\img\299.npy,128,6003
+300,DataSets/Emotify/electronic/100.mp3,DataSets\img\300.npy,128,6003
+301,DataSets/Emotify/pop/1.mp3,DataSets\img\301.npy,128,6003
+302,DataSets/Emotify/pop/2.mp3,DataSets\img\302.npy,128,6003
+303,DataSets/Emotify/pop/3.mp3,DataSets\img\303.npy,128,6003
+304,DataSets/Emotify/pop/4.mp3,DataSets\img\304.npy,128,6003
+305,DataSets/Emotify/pop/5.mp3,DataSets\img\305.npy,128,6003
+306,DataSets/Emotify/pop/6.mp3,DataSets\img\306.npy,128,6003
+307,DataSets/Emotify/pop/7.mp3,DataSets\img\307.npy,128,6016
+308,DataSets/Emotify/pop/8.mp3,DataSets\img\308.npy,128,6003
+309,DataSets/Emotify/pop/9.mp3,DataSets\img\309.npy,128,6003
+310,DataSets/Emotify/pop/10.mp3,DataSets\img\310.npy,128,6006
+311,DataSets/Emotify/pop/11.mp3,DataSets\img\311.npy,128,6003
+312,DataSets/Emotify/pop/12.mp3,DataSets\img\312.npy,128,6083
+313,DataSets/Emotify/pop/13.mp3,DataSets\img\313.npy,128,6003
+314,DataSets/Emotify/pop/14.mp3,DataSets\img\314.npy,128,6003
+315,DataSets/Emotify/pop/15.mp3,DataSets\img\315.npy,128,6005
+316,DataSets/Emotify/pop/16.mp3,DataSets\img\316.npy,128,6003
+317,DataSets/Emotify/pop/17.mp3,DataSets\img\317.npy,128,6003
+318,DataSets/Emotify/pop/18.mp3,DataSets\img\318.npy,128,6003
+319,DataSets/Emotify/pop/19.mp3,DataSets\img\319.npy,128,6003
+320,DataSets/Emotify/pop/20.mp3,DataSets\img\320.npy,128,6003
+321,DataSets/Emotify/pop/21.mp3,DataSets\img\321.npy,128,6003
+322,DataSets/Emotify/pop/22.mp3,DataSets\img\322.npy,128,6003
+323,DataSets/Emotify/pop/23.mp3,DataSets\img\323.npy,128,6003
+324,DataSets/Emotify/pop/24.mp3,DataSets\img\324.npy,128,6003
+325,DataSets/Emotify/pop/25.mp3,DataSets\img\325.npy,128,6003
+326,DataSets/Emotify/pop/26.mp3,DataSets\img\326.npy,128,6003
+327,DataSets/Emotify/pop/27.mp3,DataSets\img\327.npy,128,6003
+328,DataSets/Emotify/pop/28.mp3,DataSets\img\328.npy,128,6003
+329,DataSets/Emotify/pop/29.mp3,DataSets\img\329.npy,128,6003
+330,DataSets/Emotify/pop/30.mp3,DataSets\img\330.npy,128,6020
+331,DataSets/Emotify/pop/31.mp3,DataSets\img\331.npy,128,6003
+332,DataSets/Emotify/pop/32.mp3,DataSets\img\332.npy,128,6003
+333,DataSets/Emotify/pop/33.mp3,DataSets\img\333.npy,128,6003
+334,DataSets/Emotify/pop/34.mp3,DataSets\img\334.npy,128,6003
+335,DataSets/Emotify/pop/35.mp3,DataSets\img\335.npy,128,6003
+336,DataSets/Emotify/pop/36.mp3,DataSets\img\336.npy,128,6003
+337,DataSets/Emotify/pop/37.mp3,DataSets\img\337.npy,128,6003
+338,DataSets/Emotify/pop/38.mp3,DataSets\img\338.npy,128,6003
+339,DataSets/Emotify/pop/39.mp3,DataSets\img\339.npy,128,6003
+340,DataSets/Emotify/pop/40.mp3,DataSets\img\340.npy,128,6003
+341,DataSets/Emotify/pop/41.mp3,DataSets\img\341.npy,128,6003
+342,DataSets/Emotify/pop/42.mp3,DataSets\img\342.npy,128,6003
+343,DataSets/Emotify/pop/43.mp3,DataSets\img\343.npy,128,6003
+344,DataSets/Emotify/pop/44.mp3,DataSets\img\344.npy,128,6003
+345,DataSets/Emotify/pop/45.mp3,DataSets\img\345.npy,128,6003
+346,DataSets/Emotify/pop/46.mp3,DataSets\img\346.npy,128,6003
+347,DataSets/Emotify/pop/47.mp3,DataSets\img\347.npy,128,6003
+348,DataSets/Emotify/pop/48.mp3,DataSets\img\348.npy,128,6003
+349,DataSets/Emotify/pop/49.mp3,DataSets\img\349.npy,128,6003
+350,DataSets/Emotify/pop/50.mp3,DataSets\img\350.npy,128,6003
+351,DataSets/Emotify/pop/51.mp3,DataSets\img\351.npy,128,6003
+352,DataSets/Emotify/pop/52.mp3,DataSets\img\352.npy,128,6003
+353,DataSets/Emotify/pop/53.mp3,DataSets\img\353.npy,128,6003
+354,DataSets/Emotify/pop/54.mp3,DataSets\img\354.npy,128,6003
+355,DataSets/Emotify/pop/55.mp3,DataSets\img\355.npy,128,6003
+356,DataSets/Emotify/pop/56.mp3,DataSets\img\356.npy,128,6003
+357,DataSets/Emotify/pop/57.mp3,DataSets\img\357.npy,128,6003
+358,DataSets/Emotify/pop/58.mp3,DataSets\img\358.npy,128,6003
+359,DataSets/Emotify/pop/59.mp3,DataSets\img\359.npy,128,6003
+360,DataSets/Emotify/pop/60.mp3,DataSets\img\360.npy,128,6003
+361,DataSets/Emotify/pop/61.mp3,DataSets\img\361.npy,128,6003
+362,DataSets/Emotify/pop/62.mp3,DataSets\img\362.npy,128,6003
+363,DataSets/Emotify/pop/63.mp3,DataSets\img\363.npy,128,6003
+364,DataSets/Emotify/pop/64.mp3,DataSets\img\364.npy,128,6003
+365,DataSets/Emotify/pop/65.mp3,DataSets\img\365.npy,128,6003
+366,DataSets/Emotify/pop/66.mp3,DataSets\img\366.npy,128,6003
+367,DataSets/Emotify/pop/67.mp3,DataSets\img\367.npy,128,6003
+368,DataSets/Emotify/pop/68.mp3,DataSets\img\368.npy,128,6003
+369,DataSets/Emotify/pop/69.mp3,DataSets\img\369.npy,128,6003
+370,DataSets/Emotify/pop/70.mp3,DataSets\img\370.npy,128,6003
+371,DataSets/Emotify/pop/71.mp3,DataSets\img\371.npy,128,6003
+372,DataSets/Emotify/pop/72.mp3,DataSets\img\372.npy,128,6003
+373,DataSets/Emotify/pop/73.mp3,DataSets\img\373.npy,128,6003
+374,DataSets/Emotify/pop/74.mp3,DataSets\img\374.npy,128,6012
+375,DataSets/Emotify/pop/75.mp3,DataSets\img\375.npy,128,6003
+376,DataSets/Emotify/pop/76.mp3,DataSets\img\376.npy,128,6075
+377,DataSets/Emotify/pop/77.mp3,DataSets\img\377.npy,128,6003
+378,DataSets/Emotify/pop/78.mp3,DataSets\img\378.npy,128,6003
+379,DataSets/Emotify/pop/79.mp3,DataSets\img\379.npy,128,6003
+380,DataSets/Emotify/pop/80.mp3,DataSets\img\380.npy,128,6066
+381,DataSets/Emotify/pop/81.mp3,DataSets\img\381.npy,128,6003
+382,DataSets/Emotify/pop/82.mp3,DataSets\img\382.npy,128,6003
+383,DataSets/Emotify/pop/83.mp3,DataSets\img\383.npy,128,6036
+384,DataSets/Emotify/pop/84.mp3,DataSets\img\384.npy,128,6003
+385,DataSets/Emotify/pop/85.mp3,DataSets\img\385.npy,128,6003
+386,DataSets/Emotify/pop/86.mp3,DataSets\img\386.npy,128,6003
+387,DataSets/Emotify/pop/87.mp3,DataSets\img\387.npy,128,6003
+388,DataSets/Emotify/pop/88.mp3,DataSets\img\388.npy,128,6003
+389,DataSets/Emotify/pop/89.mp3,DataSets\img\389.npy,128,6003
+390,DataSets/Emotify/pop/90.mp3,DataSets\img\390.npy,128,6003
+391,DataSets/Emotify/pop/91.mp3,DataSets\img\391.npy,128,6003
+392,DataSets/Emotify/pop/92.mp3,DataSets\img\392.npy,128,6009
+393,DataSets/Emotify/pop/93.mp3,DataSets\img\393.npy,128,6003
+394,DataSets/Emotify/pop/94.mp3,DataSets\img\394.npy,128,6003
+395,DataSets/Emotify/pop/95.mp3,DataSets\img\395.npy,128,6003
+396,DataSets/Emotify/pop/96.mp3,DataSets\img\396.npy,128,5979
+397,DataSets/Emotify/pop/97.mp3,DataSets\img\397.npy,128,6003
+398,DataSets/Emotify/pop/98.mp3,DataSets\img\398.npy,128,6003
+399,DataSets/Emotify/pop/99.mp3,DataSets\img\399.npy,128,6003
+400,DataSets/Emotify/pop/100.mp3,DataSets\img\400.npy,128,6003
