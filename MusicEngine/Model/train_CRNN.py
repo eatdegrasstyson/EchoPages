@@ -51,31 +51,29 @@ def _standardize(x: tf.Tensor) -> tf.Tensor:
 # =========================
 def build_crnn(n_mels=N_MELS, frames=FIX_FRAMES, n_classes=9) -> keras.Model:
     inp = keras.Input(shape=(n_mels, frames, 1))
-    x = layers.Conv2D(32, 3, padding="same")(inp)
+    x = layers.Conv2D(16, 3, padding="same")(inp)
     x = layers.BatchNormalization()(x)
     x = layers.ReLU()(x)
     x = layers.MaxPool2D(pool_size=(2, 2))(x)     # [m/2, t/2]
 
-    x = layers.Conv2D(64, 3, padding="same")(x)
+    x = layers.Conv2D(32, 3, padding="same")(x)
     x = layers.BatchNormalization()(x)
     x = layers.ReLU()(x)
     x = layers.MaxPool2D(pool_size=(2, 2))(x)     # [m/4, t/4]
 
-    x = layers.Conv2D(128, 3, padding="same")(x)
+    x = layers.Conv2D(64, 3, padding="same")(x)
     x = layers.BatchNormalization()(x)
     x = layers.ReLU()(x)
     x = layers.MaxPool2D(pool_size=(2, 2))(x)     # [m/8, t/8]
 
     # time-major sequence for RNN
     x = layers.Permute((2, 1, 3))(x)              # [batch, time, freq, ch]
-    x = layers.Reshape((frames // 8, (n_mels // 8) * 128))(x)
+    x = layers.Reshape((frames // 8, (n_mels // 8) * 64))(x)
 
-    x = layers.Bidirectional(layers.GRU(128, return_sequences=True))(x)
-    x = layers.Bidirectional(layers.GRU(128, return_sequences=True))(x)
+    x = layers.Bidirectional(layers.GRU(64, return_sequences=False))(x)
 
-    x = layers.GlobalAveragePooling1D()(x)
-    x = layers.Dense(256, activation="relu")(x)
-    x = layers.Dropout(0.3)(x)
+    x = layers.Dense(128, activation="relu")(x)
+    x = layers.Dropout(0.4)(x)
     out = layers.Dense(n_classes, activation="softmax")(x)
 
     model = keras.Model(inp, out)
@@ -163,25 +161,13 @@ def expand_to_windows(df: pd.DataFrame):
     return paths, labels, starts
 
 # =========================
-# Weighted KL loss
+# Cosine similarity loss
 # =========================
-def make_weighted_kl(class_w_np: np.ndarray):
-    """
-    class_w_np: np.ndarray shape (9,), higher weight => larger contribution for that emotion.
-    Uses per-sample normalization so overall loss scale is stable regardless of label mixture.
-    """
-    class_w = tf.constant(class_w_np.astype("float32"), dtype=tf.float32)  # (9,)
-
-    def weighted_kl(y_true, y_pred):
-        y_true = tf.clip_by_value(y_true, 1e-7, 1.0)
-        y_pred = tf.clip_by_value(y_pred, 1e-7, 1.0)
-        # KL per class: y * (log y - log p)
-        per_class = y_true * (tf.math.log(y_true) - tf.math.log(y_pred))  # [B,9]
-        weighted = per_class * class_w                                    # [B,9]
-        denom = tf.reduce_sum(class_w * y_true, axis=-1) + 1e-7           # [B]
-        return tf.reduce_sum(weighted, axis=-1) / denom                   # [B]
-
-    return weighted_kl
+def cosine_similarity_loss(y_true, y_pred):
+    """1 - cosine_similarity, so 0 = perfect match, 1 = orthogonal."""
+    y_true = tf.nn.l2_normalize(y_true, axis=-1)
+    y_pred = tf.nn.l2_normalize(y_pred, axis=-1)
+    return 1.0 - tf.reduce_sum(y_true * y_pred, axis=-1)
 
 # =========================
 # Main training
@@ -207,13 +193,6 @@ if __name__ == "__main__":
     train_df[EMOTIONS] = train_df[EMOTIONS].div(train_df[EMOTIONS].sum(axis=1), axis=0)
     val_df[EMOTIONS]   = val_df[EMOTIONS].div(val_df[EMOTIONS].sum(axis=1), axis=0)
 
-    # Compute class weights from training songs (not windows)
-    counts = train_df[EMOTIONS].sum(axis=0).to_numpy(dtype=np.float32)  # [9]
-    eps = 1e-8
-    inv = 1.0 / (counts + eps)
-    class_w = inv / inv.mean()
-    class_w = np.clip(class_w, 0.25, 4.0)  # avoid extreme weights
-
     # Expand to windows (each window shares its song's label)
     train_paths, train_y_win, train_starts = expand_to_windows(train_df)
     val_paths,   val_y_win,   val_starts   = expand_to_windows(val_df)
@@ -230,12 +209,10 @@ if __name__ == "__main__":
     val_ds = val_ds.map(_map_fn, num_parallel_calls=tf.data.AUTOTUNE)
     val_ds = val_ds.batch(BATCH_SIZE).prefetch(tf.data.AUTOTUNE)
 
-    # Build & compile model with weighted KL
     model = build_crnn()
-    loss_fn = make_weighted_kl(class_w)
     model.compile(
         optimizer=keras.optimizers.Adam(3e-4),
-        loss=loss_fn,
+        loss=cosine_similarity_loss,
         metrics=[
             keras.metrics.CategoricalAccuracy(name="cat_acc"),
             keras.metrics.TopKCategoricalAccuracy(k=3, name="top3"),
@@ -272,4 +249,3 @@ if __name__ == "__main__":
     model_path = os.path.join(SAVE_DIR, "crnn_emotion_model_weighted_windows.h5")
     model.save(model_path)
     print("Saved trained model to:", model_path)
-    print("Class weights:", dict(zip(EMOTIONS, class_w.tolist())))
