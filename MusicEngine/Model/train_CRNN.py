@@ -4,16 +4,16 @@ import pandas as pd
 import tensorflow as tf
 from tensorflow import keras
 from keras import layers
-from tensorflow.keras.callbacks import ModelCheckpoint
+from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping
 
 # =========================
 # Config
 # =========================
 N_MELS       = 128
 FIX_FRAMES   = 512          # window length in frames
-STRIDE_FRAMES = FIX_FRAMES // 2   # 50% overlap between windows
+STRIDE_FRAMES = FIX_FRAMES         # no overlap between windows
 BATCH_SIZE   = 32
-EPOCHS       = 10
+EPOCHS       = 30
 JOIN_KEY     = "spotifyid"
 EMOTIONS     = [
     "Wonder","Transcendence","Tenderness","Nostalgia","Peacefulness",
@@ -252,12 +252,18 @@ if __name__ == "__main__":
         save_freq="epoch"
     )
 
+    early_stop_cb = EarlyStopping(
+        monitor="val_loss",
+        patience=3,
+        restore_best_weights=True,
+        verbose=1,
+    )
 
     model.fit(
         train_ds,
         validation_data=val_ds,
         epochs=EPOCHS,
-        callbacks=[checkpoint_cb]
+        callbacks=[checkpoint_cb, early_stop_cb]
     )
 
     # Save model (you can switch to JSON+weights if you want clean inference loading)
