@@ -246,6 +246,6 @@ if __name__ == "__main__":
     # Save model (you can switch to JSON+weights if you want clean inference loading)
     SAVE_DIR = "Model"
     os.makedirs(SAVE_DIR, exist_ok=True)
-    model_path = os.path.join(SAVE_DIR, "crnn_emotion_model_weighted_windows.h5")
+    model_path = os.path.join(SAVE_DIR, "crnn_emotion_model.h5")
     model.save(model_path)
     print("Saved trained model to:", model_path)
