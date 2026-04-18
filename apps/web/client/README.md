@@ -1,15 +1,17 @@
 # EchoPages Frontend
 
-A simple frontend demo for the EchoPages immersive reading platform.
+React + Vite frontend for the EchoPages immersive reading platform.
 
 ## Features
 
 - **PDF Upload**: Upload PDF files for reading
 - **Text Input**: Paste text directly into the reader
-- **E-Reader Interface**: Clean reading experience with emotion-matched music concept
-- **Mock Data**: Uses sample data to demonstrate the UI (no backend required)
+- **E-Reader Interface**: Clean reading experience with emotion-matched music
+- **Live Song Matching**: Connects to the Flask backend to match text emotions to songs in real time
 
 ## Running the App
+
+Start the Flask backend first (see [SETUP.md](../../../SETUP.md)), then:
 
 ```bash
 # Install dependencies
@@ -22,7 +24,7 @@ npm run dev
 npm run build
 ```
 
-The app will run on `http://localhost:5173` (or another port if 5173 is busy).
+The app runs at `http://localhost:5173`. The backend must be running at `http://localhost:5000` for song matching to work.
 
 ## Project Structure
 
@@ -30,7 +32,3 @@ The app will run on `http://localhost:5173` (or another port if 5173 is busy).
 - `src/components/` - Reusable UI components
 - `src/data/` - Mock data for demonstration
 - `src/utils/` - Utility functions
-
-## Note
-
-This is a frontend-only demo. The upload functionality and reader display mock data and don't connect to a real backend.

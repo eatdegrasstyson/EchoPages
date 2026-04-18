@@ -1,46 +1,52 @@
-EchoPages
-EchoPages is a multi-modal analysis platform designed to bridge the gap between music and text through emotional intelligence. By leveraging audio features and sentiment analysis, the project aims to categorize and predict emotional responses to various media.
+# EchoPages
+
+EchoPages is a multi-modal analysis platform that bridges music and text through emotional intelligence. It analyzes audio features and text sentiment to match written content with emotionally resonant music in real time.
 
 ## Project Structure
-The repository is organized into several specialized engines:
 
-### Music Engine
-The MusicEngine is the core component for processing audio data and metadata.
-
-SpotifyToMeta: Contains scripts like CombineDatasets.py and ComputeMetadata.py to aggregate music data from sources like MuVi, Trompa-Mer, and Music-Mouv.
-
-SpotifyToSpectrogram: Handles the scraping and conversion of audio files into spectrograms (.npy) for audio analysis and training.
-
-Model: Includes train_CRNN.py and PredictEmotionFromSong.py for training and running Convolutional Recurrent Neural Networks on music data.
-
-DataSets: Contains the raw and processed datasets used for training and validation, including FINALDATASET.csv (the primary dataset used for model training.)
-
-Temp: Holds some our spectrogram and audio files for viewing and experimenting (may be removed)
-
-### Text Engine
-The TextEngine focuses on extracting, analyzing, and modeling emotional content from written text.
-
-Preprocessing: Handles text cleaning, normalization, and tokenization. Removes noise such as punctuation, stop words, and formatting artifacts to prepare text for analysis.
-
-Sentiment & Emotion Analysis: Uses lexicon-based tools (e.g., NRC Emotion Lexicon via nrclex) and/or learned models to map text to emotional categories such as joy, sadness, anger, fear, trust, and anticipation.
-
-Feature Extraction: Converts text into numerical representations (e.g., emotion scores, sentiment polarity, frequency-based features).
-
-Modeling (Planned / In Progress): Predicts emotional responses from text using machine learning or deep learning models. 
-
-Datasets: Stores raw and processed text datasets used for training and evaluation. May include annotated text samples, lyrics, or aligned text–music emotion pairs.
+```
+echopages/
+├── MusicEngine/              # Audio processing and ML model
+│   ├── SpotifyToMeta/        # Scripts to aggregate music metadata
+│   ├── SpotifyToSpectrogram/ # Audio-to-spectrogram conversion
+│   ├── Model/                # CRNN training and emotion prediction
+│   └── DataSets/             # Raw and processed datasets
+├── TextEngine/               # Text emotion analysis
+│   ├── GoEmotions/           # GoEmotions-based classifier
+│   ├── GoEmotionsRoBERTa/    # RoBERTa fine-tuned classifier
+│   ├── NRCLexTesting/        # Lexicon-based emotion scoring
+│   └── TransformersTesting/  # Transformer model experiments
+└── apps/web/                 # Full-stack web application
+    ├── client/               # React + Vite frontend
+    └── server/               # Flask backend API
+```
 
 ## Getting Started
-### Prerequisites (In Progress)
-Python 3.x
 
-Required Libraries: pandas, os, json, nrclex, tensorflow/pytorch (for models)
+### ML Pipeline (Python)
 
-### Installation
-Clone the repository:
+See [SETUP.md](SETUP.md) for full instructions to set up the Python environment, configure Spotify credentials, and run emotion prediction on songs.
 
-Bash
-git clone https://github.com/eatdegrasstyson/EchoPages.git
-Navigate to the project root and install dependencies.
+### Web App
 
+**Backend (Flask):**
+```bash
+source venv/bin/activate
+python apps/web/server/app.py
+```
 
+**Frontend (React + Vite):**
+```bash
+cd apps/web/client
+npm install
+npm run dev
+```
+
+The frontend runs at `http://localhost:5173` and the backend at `http://localhost:5000`.
+
+## Prerequisites
+
+- Python 3.8+
+- Node.js 18+
+- FFmpeg
+- Spotify Developer Account (for ML pipeline)
