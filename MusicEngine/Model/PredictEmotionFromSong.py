@@ -166,7 +166,7 @@ def predict_emotion(spotify_id: str):
 
     # 3. Load model
     print("Loading model...")
-    model = load_saved_model("Model/epoch_09.h5")
+    model = load_saved_model("Model/NewModels/epoch_08.h5")
 
     # 4. Predict over full song via sliding windows + averaging
     print("Predicting emotion over full song (sliding windows)...")
@@ -185,7 +185,7 @@ def predict_emotion(spotify_id: str):
 def predict_spectrogram(spec, chunking=False):
     # 3. Load model
     print("Loading model...")
-    model = load_saved_model("Model/epoch_09.h5")
+    model = load_saved_model("Model/NewModels/epoch_08.h5")
     preds,times = predict_emotion_full_song(model, spec, chunking=chunking)
     return preds,times
 
@@ -200,7 +200,7 @@ def predict_multiple_songs(spec_paths, chunking=True):
         list of tuples: (spec_path, avg_vec, chunks)
     """
     # Load model once
-    model = load_saved_model("Model/epoch_09.h5")
+    model = load_saved_model("Model/NewModels/epoch_08.h5")
 
     results = []
     for spec_path in spec_paths:
@@ -523,20 +523,20 @@ if __name__ == "__main__":
     spotify_id = sys.argv[1]
     predict_emotion(spotify_id)
     '''
-    song_name = "Baby Keem - family ties (with Kendrick Lamar)"
+    song_name = "Klaus Badelt - He's a Pirate"
     path = f"Temp/audio/{song_name}.mp3"
-    spotify_id = "7tFiyTwD0nx5a1eklYtX2J"
+    spotify_id = "08QaHlMPWuO5PUxjl61bXn"
     if not os.path.exists(path):
         predict_emotion(spotify_id)
 
     spec = audio_to_logmel_array(path)
     preds, times = predict_spectrogram(spec, chunking=True)
 
-    print("Chat GPT algorithm idea: ")
-    chunkingData(preds, times)
+    #print("Chat GPT algorithm idea: ")
+    #chunkingData(preds, times)
 
-    print("Arnav algorithm idea: ")
-    chunkingData_stable_merge(preds, times)
+    #print("Arnav algorithm idea: ")
+    #chunkingData_stable_merge(preds, times)
 
     print("Claud algoirhtm idea: ")
 
