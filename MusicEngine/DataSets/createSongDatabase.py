@@ -13,7 +13,8 @@ from Model.PredictEmotionFromSong import (
     EMOTIONS
 )
 
-csv_path = "DataSets/SpotifyIDMappings.csv"
+#csv_path = "DataSets/SpotifyIDMappings.csv"
+csv_path = "DataSets/CustomDatasetOut.csv"
 df = pd.read_csv(csv_path)
 
 # Assuming column names: spotifyid, mp3, spec_npy, n_mels, n_frames
@@ -30,8 +31,8 @@ def process_dataset(test_first_only=False, numSongs=0, start_index=0):
     if test_first_only:
         paths = paths[:numSongs]
 
-    averaged_csv_path = "DataSets/songDataBaseAveraged.csv"
-    chunked_csv_path = "DataSets/songDataBaseChunked.csv"
+    averaged_csv_path = "DataSets/songDataBaseAveragedDemo.csv"
+    chunked_csv_path = "DataSets/songDataBaseChunkedDemo.csv"
 
     # Write headers only if file doesn't exist
     if not Path(averaged_csv_path).exists():
