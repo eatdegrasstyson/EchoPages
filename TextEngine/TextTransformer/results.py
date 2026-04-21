@@ -124,3 +124,33 @@ def classification_report(y_true, y_pred, labels):
     lines.append(f"{'micro avg':<20} {micro_precision:>10.4f} {micro_recall:>10.4f} {micro_f1:>10.4f} {int(y_true.sum()):>10}")
  
     return "\n".join(lines)
+
+# main evaluation 
+# sets up device, loads model and data, runs inference, and prints/saves the report.
+
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print(f"Device: {device}")
+ 
+print("Loading model...")
+model, tokenizer = load_model(MODEL_PATH, VOCAB_PATH, device)
+ 
+print(f"Loading data from {CSV_PATH}...")
+texts, labels = load_test_data(CSV_PATH)
+ 
+split_idx = int(len(texts) * (1 - TEST_SPLIT))
+texts  = texts[split_idx:]
+labels = labels[split_idx:]
+print(f"Evaluating on {len(texts)} samples (last {TEST_SPLIT*100:.0f}% of dataset).")
+ 
+print("Running inference...")
+y_true, y_pred = run_evaluation(model, tokenizer, texts, labels, device)
+ 
+report = classification_report(y_true, y_pred, EMOTION_LABELS)
+ 
+print("\n===== Classification Report =====")
+print(report)
+ 
+if OUTPUT:
+    with open(OUTPUT, "w") as f:
+        f.write(report)
+    print(f"Saved to {OUTPUT}")
