@@ -47,3 +47,80 @@ def load_test_data(csv_path):
     texts  = df["text"].astype(str).tolist()
     labels = df[label_cols].values.astype(int)
     return texts, labels
+
+def run_evaluation(model, tokenizer, texts, true_labels, device):
+    """
+    runs batched inference and converts scores to binary predictions.
+ 
+    arguments s:
+        model (EmotionTransformer): Loaded model in eval mode.
+        tokenizer (Tokenizer): Tokenizer with vocab loaded.
+        texts (list[str]): Input sentences.
+        true_labels (np.ndarray): Ground truth binary labels, shape (N, 28).
+        device (torch.device): Device to run inference on.
+ 
+    returns:
+        y_true (np.ndarray): Ground truth labels, shape (N, 28).
+        y_pred (np.ndarray): Predicted binary labels, shape (N, 28).
+    """
+    all_preds = []
+ 
+    for i in range(0, len(texts), BATCH_SIZE):
+        batch_texts = texts[i : i + BATCH_SIZE]
+        batch_results = predict(batch_texts, model, tokenizer, device, threshold=0.0)
+ 
+        for result_row in batch_results:
+            score_dict = {label: score for label, score in result_row}
+            binary_row = [
+                1 if score_dict.get(label, 0.0) >= THRESHOLD else 0
+                for label in EMOTION_LABELS
+            ]
+            all_preds.append(binary_row)
+ 
+        print(f"  evaluated {min(i + BATCH_SIZE, len(texts))}/{len(texts)} samples...")
+ 
+    return true_labels, np.array(all_preds)
+ 
+
+def classification_report(y_true, y_pred, labels):
+    """
+    computes and formats per-class precision, recall, and F1 using numpy.
+ 
+    arguments:
+        y_true (np.ndarray): Ground truth binary labels, shape (N, num_classes).
+        y_pred (np.ndarray): Predicted binary labels, shape (N, num_classes).
+        labels (list[str]): Emotion label names.
+ 
+    returns:
+        str: Formatted report table.
+    """
+    lines = []
+    lines.append(f"{'emotion':<20} {'precision':>10} {'recall':>10} {'f1':>10} {'support':>10}")
+    lines.append("-" * 56)
+ 
+    total_tp = total_fp = total_fn = 0
+ 
+    for i, label in enumerate(labels):
+        tp = int(((y_pred[:, i] == 1) & (y_true[:, i] == 1)).sum())
+        fp = int(((y_pred[:, i] == 1) & (y_true[:, i] == 0)).sum())
+        fn = int(((y_pred[:, i] == 0) & (y_true[:, i] == 1)).sum())
+        support = int(y_true[:, i].sum())
+ 
+        precision = tp / (tp + fp) if (tp + fp) > 0 else 0.0
+        recall    = tp / (tp + fn) if (tp + fn) > 0 else 0.0
+        f1        = (2 * precision * recall) / (precision + recall) if (precision + recall) > 0 else 0.0
+ 
+        total_tp += tp
+        total_fp += fp
+        total_fn += fn
+ 
+        lines.append(f"{label:<20} {precision:>10.4f} {recall:>10.4f} {f1:>10.4f} {support:>10}")
+ 
+    micro_precision = total_tp / (total_tp + total_fp) if (total_tp + total_fp) > 0 else 0.0
+    micro_recall    = total_tp / (total_tp + total_fn) if (total_tp + total_fn) > 0 else 0.0
+    micro_f1        = (2 * micro_precision * micro_recall) / (micro_precision + micro_recall) if (micro_precision + micro_recall) > 0 else 0.0
+ 
+    lines.append("-" * 56)
+    lines.append(f"{'micro avg':<20} {micro_precision:>10.4f} {micro_recall:>10.4f} {micro_f1:>10.4f} {int(y_true.sum()):>10}")
+ 
+    return "\n".join(lines)
