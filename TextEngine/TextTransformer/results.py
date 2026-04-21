@@ -4,9 +4,9 @@ import pandas as pd
 from inference import load_model, predict
  
 # created configuration variables 
-CSV_PATH   = "goemotions_combined.csv"
-MODEL_PATH = "emotion_transformer.pt"
-VOCAB_PATH = "vocab.json"
+MODEL_PATH = "/Users/kennykwan/Documents/GitHub/EchoPages/TextEngine/TextTransformer/emotion_transformer.pt"
+VOCAB_PATH = "/Users/kennykwan/Documents/GitHub/EchoPages/TextEngine/TextTransformer/vocab.json"
+CSV_PATH   = "/Users/kennykwan/Documents/GitHub/EchoPages/TextEngine/TextTransformer/goemotions_combined.csv"
 THRESHOLD  = 0.5
 TEST_SPLIT = 0.1
 BATCH_SIZE = 64
