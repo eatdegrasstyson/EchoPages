@@ -7,7 +7,7 @@ from inference import load_model, predict
 MODEL_PATH = "/Users/kennykwan/Documents/GitHub/EchoPages/TextEngine/TextTransformer/emotion_transformer.pt"
 VOCAB_PATH = "/Users/kennykwan/Documents/GitHub/EchoPages/TextEngine/TextTransformer/vocab.json"
 CSV_PATH   = "/Users/kennykwan/Documents/GitHub/EchoPages/TextEngine/TextTransformer/goemotions_combined.csv"
-THRESHOLD  = 0.5
+THRESHOLD  = 0.2
 TEST_SPLIT = 0.1
 BATCH_SIZE = 64
 OUTPUT     = "results.txt"  # set to None to skip saving

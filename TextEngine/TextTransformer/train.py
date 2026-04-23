@@ -15,7 +15,7 @@ csv_paths = [
 
 max_length = 64
 batch_size = 16
-num_epochs = 1
+num_epochs = 10
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print("Using device:", device)
