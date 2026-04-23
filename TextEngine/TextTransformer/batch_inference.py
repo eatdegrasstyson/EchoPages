@@ -41,3 +41,58 @@ def load_input(filepath):
  
     else:
         raise ValueError(f"Unsupported file type: {filepath}. Use .txt or .csv")
+    
+def run_batch(texts, model, tokenizer, device):
+    """
+    Runs predict() over all texts in batches.
+ 
+    Args:
+        texts (list[str]): Input sentences.
+        model (EmotionTransformer): Loaded model in eval mode.
+        tokenizer (Tokenizer): Tokenizer with vocab loaded.
+        device (torch.device): Device to run inference on.
+ 
+    Returns:
+        list[list[tuple]]: One list of (emotion, score) tuples per input text.
+    """
+    all_results = []
+ 
+    for i in range(0, len(texts), BATCH_SIZE):
+        batch = texts[i : i + BATCH_SIZE]
+        results = predict(batch, model, tokenizer, device, threshold=THRESHOLD)
+        all_results.extend(results)
+        print(f"  processed {min(i + BATCH_SIZE, len(texts))}/{len(texts)} sentences...")
+ 
+    return all_results
+ 
+ 
+def save_results(texts, all_results, output_path):
+    """
+    Saves predictions to a CSV with one row per input sentence.
+ 
+    Columns: text, emotions, top_emotion, top_score
+ 
+    Args:
+        texts (list[str]): Original input sentences.
+        all_results (list): Predictions from run_batch().
+        output_path (str): Path to save the output CSV.
+    """
+    rows = []
+    for text, results in zip(texts, all_results):
+        if results:
+            top_emotion, top_score = results[0]
+            emotions_str = ", ".join(f"{label}({score})" for label, score in results)
+        else:
+            top_emotion, top_score = "none", 0.0
+            emotions_str = "none"
+ 
+        rows.append({
+            "text":        text,
+            "emotions":    emotions_str,
+            "top_emotion": top_emotion,
+            "top_score":   top_score
+        })
+ 
+    df = pd.DataFrame(rows)
+    df.to_csv(output_path, index=False)
+    print(f"Saved {len(rows)} results to {output_path}")
