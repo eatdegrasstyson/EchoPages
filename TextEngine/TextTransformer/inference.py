@@ -38,6 +38,10 @@ def load_model(model_path, vocab_path, device):
 
 def predict(texts, model, tokenizer, device, max_length=64, threshold=0.5):
     single = isinstance(texts, str)
+    # if empty string, it would crash the tokenizer, so return empty results instead
+    if not texts or (isinstance(texts, str) and texts.strip() == ""):
+        return []
+
     if single:
         texts = [texts]
 
@@ -59,6 +63,13 @@ def predict(texts, model, tokenizer, device, max_length=64, threshold=0.5):
             if score_row[i] >= threshold
         ]
         results.sort(key=lambda x: x[1], reverse=True)
+        # fallback: if nothing clears threshold, return highest confidence score
+        if not results:
+            top_idx = max(range(len(score_row)), key=lambda i: score_row[i])
+            results = [(EMOTION_LABELS[top_idx], round(score_row[top_idx], 4))]
+        
+        all_results.append(results)
+
         all_results.append(results)
 
     return all_results[0] if single else all_results
