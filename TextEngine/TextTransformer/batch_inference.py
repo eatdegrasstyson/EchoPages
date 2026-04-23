@@ -96,3 +96,21 @@ def save_results(texts, all_results, output_path):
     df = pd.DataFrame(rows)
     df.to_csv(output_path, index=False)
     print(f"Saved {len(rows)} results to {output_path}")
+
+# main execution block
+# loads model and tokenizer, runs batch inference, and saves results to CSV
+if __name__ == "__main__":
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    print(f"Device: {device}")
+    
+    print("Loading model...")
+    model, tokenizer = load_model(MODEL_PATH, VOCAB_PATH, device)
+    
+    print(f"Loading input from {INPUT_FILE}...")
+    texts = load_input(INPUT_FILE)
+    print(f"Loaded {len(texts)} sentences.")
+    
+    print("Running batch inference...")
+    all_results = run_batch(texts, model, tokenizer, device)
+    
+    save_results(texts, all_results, OUTPUT_FILE)
