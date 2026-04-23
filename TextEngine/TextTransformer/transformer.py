@@ -9,6 +9,7 @@ class PositionalEncoding(nn.Module):
         pe = torch.zeros(max_length, d_model)
 
         # creates position vector where every position has a distinct pattern(nearby pos's have similar patterns)
+        '''
         for pos in range(max_length):
             for i in range(0, d_model, 2):
                 angle = pos / (10000 ** (i/d_model))
@@ -16,6 +17,14 @@ class PositionalEncoding(nn.Module):
 
                 if i + 1 < d_model:
                     pe[pos, i + 1] = math.cos(angle)
+        '''
+        # vectorized version of above loop, which is much faster to compute
+        positions = torch.arange(max_length).unsqueeze(1)  # (max_length, 1)
+        dims = torch.arange(0, d_model, 2)                 # (d_model/2,)
+        angles = positions / (10000 ** (dims / d_model))    # (max_length, d_model/2)
+
+        pe[:, 0::2] = torch.sin(angles)
+        pe[:, 1::2] = torch.cos(angles[:, :d_model//2])
 
         pe = pe.unsqueeze(0)
         self.register_buffer("pe", pe)
