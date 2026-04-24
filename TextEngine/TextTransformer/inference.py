@@ -46,6 +46,13 @@ def predict(texts, model, tokenizer, device, max_length=64, threshold=0.5):
         texts = [texts]
 
     batch_ids = [tokenizer.encode(text, max_length=max_length) for text in texts]
+    # warn if any input exceeds max_length, which would be truncated by the tokenizer
+    for i, text in enumerate(texts):
+        raw_tokens = tokenizer.preprocess(text)
+        if len(raw_tokens) > max_length:
+            print(f"[warn] input {i} has {len(raw_tokens)} tokens, truncated to {max_length}")
+
+
     input_ids = torch.tensor(batch_ids, dtype=torch.long).to(device)
     attention_mask = (input_ids != 0).long()
 
@@ -70,7 +77,6 @@ def predict(texts, model, tokenizer, device, max_length=64, threshold=0.5):
         
         all_results.append(results)
 
-        all_results.append(results)
 
     return all_results[0] if single else all_results
 
