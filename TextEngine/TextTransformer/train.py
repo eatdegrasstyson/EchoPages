@@ -20,11 +20,13 @@ num_epochs = 10
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print("Using device:", device)
 
-df_list = [pd.read_csv(path) for path in csv_paths]
-df = pd.concat(df_list, ignore_index=True)
+def load_data(csv_paths, combined_csv_path):
+    df_list = [pd.read_csv(path) for path in csv_paths]
+    df = pd.concat(df_list, ignore_index=True)
+    df.to_csv(combined_csv_path, index=False)
+    return df
 
 combined_csv_path = "goemotions_combined.csv"
-df.to_csv(combined_csv_path, index=False)
 
 texts = df["text"].tolist()
 
