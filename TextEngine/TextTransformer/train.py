@@ -13,6 +13,7 @@ csv_paths = [
     "../GoEmotions/data/full_dataset/goemotions_3.csv"
 ]
 
+combined_csv_path = "goemotions_combined.csv"
 max_length = 64
 batch_size = 16
 num_epochs = 10
@@ -25,8 +26,6 @@ def load_data(csv_paths, combined_csv_path):
     df = pd.concat(df_list, ignore_index=True)
     df.to_csv(combined_csv_path, index=False)
     return df
-
-combined_csv_path = "goemotions_combined.csv"
 
 texts = df["text"].tolist()
 
@@ -44,27 +43,35 @@ model = EmotionTransformer(vocab_size=len(tokenizer.word_to_id)).to(device)
 loss_fn = nn.BCEWithLogitsLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
-model.train()
+# training loop function to be called in main block, separated for clarity and potential reuse
+def train(model, dataloader, loss_fn, optimizer, device, num_epochs):
+    log = []
+    model.train()
 
-for epoch in range(num_epochs):
-    total_loss = 0.0
+    for epoch in range(num_epochs):
+        total_loss = 0.0
 
-    for batch in dataloader:
-        input_ids = batch["input_ids"].to(device)
-        attention_mask = batch["attention_mask"].to(device)
-        labels = batch["labels"].to(device)
+        for batch in dataloader:
+            input_ids      = batch["input_ids"].to(device)
+            attention_mask = batch["attention_mask"].to(device)
+            labels         = batch["labels"].to(device)
 
-        logits = model(input_ids, attention_mask=attention_mask)
-        loss = loss_fn(logits, labels)
+            logits = model(input_ids, attention_mask=attention_mask)
+            loss   = loss_fn(logits, labels)
 
-        optimizer.zero_grad()
-        loss.backward()
-        optimizer.step()
+            optimizer.zero_grad()
+            loss.backward()
+            optimizer.step()
 
-        total_loss += loss.item()
+            total_loss += loss.item()
 
-    avg_loss = total_loss / len(dataloader)
-    print(f"Epoch {epoch + 1}/{num_epochs}, Loss: {avg_loss:.4f}")
+        avg_loss = total_loss / len(dataloader)
+        print(f"Epoch {epoch + 1}/{num_epochs}, Loss: {avg_loss:.4f}")
+        log.append(f"Epoch {epoch + 1}/{num_epochs}, Loss: {avg_loss:.4f}")
+
+    with open("training_log.txt", "w") as f:
+        f.write("\n".join(log))
+    print("Training log saved.")
 
 torch.save(model.state_dict(), "emotion_transformer.pt")
 tokenizer.save_vocab("vocab.json")
