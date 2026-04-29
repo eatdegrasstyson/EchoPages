@@ -81,32 +81,28 @@ def analyze():
     if not text:
         return jsonify({'error': 'Empty text'}), 400
 
-    sentences = re.split(r'(?<=[.!?])\s+', text)
-    sentences = [s.strip() for s in sentences if s.strip()]
+    MAX_CHARS = 20_000
+    if len(text) > MAX_CHARS:
+        return jsonify({'error': f'Text too long (max {MAX_CHARS} characters)'}), 400
+
+    paragraphs = re.split(r'\n{2,}', text)
+    sentences = []
+    for para in paragraphs:
+        para = para.strip()
+        if para:
+            sentences.extend(s.strip() for s in re.split(r'(?<=[.!?])\s+', para) if s.strip())
 
     segments = []
     for sentence in sentences:
-        # Predict GEMS
         emotions = predict_gems(model, sentence)
         dominant = max(emotions, key=emotions.get)
-
-        # Find best matching song from averaged CSV
-        best_song = find_best_song(emotions, use_chunked=False)  # switch True if you want snippet
-
+        best_song = find_best_song(emotions, use_chunked=False)
         segments.append({
             'text': sentence,
             'emotions': emotions,
             'dominant': dominant,
-            'matchedSong': best_song
+            'matchedSong': best_song,
         })
-
-    #     emotions = predict_gems(model, sentence)
-    #     dominant = max(emotions, key=emotions.get)
-    #     segments.append({
-    #         'text': sentence,
-    #         'emotions': emotions,
-    #         'dominant': dominant,
-    #     })
 
     return jsonify({'segments': segments})
 
