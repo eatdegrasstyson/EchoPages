@@ -52,7 +52,7 @@ a:hover {
   max-width: 900px;
   margin: 0 auto;
   width: 100%;
-  padding-bottom: 100px; /* space for audio player */
+  padding-bottom: 120px; /* space for audio player */
 }
 
 /* Navbar */
@@ -179,6 +179,7 @@ textarea:focus {
   align-items: center;
   gap: 1rem;
   z-index: 100;
+  min-height: 64px;
 }
 
 .audio-player-info {
@@ -279,4 +280,65 @@ textarea:focus {
   text-align: center;
   padding: 2rem;
   color: var(--text-secondary);
+}
+
+/* Spotify embed in audio player */
+.spotify-embed {
+  border: none;
+  border-radius: 12px;
+  height: 80px;
+  width: 300px;
+  flex-shrink: 0;
+}
+
+/* Emotion breakdown panel */
+.emotion-panel {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.2rem;
+  margin-top: 1rem;
+}
+
+.emotion-panel-title {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.emotion-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.emotion-bar-row {
+  display: grid;
+  grid-template-columns: 110px 1fr 36px;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+}
+
+.emotion-bar-label {
+  color: var(--text-secondary);
+  text-align: right;
+}
+
+.emotion-bar-track {
+  background: var(--border);
+  border-radius: 4px;
+  height: 8px;
+  overflow: hidden;
+}
+
+.emotion-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.emotion-bar-pct {
+  color: var(--text-secondary);
+  font-size: 0.72rem;
 }
