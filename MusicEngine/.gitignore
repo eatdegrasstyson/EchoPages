@@ -1,3 +1,4 @@
+# Data directories
 DataSets/Music-Mouv
 DataSets/Emotify
 DataSets/MuVi
@@ -5,11 +6,37 @@ DataSets/Trompa-Mer
 DataSets/SpotifyMetaToGems.csv
 DataSets/audio
 DataSets/img
-SpotifyToSpectrogram/SpotifyCreds.py
-.cache
+Emotify
+
+# Python
 __pycache__
 *.py[cod]
 *$py.class
-Emotify
 Spectrograms
 Temp
+
+# Virtual environment
+venv/
+env/
+
+# Credentials
+SpotifyToSpectrogram/SpotifyCreds.py
+.cache
+
+# Model files
+*.h5
+*.keras
+Model/epoch_*.h5
+
+# Temporary files
+Temp/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
