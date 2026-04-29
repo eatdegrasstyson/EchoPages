@@ -62,15 +62,19 @@ export default function ReaderPage() {
         <div className="card" style={{ lineHeight: '2', fontSize: '1.05rem', marginTop: '1.5rem' }}>
           {apiSegments.map((seg, i) => {
             const color = GEMS_COLORS[seg.dominant] || '#666666';
-            const bgColor = hexToRgba(color, 0.25);
+            const bgColor = hexToRgba(color, activeIndex === i ? 0.45 : 0.2);
+            const outline = activeIndex === i ? `2px solid ${color}` : 'none';
             return (
               <span
                 key={i}
                 style={{
                   backgroundColor: bgColor,
-                  padding: '0.1em 0.3em',
+                  padding: '0.15em 0.35em',
                   borderRadius: '4px',
-                  cursor: 'default',
+                  cursor: 'pointer',
+                  outline,
+                  outlineOffset: '1px',
+                  transition: 'background-color 0.2s, outline 0.2s',
                 }}
                 title={`${seg.dominant} | ${seg.matchedSong?.song_name || ''}`}
                 onClick={() => setActiveIndex(i)}
@@ -81,7 +85,36 @@ export default function ReaderPage() {
           })}
         </div>
 
-        <AudioPlayer song={null} />
+        {apiSegments[activeIndex] && (
+          <div className="emotion-panel">
+            <div className="emotion-panel-title">
+              <span className="emotion-badge" style={{ backgroundColor: GEMS_COLORS[apiSegments[activeIndex].dominant] || '#666' }}>
+                {apiSegments[activeIndex].dominant}
+              </span>
+              <span style={{ color: 'var(--text-secondary)', fontSize: '0.8rem', marginLeft: '0.5rem' }}>
+                {apiSegments[activeIndex].matchedSong?.song_name || ''}
+              </span>
+            </div>
+            <div className="emotion-bars">
+              {Object.entries(apiSegments[activeIndex].emotions)
+                .sort(([, a], [, b]) => b - a)
+                .map(([emotion, score]) => (
+                  <div key={emotion} className="emotion-bar-row">
+                    <span className="emotion-bar-label">{emotion}</span>
+                    <div className="emotion-bar-track">
+                      <div
+                        className="emotion-bar-fill"
+                        style={{ width: `${Math.round(score * 100)}%`, backgroundColor: GEMS_COLORS[emotion] || '#666' }}
+                      />
+                    </div>
+                    <span className="emotion-bar-pct">{Math.round(score * 100)}%</span>
+                  </div>
+                ))}
+            </div>
+          </div>
+        )}
+
+        <AudioPlayer song={apiSegments[activeIndex]?.matchedSong || null} />
       </div>
     );
   }
