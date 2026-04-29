@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { mockTexts } from '../data/mockData';
 import EmotionTimeline from '../components/EmotionTimeline';
 import SegmentCard from '../components/SegmentCard';
@@ -16,6 +16,7 @@ function hexToRgba(hex, alpha) {
 export default function ReaderPage() {
   const { id } = useParams();
   const location = useLocation();
+  const navigate = useNavigate();
   const [text, setText] = useState(null);
   const [loading, setLoading] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -48,7 +49,12 @@ export default function ReaderPage() {
   if (apiSegments) {
     return (
       <div>
-        <h2 style={{ marginBottom: '0.5rem' }}>{location.state?.title || 'Your Text'}</h2>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+          <h2>{location.state?.title || 'Your Text'}</h2>
+          <button className="btn btn-secondary" style={{ fontSize: '0.85rem' }} onClick={() => navigate('/upload')}>
+            Analyze new text
+          </button>
+        </div>
         <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem' }}>
           {apiSegments.length} sentences
         </p>
